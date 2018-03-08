@@ -14,6 +14,10 @@
 </head>
 
 <body class="app flex-row align-items-center">
+  <div class="img-full-login">
+    <div id="back-div"></div>
+   <img src="assets/img/back.jpg">
+  </div><!-- /.video-full -->
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
