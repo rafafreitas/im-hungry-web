@@ -1,0 +1,31 @@
+div.img-full-login{
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}div#back-div{
+  background-color: #000;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+}
+div.img-full-login img{
+  object-fit: cover;
+  object-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+}div.bg-login{
+  /*background-color: #3a7adbb5!important;*/
+  background-color: #20a8d8c7!important;
+}div.bg-login button{
+  border-color: #000!important;
+  background-color: #21a8d8!important;
+}div.bg-login button:hover{
+  border-color: #000!important;
+  background-color: #1b8eb7!important;
+}
+
+
+
+
