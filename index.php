@@ -30,17 +30,18 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-user"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="E-Mail">
+                <input type="text" id="in-email" class="form-control" placeholder="E-Mail">
               </div>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-lock"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="Senha">
+                <input type="password" id="in-senha" class="form-control" placeholder="Senha">
               </div>
+              <p id="erroLogin"></p>
               <div class="row">
                 <div class="col-6">
-                  <button type="button" class="btn btn-primary px-4">Login</button>
+                  <button type="button" id="btn-login" class="btn btn-primary px-4">Login</button>
                 </div>
                 <div class="col-6 text-right">
                   <button type="button" class="btn btn-link px-0">Esqueceu a senha?</button>
@@ -66,6 +67,31 @@
 
   <!-- JS -->
   <? include "assets/inc/js.php"; ?>
+  <script>
+        $(document).ready(function(){
+        $('#erroLogin').hide();
+            $('button#btn-login').click(function(event) {
+                $('#erroLogin').hide();
+                var login=$('#in-email').val();
+                var senha=$('#in-senha').val();
+                $.ajax({
+                    url:"validacao.php",
+                    type:"post",
+                    data: "login="+login+"&senha="+senha, 
+                    success: function (result){
+                        if(result==1){             
+                            location.href='red.php'
+                        }if (result !=1){
+                            $('#erroLogin').addClass('animated shake');
+                            $('#erroLogin').show();
+                            $("#erroLogin").html("<p class='text-center'>"+result+"</p>");
+                        }  
+                    }
+                })
+            return false;
+            })
+        })
+    </script>
 
 </body>
 </html>
