@@ -6,7 +6,7 @@
 
  try{
       
-      $url = 'http://api.rafafreitas.com';
+      $url = 'https://api.rafafreitas.com';
       # Our new data
       $data = array(
           'email' => $_POST["login"],
@@ -45,8 +45,8 @@
         echo 1;
 
       }else{
-        //echo "Ocorreu um erro no servidor!";
-        var_dump($var);
+        echo "Ocorreu um erro no servidor!";
+        //var_dump($var);
       }
       
   
