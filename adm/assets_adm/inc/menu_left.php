@@ -16,7 +16,7 @@
 				<a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-building-o"></i> Company</a>
 				<ul class="nav-dropdown-items">
 					<li class="nav-item">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="company.php">
 							<i class="icon-check"></i> Minha Empresa
 						</a>
 					</li>
