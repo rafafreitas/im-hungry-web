@@ -13,9 +13,7 @@
   <!-- Head -->
   <?php include "assets_adm/inc/styles.php"; ?>
 
-  
-  
-  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
 </head>
 
@@ -173,6 +171,32 @@
               </div>
             </div>
             <!--/.col-->
+
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <strong>Cadastrar Empresa</strong>
+                  Formulário
+                </div>
+                <div class="card-body">
+                  <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Empresa</th>
+                        <th>CNPJ</th>
+                        <th>Telefone</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    
+                  </table>
+                 
+                </div>
+                <div class="card-footer">
+                  <p>Antes de fazer alterações confirme os valores escolhidos.</p>
+                </div>
+              </div>
+            </div>
            
             <!--/.col-->
           </div>
@@ -192,6 +216,8 @@
   <?php include "assets_adm/inc/js.php"; ?>
 
   
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="assets_adm/inc/js/manterCompany.js"></script>
   
 
 </body>
