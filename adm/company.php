@@ -215,6 +215,7 @@
 
   <?php include "assets_adm/inc/js.php"; ?>
 
+  <script src="../assets/js/app.js"></script>
   
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
   <script type="text/javascript" src="assets_adm/inc/js/manterCompany.js"></script>

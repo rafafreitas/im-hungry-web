@@ -12,62 +12,34 @@ switch ($acao) {
 		if ($tipoAcao == 'listarAll') {
 			try {
 
-				$_SESSION['Token'];
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
 				
-
+				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
-		      	# Our new data
-		      	$headers = array(
-			    'Accept: application/json',
-			    'Content-Type: application/json',
-			    'Authorization: '
-			    );
-		      	$ch = curl_init($url.'/empresa/listAll');
 
-		      	# Form data string
-		      	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		      	$ch = curl_init();
 
-		      	$response = curl_exec($ch);
-		      	
-		      	curl_setopt($ch, CURLOPT_URL, $this->service_url.'user/'.$id_user);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-				curl_setopt($ch, CURLOPT_HEADER, 0);
-
-				//$body = '{}';
-				//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET"); 
-				//curl_setopt($ch, CURLOPT_POSTFIELDS,$body);
+		     	curl_setopt($ch, CURLOPT_URL, $url.'/empresa/listAll');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+				    'Content-Type: application/json',                                                                                
+				    'Authorization: ' . $token)                                                                       
+				);                                                                                                                   
+		      	
+		      	$response = curl_exec($ch);
+      			curl_close($ch);
 
-
-				$ch = curl_init();
-    $headers = array(
-    'Accept: application/json',
-    'Content-Type: application/json',
-
-    );
-    curl_setopt($ch, CURLOPT_URL, $this->service_url.'user/'.$id_user);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    $body = '{}';
-
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET"); 
-    curl_setopt($ch, CURLOPT_POSTFIELDS,$body);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    // Timeout in seconds
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-
-    $authToken = curl_exec($ch);
-
-		      	curl_close($ch);
-		      	$var = json_decode($response);
+			    $var = json_decode($response);
 
 			    if ($var->status == 500) {
 			    	echo $var->result;
+			    }else{
+			    	$obj = $var->empresas;
+					$json=json_encode($obj);
+					echo "$json";
 			    }
 
-				$json=json_encode($result);
-				echo "$json";
 
 			} catch (Exception $e) {
 				//echo "\nPDO::errorCode(): ", $e->errorCode();

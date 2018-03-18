@@ -24,29 +24,31 @@
         <div class="card-group">
           <div class="card p-4">
             <div class="card-body">
-              <h1>Login</h1>
-              <p class="text-muted">Acesse com sua conta</p>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="icon-user"></i></span>
+              <form id="form-login">
+                <h1>Login</h1>
+                <p class="text-muted">Acesse com sua conta</p>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <input type="text" id="in-email" class="form-control" placeholder="E-Mail">
                 </div>
-                <input type="text" id="in-email" class="form-control" placeholder="E-Mail">
-              </div>
-              <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="icon-lock"></i></span>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" id="in-senha" class="form-control" placeholder="Senha">
                 </div>
-                <input type="password" id="in-senha" class="form-control" placeholder="Senha">
-              </div>
-              <p id="erroLogin"></p>
-              <div class="row">
-                <div class="col-6">
-                  <button type="button" id="btn-login" class="btn btn-primary px-4">Login</button>
+                <p id="erroLogin"></p>
+                <div class="row">
+                  <div class="col-6">
+                    <button type="submit" id="btn-login" class="btn btn-primary px-4">Login</button>
+                  </div>
+                  <div class="col-6 text-right">
+                    <button type="button" class="btn btn-link px-0">Esqueceu a senha?</button>
+                  </div>
                 </div>
-                <div class="col-6 text-right">
-                  <button type="button" class="btn btn-link px-0">Esqueceu a senha?</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
           <div class="card text-white bg-primary bg-login py-5 d-md-down-none" style="width:44%">
@@ -69,28 +71,29 @@
   <? include "assets/inc/js.php"; ?>
   <script>
         $(document).ready(function(){
-        $('#erroLogin').hide();
-            $('button#btn-login').click(function(event) {
-                $('#erroLogin').hide();
-                var login=$('#in-email').val();
-                var senha=$('#in-senha').val();
-                $.ajax({
-                    url:"validacao.php",
-                    type:"post",
-                    data: "login="+login+"&senha="+senha, 
-                    success: function (result){
-                        if(result==1){             
-                            location.href='red.php'
-                        }if (result !=1){
-                            $('#erroLogin').addClass('animated shake');
-                            $('#erroLogin').show();
-                            $("#erroLogin").html("<p class='text-center'>"+result+"</p>");
-                        }  
-                    }
-                })
+          $('#erroLogin').hide();
+          $('#form-login').submit(function() {
+            $('#erroLogin').hide();
+            var login=$('#in-email').val();
+            var senha=$('#in-senha').val();
+            $.ajax({
+              url:"validacao.php",
+              type:"post",
+              data: "login="+login+"&senha="+senha, 
+              success: function (result){
+                if(result==1){             
+                  location.href='red.php'
+                }if (result !=1){
+                  $('#erroLogin').addClass('animated shake');
+                  $('#erroLogin').show();
+                  $("#erroLogin").html("<p class='text-center'>"+result+"</p>");
+                }  
+              }
+            });
             return false;
-            })
-        })
+          });
+        });
+       
     </script>
 
 </body>

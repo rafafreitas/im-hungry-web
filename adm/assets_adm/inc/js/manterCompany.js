@@ -43,9 +43,9 @@ function initTable(table, api) {
 	        dataSrc: ''
 	    },
 	    columns: [
-	            { data: "result" },
-	            { data: "qtd" },
-	            { data: "message" },
+	            { data: "empresa_nome" },
+	            { data: "empresa_cnpj" },
+	            { data: "empresa_telefone" },
 	            { 
 	              //data: "id_admin", 
 	              defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
