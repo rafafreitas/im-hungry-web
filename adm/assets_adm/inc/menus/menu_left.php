@@ -26,7 +26,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="filiais.php">
 							<i class="fa fa-code-fork"></i> Minhas Filiais
 						</a>
 					</li>
