@@ -34,16 +34,15 @@ function initTable(table, api) {
            type: "POST",
            data : {
              acao : "manterFilial",
-             tipoAcao: "listarAll",
-             status: true
+             tipoAcao: "listarAll"
            },
            dataSrc: ''
          },
     columns: [
                { data: "empresa_nome" },
-               { data: "empresa_nome" },
-               { data: "empresa_cnpj" },
-               { data: "empresa_telefone" },
+               { data: "filial_nome" },
+               { data: "filial_cnpj" },
+               { data: "filial_telefone" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar Dados'><span class='fa fa-pencil'></button>&nbsp;"+
                  "<button type='button' class='btn btn-info' id='menu' title='Acessar Menu da Filial'><span class='fa fa-list-alt'></button>&nbsp;"+

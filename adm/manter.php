@@ -31,9 +31,9 @@ switch ($acao) {
 					'Content-Type: application/json',
 					'Authorization: ' . $token
 					)
-				);                                                                                                                   
-		      	
-		      	$response = curl_exec($ch);
+				);
+
+				$response = curl_exec($ch);
       			curl_close($ch);
 
 			    $var = json_decode($response);
@@ -110,7 +110,6 @@ switch ($acao) {
 			}
 
 		}
-
 	break;
 	//FimManterUsuario
 
@@ -133,9 +132,9 @@ switch ($acao) {
 					'Content-Type: application/json',
 					'Authorization: ' . $token
 					)
-				);                                                                                                                   
-		      	
-		      	$response = curl_exec($ch);
+				);
+
+				$response = curl_exec($ch);
       			curl_close($ch);
 
 			    $var = json_decode($response);
@@ -144,7 +143,7 @@ switch ($acao) {
 			    	echo $var->result;
 			    }else{
 			    	$_SESSION['Token'] = $var->token;
-			    	$obj = $var->empresas;
+			    	$obj = $var->filiais;
 					$json=json_encode($obj);
 					echo "$json";
 			    }

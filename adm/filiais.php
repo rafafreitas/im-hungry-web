@@ -157,7 +157,7 @@
                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Empresa</th>
+                            <th>Vinculada à Empresa</th>
                             <th>Nome da Filial</th>
                             <th>CNPJ</th>
                             <th>Telefone</th>
