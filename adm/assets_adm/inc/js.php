@@ -3,9 +3,10 @@
 <script src="../assets/node_modules/popper.js/popper.min.js"></script>
 <script src="../assets/node_modules/bootstrap/bootstrap.min.js"></script>
 
-
 <script src="../assets/node_modules/pace-progress/pace.min.js"></script>
 <!-- Plugins and scripts required by all views -->
 <script src="../assets/node_modules/chart.js/dist/Chart.min.js"></script>
+<!-- Alertas -->
+<script src="../assets/node_modules/toastr/toastr.min.js"></script>
 <!-- CoreUI main scripts -->
-
+<script src="../assets/js/app.js"></script>

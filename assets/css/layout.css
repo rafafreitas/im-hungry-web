@@ -25,13 +25,13 @@ div.img-full-login{
   background-color: #1b8eb7!important;
 }p#erroLogin{
   margin-bottom: 0px!important;
-}
-
-form.form-padrao{
+}form.form-padrao{
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+}div#div-foto-logo{
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
 }
-
-
 

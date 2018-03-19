@@ -3,11 +3,9 @@ $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
 $(document).ready(function(){
 
   if (api) {
-	console.log(api);
     var table;
     initTable(table, api);
     initPage();
-      
   }
 
 });
@@ -17,6 +15,23 @@ function initPage() {
   $('#btmCancelar').click(function(){
     resetForm('form-company-add');
   }); 
+
+  $("#company-logo").fileinput({
+    allowedFileExtensions: ["jpg", "gif", "png"],
+    maxFilePreviewSize: 10240,
+    previewFileType: "image",
+    showUpload: false, 
+    language: "pt-BR",
+
+    browseClass: "btn btn-success",
+      browseLabel: "Escolher",
+      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+
+    removeClass: "btn btn-danger",
+      removeLabel: "Remover",
+      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+  });
+
 }//initPage
 
 function resetForm(form) {
@@ -26,49 +41,46 @@ function resetForm(form) {
 }//ResetForm
 
 function initTable(table, api) {
-  	table = 
-  	$('#datatable-responsive').DataTable( {	
-		processing: true,
-    	responsive: true,
-    	//serverSide: false,
-       
-	    ajax: {
-	        url: 'manter.php',
-	        type: "POST",
-	        data : {
-	            acao : "manterEmpresa",
-	            tipoAcao: "listarAll",
-	            status: true
-	        },
-	        dataSrc: ''
-	    },
-	    columns: [
-	            { data: "empresa_nome" },
-	            { data: "empresa_cnpj" },
-	            { data: "empresa_telefone" },
-	            { 
-	              //data: "id_admin", 
-	              defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-	                              "<button type='button' class='btn btn-danger' id='apagar' title='Apagar'><span class='fa fa-trash'></button>"
-	            }
-	        ],
-	    fixedHeader: true,
-	    "language": {
-	      "lengthMenu": "Exibir _MENU_ por página",
-	      "zeroRecords": "Nada encontrado, desculpe.",
-	      "processing": "Processando...",
-	      "info": "Exibindo página _PAGE_ de _PAGES_",
-	      "infoEmpty": "Nenhum registro disponível",
-	      "infoFiltered": "(Filtrado de _MAX_ registros totais)",
-	      "search": "Buscar: ",
-	      "paginate": {
-	        "first":      "Primeiro",
-	        "last":       "Último",
-	        "next":       "Prox",
-	        "previous":   "Anterior"
-	      }
-	    }
-  	});//DataTable
+  table = 
+  $('#datatable-responsive').DataTable( {	
+    processing: true,
+    responsive: true,
+    ajax: {
+           url: 'manter.php',
+           type: "POST",
+           data : {
+             acao : "manterEmpresa",
+             tipoAcao: "listarAll",
+             status: true
+           },
+           dataSrc: ''
+         },
+    columns: [
+               { data: "empresa_nome" },
+               { data: "empresa_cnpj" },
+               { data: "empresa_telefone" },
+               { 
+                 defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
+                 "<button type='button' class='btn btn-danger' id='apagar' title='Apagar'><span class='fa fa-trash'></button>"
+               }
+            ],
+   fixedHeader: true,
+   "language": {
+     "lengthMenu": "Exibir _MENU_ por página",
+     "zeroRecords": "Nada encontrado, desculpe.",
+     "processing": "Processando...",
+     "info": "Exibindo página _PAGE_ de _PAGES_",
+     "infoEmpty": "Nenhum registro disponível",
+     "infoFiltered": "(Filtrado de _MAX_ registros totais)",
+     "search": "Buscar: ",
+     "paginate": {
+       "first":      "Primeiro",
+       "last":       "Último",
+       "next":       "Prox",
+       "previous":   "Anterior"
+     }
+   }
+  });//DataTable
 
 	$('#datatable-responsive tbody').on( 'click', 'button', function () {
 	    var data = table.row( $(this).parents('tr') ).data();
@@ -92,14 +104,15 @@ function initTable(table, api) {
 	});//onClick
 
   $('#form-company-add').submit(function(){  
-    var json = jQuery(this).serialize();
-    cadastrar(json, table);
+    //var json = jQuery(this).serialize();
+    var formData = new FormData(this);
+    cadastrar(formData, table, api);
     return false;
   });//CreateForm
 
   $('#formAtualizar').submit(function(){
     var json = jQuery(this).serialize();
-    submitUp(json, table);
+    submitUp(json, table, api);
     return false;
   });//Update Form
 
@@ -111,34 +124,38 @@ function initTable(table, api) {
     }
   });
 
-
-
 }//initTable
 
-function cadastrar(json, table) {
+function cadastrar(formData, table) {
   $('#loadPublicacao').show();
-  var acao = 'manterUsuario';
-  var tipoAcao = 'adicionar';             
+  var acao = 'manterEmpresa';
+  var tipoAcao = 'insert';             
   $.ajax({
     url:"manter.php",                    
     type:"post",                            
-    data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
-    success: function (result){             
-      if(result==1){                      
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (result){   
+      var obj = JSON.parse(result);
+      console.log(obj);
+      console.log(obj.status);
+      if(obj.status == 200){   
+
         $('#loadPublicacao').hide();
-        $('#alertaSucUser').show();
         table.ajax.reload();
         resetForm('form-company-add');
-        setTimeout(function() {
-          $('#alertaSucUser').hide();
-        }, 2000);
-      
-      }if(result != 1){
+
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.success(obj.result);
+
+      }if(obj.status == 500){
         $('#loadPublicacao').hide();
-        $('#alertaErro').show();
-        setTimeout(function() {
-          $('#alertaErro').hide();
-        }, 2000);                 
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.error(obj.result);
       }  
     }//success
   });//ajax
@@ -185,3 +202,7 @@ function submitUp(json, table) {
     }
   })
 }//submitUp
+
+function enabledDisabled(argument) {
+  // body...
+}

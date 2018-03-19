@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Metas Tags -->
-  <?php //include "includes/verifica.php"; ?>
+  <?php include "assets_adm/inc/verifica.php"; ?>
 
   <!-- Metas Tags -->
   <?php include "assets_adm/inc/metas.php"; ?>
@@ -45,12 +45,12 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
   
-  <?php include "assets_adm/inc/header.php" ?>
+  <?php include "assets_adm/inc/menus/header.php" ?>
 
 
   <div class="app-body">
   
-    <?php include "assets_adm/inc/menu_left.php" ?>
+    <?php include "assets_adm/inc/menus/menu_left.php" ?>
     
 
     <!-- Main content -->
@@ -947,17 +947,15 @@
       <!-- /.conainer-fluid -->
     </main>
 
-    <?php include "assets_adm/inc/menu_right.php" ?>
+    <?php include "assets_adm/inc/menus/menu_right.php" ?>
 
   </div>
 
-  <?php include "assets_adm/inc/footer.php"; ?>
+  <?php include "assets_adm/inc/menus/footer.php"; ?>
 
   <?php include "assets_adm/inc/js.php"; ?>
 
   <!-- Plugins and scripts required by this views -->
-  <!-- Custom scripts required by this view -->
-  <script src="../assets/js/app.js"></script>
   <script src="../assets/js/views/main.js"></script>
   
 
