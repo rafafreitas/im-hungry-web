@@ -111,7 +111,7 @@ switch ($acao) {
 
 		}
 	break;
-	//FimManterUsuario
+	//FimManterEnpresa
 
 	case 'manterFilial':
 
@@ -201,9 +201,8 @@ switch ($acao) {
 			}
 			
 		}
-
 	break;
-	//FimManterUsuario
+	//FimManterFilial
 
 	default:
 		echo "Ocorreu um erro na chamada da função, os parâmetros de ação não foram localizados.";

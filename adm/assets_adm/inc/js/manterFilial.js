@@ -4,6 +4,7 @@ $(document).ready(function(){
 
   if (api) {
     var table;
+    createSelect();
     initTable(table, api);
     initPage();
   }
@@ -23,6 +24,32 @@ function resetForm(form) {
     this.reset(); 
   });
 }//ResetForm
+
+function createSelect(){
+  $("#empresa_id").empty();
+  
+  var acao = 'manterEmpresa';
+  var tipoAcao = 'listarAll';
+  $.ajax({
+    url:"manter.php",                    
+    type:"post",                            
+    data: "acao="+acao+"&tipoAcao="+tipoAcao+"&status="+status,
+    dataType: "JSON",
+
+    success: function (result){ 
+      $('select#empresa_id').append($("<option></option>").attr("value","").text("---")); 
+      $.each(result, function(key, value) {   
+        $('select#empresa_id')
+          .append($("<option></option>")
+          .attr("value",result[key].empresa_id)
+          .text(result[key].empresa_nome));
+
+      });
+
+    }
+  });
+
+}
 
 function initTable(table, api) {
   table = 
@@ -74,9 +101,12 @@ function initTable(table, api) {
 	      case 'atualizar':
 	          updateObj(data);
 	          break;
-	      case 'apagar':
-	          delUser(data.id_admin, table);
+	      case 'menu':
+        location.href='menu.php?show='+data.filial_id
 	          break;
+        case 'apagar':
+            delUser(data.filial_id, table);
+            break;
 	      default:
 	          $('#alertaErro').show();
 	            setTimeout(function() {

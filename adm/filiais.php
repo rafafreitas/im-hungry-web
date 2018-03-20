@@ -60,25 +60,31 @@
                 <div class="card-body">
 
                     <div class="form-group row">
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-nome">Nome</label>
-                        <input type="text" class="form-control" name="company-nome" id="company-nome" required>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="company-nome">Empresa</label>
+                        <select id="empresa_id" name="empresa_id" class="form-control" required>
+                            <option value="" disabled selected>---</option>
+                        </select>
+                        
                         <input type="hidden" name="acao" value="manterFilial">
                         <input type="hidden" name="tipoAcao" value="insert">
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="company-nome">Nome</label>
+                        <input type="text" class="form-control" name="company-nome" id="company-nome" required>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="company-telefone">Telefone</label>
                         <input type="text" class="form-control" name="company-telefone" id="company-telefone" required>
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="company-cnpj">CNPJ</label>
                         <input type="text" class="form-control" name="company-cnpj" id="company-cnpj" required>
                       </div>
                     </div>
 
                     <div class="form-group row">
-                      
-                      
                       
                       <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="company-cep">CEP</label>
