@@ -1,13 +1,11 @@
-var api = "";
-$.get("../_db/url.php", function(result) { api = JSON.parse(result)});
 $(document).ready(function(){
 
-  if (api) {
-    var table;
-    createSelect();
-    initTable(table, api);
-    initPage();
-  }
+  var api;
+  var table;
+  $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
+  createSelect();
+  initTable(table, api);
+  initPage();
 
 });
 
