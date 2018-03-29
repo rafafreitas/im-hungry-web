@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+  
   var api;
   var table;
   $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
@@ -9,10 +9,57 @@ $(document).ready(function(){
 });
 
 function initPage() {
+  $(":input").inputmask();
   $('#loadPublicacao').hide();
   $('#btmCancelar').click(function(){
     resetForm('form-company-add');
   }); 
+
+  $("#company-cep").keyup(function() {
+    $('#loadCep').show();
+    var acao = 'buscaCep';
+    var tipoAcao = 'listar';
+    var cep = $(this).val().replace("_", "");
+    console.log($(this).val().replace("_", "").length);
+
+    
+    if ( $(this).val().replace("_", "").length < 9) {
+      $('#loadCep').hide();
+    }else{
+
+      $.ajax({
+        url:"manter.php",                    
+        type:"post",                            
+        data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
+        dataType: "JSON",
+        success: function (result){ 
+
+          console.log('teste');
+          console.log(result);
+
+          // $('#loadCep').hide();
+          // if (result != 1) {
+
+          //   $("#enderecoDetalhe").show();
+          //   $("#erroCep").hide();
+          //   $("#ruaVer").html("<dd id='ruaVer'>"+result[0].logradouro+"</dd>");
+          //   $("#bairroVer").html("<dd id='bairroVer'>"+result[0].bairro+"</dd>");
+          //   $("#cidadeUfVer").html("<dd id='cidadeUfVer'>"+result[0].cidade+'-'+result[0].uf+"</dd>");
+          //   $("#enderecoDetalhe").show();
+
+          // } //end if.
+          // else {
+          //   $("#cepOng").val('');
+          //   $("#enderecoDetalhe").hide();
+          //   $("#erroCep").show();
+          //   $("#descErro").html("<dd id='descErro' class='animated shake'>Cep não localizado.</dd>");
+          // }
+        }
+      });
+
+    }
+    
+ });
 
   $("#company-logo").fileinput({
     allowedFileExtensions: ["jpg", "gif", "png"],

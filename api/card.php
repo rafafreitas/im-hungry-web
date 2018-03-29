@@ -1,6 +1,6 @@
 <?php 
 
-//FUNÇÃO ENVIA CURL
+//FUNÇÃO ENVIA CURL // http://idea.iteblog.com/key.php
 function envia_curl($url, $fields){
   foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
   rtrim($fields_string, '&');

@@ -8,5 +8,10 @@
 <script src="../assets/node_modules/chart.js/dist/Chart.min.js"></script>
 <!-- Alertas -->
 <script src="../assets/node_modules/toastr/toastr.min.js"></script>
+
+<!-- input mask -->
+<script src="../assets/node_modules/mask-input/jquery.inputmask.js"></script>
+<script src="../assets/node_modules/mask-input/jquery.maskMoney.min.js"></script>
+
 <!-- CoreUI main scripts -->
 <script src="../assets/js/app.js"></script>

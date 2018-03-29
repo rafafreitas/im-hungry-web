@@ -81,7 +81,7 @@
                       </div>
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="company-cnpj">CNPJ</label>
-                        <input type="text" class="form-control" name="company-cnpj" id="company-cnpj" required>
+                        <input type="text" class="form-control" name="company-cnpj" id="company-cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" data-inputmask="'mask': '99.999.999/9999-99'" title="00.000.000/0000-00" required>
                       </div>
                     </div>
 
@@ -125,8 +125,9 @@
                       </div>
                       
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-cep">CEP</label>
-                        <input type="text" class="form-control" name="company-cep" id="company-cep" required>
+                        <label class="form-col-form-label" for="company-cep">CEP <img  id="loadCep" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+
+                        <input type="text" class="form-control" name="company-cep" id="company-cep" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
                       </div>
 
                       <div class="col-md-3 col-lg-3 col-xs-12">
