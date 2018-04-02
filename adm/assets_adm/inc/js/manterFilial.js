@@ -10,10 +10,63 @@ $(document).ready(function(){
 });
 
 function initPage() {
+  $(":input").inputmask();
   $('#loadPublicacao').hide();
   $('#btmCancelar').click(function(){
     resetForm('form-company-add');
   }); 
+
+  $("#company-cep").keyup(function() {
+    $('#loadCep').show();
+    var acao = 'buscaCep';
+    var tipoAcao = 'listar';
+    var cep = $(this).val().replace(/_/g, "");
+    
+    if ( cep.length != 9) {
+      $('#loadCep').hide();
+      $("#company-rua").val("");
+      $("#company-bairro").val("");
+      $("#company-cidade-uf").val("");
+      $("#company-lat").val("");
+      $("#company-long").val("");
+    }else{
+
+      $.ajax({
+        url:"manter.php",                    
+        type:"post",                            
+        data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
+        dataType: "JSON",
+        success: function (result){ 
+          console.log(result);
+
+          if (result.status == 500 && result.qtd == 0) {
+            $('#loadCep').hide();
+            $("#company-rua").val("");
+            $("#company-bairro").val("");
+            $("#company-cidade-uf").val("");
+            $("#company-lat").val("");
+            $("#company-long").val("");
+
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.success(result.result);
+            
+          }else{
+            $('#loadCep').hide();
+            $("#company-rua").val(result.dados.logradouro);
+            $("#company-bairro").val(result.dados.bairro);
+            $("#company-cidade-uf").val(result.dados.cidade+'-'+result.dados.uf);
+            $("#company-lat").val(result.dados.latitude);
+            $("#company-long").val(result.dados.longitude);
+            
+          }
+
+        }
+      });
+
+    }
+    
+  });
 
 }//initPage
 

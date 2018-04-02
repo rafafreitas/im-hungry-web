@@ -14,7 +14,7 @@ function upload_file($input, $resize, $width, $height, $pasta, $retorno){
 			$handle->image_y                 = $height;	
 		
 		
-		$handle->Process('../api/uploads/'.$pasta);
+		$handle->Process('../../api/uploads/'.$pasta);
 
 		if ($handle->processed) {
 			$name = $handle->file_dst_name;

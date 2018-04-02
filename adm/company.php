@@ -77,7 +77,7 @@
                       </div>
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="company-telefone">Telefone</label>
-                        <input type="text" class="form-control" name="company-telefone" id="company-telefone" required>
+                        <input type="text" class="form-control" name="company-telefone" id="company-telefone" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
                       </div>
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="company-cnpj">CNPJ</label>
@@ -143,13 +143,13 @@
 
                     <div class="form-group row">
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-rua">Bairro</label>
-                        <input type="text" class="form-control" name="company-rua" id="company-bairro" disabled>
+                        <label class="form-col-form-label" for="company-bairro">Bairro</label>
+                        <input type="text" class="form-control" name="company-bairro" id="company-bairro" disabled>
                       </div>
 
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-rua">Cidade - UF</label>
-                        <input type="text" class="form-control" name="company-rua" id="company-cidade-uf" disabled>
+                        <label class="form-col-form-label" for="company-cidade-uf">Cidade - UF</label>
+                        <input type="text" class="form-control" name="company-cidade-uf" id="company-cidade-uf" disabled>
                       </div>
                       
                       <div class="col-md-3 col-lg-3 col-xs-12">

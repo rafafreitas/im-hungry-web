@@ -19,12 +19,15 @@ function initPage() {
     $('#loadCep').show();
     var acao = 'buscaCep';
     var tipoAcao = 'listar';
-    var cep = $(this).val().replace("_", "");
-    console.log($(this).val().replace("_", "").length);
-
+    var cep = $(this).val().replace(/_/g, "");
     
-    if ( $(this).val().replace("_", "").length < 9) {
+    if ( cep.length != 9) {
       $('#loadCep').hide();
+      $("#company-rua").val("");
+      $("#company-bairro").val("");
+      $("#company-cidade-uf").val("");
+      $("#company-lat").val("");
+      $("#company-long").val("");
     }else{
 
       $.ajax({
@@ -33,33 +36,36 @@ function initPage() {
         data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
         dataType: "JSON",
         success: function (result){ 
-
-          console.log('teste');
           console.log(result);
 
-          // $('#loadCep').hide();
-          // if (result != 1) {
+          if (result.status == 500 && result.qtd == 0) {
+            $('#loadCep').hide();
+            $("#company-rua").val("");
+            $("#company-bairro").val("");
+            $("#company-cidade-uf").val("");
+            $("#company-lat").val("");
+            $("#company-long").val("");
 
-          //   $("#enderecoDetalhe").show();
-          //   $("#erroCep").hide();
-          //   $("#ruaVer").html("<dd id='ruaVer'>"+result[0].logradouro+"</dd>");
-          //   $("#bairroVer").html("<dd id='bairroVer'>"+result[0].bairro+"</dd>");
-          //   $("#cidadeUfVer").html("<dd id='cidadeUfVer'>"+result[0].cidade+'-'+result[0].uf+"</dd>");
-          //   $("#enderecoDetalhe").show();
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.success(result.result);
 
-          // } //end if.
-          // else {
-          //   $("#cepOng").val('');
-          //   $("#enderecoDetalhe").hide();
-          //   $("#erroCep").show();
-          //   $("#descErro").html("<dd id='descErro' class='animated shake'>Cep não localizado.</dd>");
-          // }
+          }else{
+            $('#loadCep').hide();
+            $("#company-rua").val(result.dados.logradouro);
+            $("#company-bairro").val(result.dados.bairro);
+            $("#company-cidade-uf").val(result.dados.cidade+'-'+result.dados.uf);
+            $("#company-lat").val(result.dados.latitude);
+            $("#company-long").val(result.dados.longitude);
+            
+          }
+
         }
       });
 
     }
     
- });
+  });
 
   $("#company-logo").fileinput({
     allowedFileExtensions: ["jpg", "gif", "png"],
@@ -151,7 +157,7 @@ function initTable(table, api) {
   $('#form-company-add').submit(function(){  
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
-    cadastrar(formData, table, api);
+    cadastrar(formData, table);
     return false;
   });//CreateForm
 

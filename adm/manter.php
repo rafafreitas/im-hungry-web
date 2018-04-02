@@ -59,11 +59,10 @@ switch ($acao) {
 
 					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
 
-				
 					$token = $_SESSION['Token'];
 					$url = $_SESSION['API'];
 
-					$fotoNome = upload_file( 'company-logo', false, '', '', 'empresas', 'company.php');
+					$fotoNome = upload_file( 'company-logo', false, '', '', 'empresa', 'company.php');
 
 					$data = array(
 						'nome' => $_POST['company-nome'], 
@@ -108,6 +107,8 @@ switch ($acao) {
 			} catch (Exception $e) {
 				echo $e->getMessage();
 			}
+
+		}elseif($tipoAcao == 'update'){
 
 		}
 	break;
@@ -215,7 +216,7 @@ switch ($acao) {
 				$url = $_SESSION['API'];
 
 				$data = array(
-					'nome' => $_POST['cep'], 
+					'cep' => $_POST['cep'], 
 				);
 
 				$data = json_encode($data);
