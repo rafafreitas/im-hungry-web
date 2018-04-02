@@ -17,57 +17,23 @@ function initPage() {
 
   $("#company-cep").keyup(function() {
     $('#loadCep').show();
-    var acao = 'buscaCep';
-    var tipoAcao = 'listar';
     var cep = $(this).val().replace(/_/g, "");
+    var temp = ($(this).attr('id') == "company-cep-at") ? '-at' : "";
     
     if ( cep.length != 9) {
-      $('#loadCep').hide();
-      $("#company-rua").val("");
-      $("#company-bairro").val("");
-      $("#company-cidade-uf").val("");
-      $("#company-lat").val("");
-      $("#company-long").val("");
+      $('#loadCep'+temp).hide();
+      $("#company-rua"+temp).val("");
+      $("#company-bairro"+temp).val("");
+      $("#company-cidade-uf"+temp).val("");
+      $("#company-lat"+temp).val("");
+      $("#company-long"+temp).val("");
     }else{
-
-      $.ajax({
-        url:"manter.php",                    
-        type:"post",                            
-        data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
-        dataType: "JSON",
-        success: function (result){ 
-          console.log(result);
-
-          if (result.status == 500 && result.qtd == 0) {
-            $('#loadCep').hide();
-            $("#company-rua").val("");
-            $("#company-bairro").val("");
-            $("#company-cidade-uf").val("");
-            $("#company-lat").val("");
-            $("#company-long").val("");
-
-            toastr.options.progressBar = true;
-            toastr.options.closeButton = true;
-            toastr.success(result.result);
-
-          }else{
-            $('#loadCep').hide();
-            $("#company-rua").val(result.dados.logradouro);
-            $("#company-bairro").val(result.dados.bairro);
-            $("#company-cidade-uf").val(result.dados.cidade+'-'+result.dados.uf);
-            $("#company-lat").val(result.dados.latitude);
-            $("#company-long").val(result.dados.longitude);
-            
-          }
-
-        }
-      });
-
+      buscaCep(cep, temp);
     }
     
   });
 
-  $("#company-logo").fileinput({
+  $("#company-logo, #company-logo-at").fileinput({
     allowedFileExtensions: ["jpg", "gif", "png"],
     maxFilePreviewSize: 10240,
     previewFileType: "image",
@@ -84,6 +50,44 @@ function initPage() {
   });
 
 }//initPage
+
+function buscaCep(cep, temp){
+  var acao = 'buscaCep';
+  var tipoAcao = 'listar';
+
+  $.ajax({
+    url:"manter.php",                    
+    type:"post",                            
+    data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
+    dataType: "JSON",
+    success: function (result){ 
+      console.log(result);
+
+      if (result.status == 500 && result.qtd == 0) {
+        $('#loadCep'+temp).hide();
+        $("#company-rua"+temp).val("");
+        $("#company-bairro"+temp).val("");
+        $("#company-cidade-uf"+temp).val("");
+        $("#company-lat"+temp).val("");
+        $("#company-long"+temp).val("");
+
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.success(result.result);
+
+      }else{
+        $('#loadCep'+temp).hide();
+        $("#company-rua"+temp).val(result.dados.logradouro);
+        $("#company-bairro"+temp).val(result.dados.bairro);
+        $("#company-cidade-uf"+temp).val(result.dados.cidade+'-'+result.dados.uf);
+        $("#company-lat"+temp).val(result.dados.latitude);
+        $("#company-long"+temp).val(result.dados.longitude);
+
+      }
+
+    }
+  });
+}
 
 function resetForm(form) {
   $('#'+form).each(function(){
@@ -162,8 +166,14 @@ function initTable(table, api) {
   });//CreateForm
 
   $('#formAtualizar').submit(function(){
-    var json = jQuery(this).serialize();
-    submitUp(json, table, api);
+    //var json = jQuery(this).serialize();
+    var formData = new FormData(this);
+    var status = $("#statusAt").val();
+    if (status == 'A') {
+      submitUp(formData, tableAt);
+    }if (status == 'I') {
+      submitUp(formData, tableIn);
+    }
     return false;
   });//Update Form
 
@@ -214,14 +224,57 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj) {
+  $("#company-logo-at").fileinput('destroy');
+
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
-  $("#idAt").val(obj.id_admin);
+  $("#idAt").val(obj.empresa_id);
+  $("#statusAt").val(obj.empresa_status);
   $("#reloadAt").val('0');
-  $("#nomeAt").val(obj.nome_admin);
-  $("#userNameAt").val(obj.user_admin);
-  $("#emailAt").val(obj.email_admin);
+
+  buscaCep(obj.empresa_cep, "-at");
+  $("#company-nome-at").val(obj.empresa_nome);
+  $("#company-telefone-at").val(obj.empresa_telefone);
+  $("#company-cnpj-at").val(obj.empresa_cnpj);
+  $("#company-facebook-at").val(obj.empresa_facebook);
+  $("#company-instagram-at").val(obj.empresa_instagram);
+  $("#company-twitter-at").val(obj.empresa_twitter);
+  $("#company-fundacao-at").val(obj.empresa_data_fundacao);
+  $("#company-cep-at").val(obj.empresa_cep);
+  $("#company-numero-at").val(obj.empresa_numero_endereco);
+  $("#company-complemento-at").val(obj.empresa_complemento_endereco);
+  
+  $("#company-logo-at").fileinput({
+    overwriteInitial: true,
+    initialPreview: [
+          "https://api.rafafreitas.com/uploads/empresa/"+obj.empresa_foto_marca
+          ],
+        initialPreviewConfig: [
+                          {
+                            caption: "Logo", 
+                            width: "120px", 
+                            key: 1},
+          ],
+
+    initialPreviewAsData: true, 
+    initialPreviewFileType: 'image', 
+          
+    allowedFileExtensions: ["jpg", "gif", "png"],
+    
+    previewFileType: "image",
+    showUpload: false, 
+    language: "pt-BR",
+
+    browseClass: "btn btn-success",
+      browseLabel: "Escolher",
+      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+
+    removeClass: "btn btn-danger",
+      removeLabel: "Remover",
+      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+  });
+
   $("#myModalAtualizar").modal({backdrop: false});
   $('#loadPublicacao').hide();
 }//updateObj
@@ -229,8 +282,8 @@ function updateObj(obj) {
 function submitUp(json, table) {
   $('#submitGif').show();
   $('#retornoAt').hide();
-  var acao = 'manterUsuario';
-  var tipoAcao = 'editar';
+  var acao = 'manterEmpresa';
+  var tipoAcao = 'update';
   $.ajax({
     type: "POST",
     url: "manter.php",
