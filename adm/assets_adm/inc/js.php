@@ -13,5 +13,7 @@
 <script src="../assets/node_modules/mask-input/jquery.inputmask.js"></script>
 <script src="../assets/node_modules/mask-input/jquery.maskMoney.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js" type="text/javascript"></script>
+
 <!-- CoreUI main scripts -->
 <script src="../assets/js/app.js"></script>

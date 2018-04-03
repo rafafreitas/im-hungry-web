@@ -356,7 +356,17 @@
                       </table>
                     </div>
                     <div class="tab-pane" id="table-inativas" role="tabpanel">
-                      Aqui será listado outra tabela com os dados das Empresas inativas.
+                      <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th>Empresa</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Ações</th>
+                          </tr>
+                        </thead>
+                        
+                      </table>
                     </div>
                   </div>
 

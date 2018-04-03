@@ -1,9 +1,10 @@
 $(document).ready(function(){
   
   var api;
-  var table;
+  var tableAt;
+  var tableIn;
   $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
-  initTable(table, api);
+  initTable(tableAt, tableIn, api);
   initPage();
 
 });
@@ -16,7 +17,7 @@ function initPage() {
   }); 
 
   $("#company-cep, #company-cep-at").keyup(function() {
-    $('#loadCep').show();
+    $('#loadCep'+temp).show();
     var cep = $(this).val().replace(/_/g, "");
     var temp = ($(this).attr('id') == "company-cep-at") ? '-at' : "";
     
@@ -95,8 +96,8 @@ function resetForm(form) {
   });
 }//ResetForm
 
-function initTable(table, api) {
-  table = 
+function initTable(tableAt, tableIn, api) {
+  tableAt = 
   $('#datatable-responsive').DataTable( {	
     processing: true,
     responsive: true,
@@ -116,7 +117,48 @@ function initTable(table, api) {
                { data: "empresa_telefone" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                 "<button type='button' class='btn btn-danger' id='apagar' title='Apagar'><span class='fa fa-trash'></button>"
+                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+               }
+            ],
+   fixedHeader: true,
+   "language": {
+     "lengthMenu": "Exibir _MENU_ por página",
+     "zeroRecords": "Nada encontrado, desculpe.",
+     "processing": "Processando...",
+     "info": "Exibindo página _PAGE_ de _PAGES_",
+     "infoEmpty": "Nenhum registro disponível",
+     "infoFiltered": "(Filtrado de _MAX_ registros totais)",
+     "search": "Buscar: ",
+     "paginate": {
+       "first":      "Primeiro",
+       "last":       "Último",
+       "next":       "Prox",
+       "previous":   "Anterior"
+     }
+   }
+  });//DataTable
+
+  tableIn = 
+  $('#datatable-responsive-in').DataTable( { 
+    processing: true,
+    responsive: true,
+    ajax: {
+           url: 'manter.php',
+           type: "POST",
+           data : {
+             acao : "manterEmpresa",
+             tipoAcao: "listarAll",
+             enabled: false
+           },
+           dataSrc: ''
+         },
+    columns: [
+               { data: "empresa_nome" },
+               { data: "empresa_cnpj" },
+               { data: "empresa_telefone" },
+               { 
+                 defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
+                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
                }
             ],
    fixedHeader: true,
@@ -138,14 +180,14 @@ function initTable(table, api) {
   });//DataTable
 
 	$('#datatable-responsive tbody').on( 'click', 'button', function () {
-	    var data = table.row( $(this).parents('tr') ).data();
+	    var data = tableAt.row( $(this).parents('tr') ).data();
 	    var idClick = $(this).attr('id');
 	    switch(idClick) {
 	      case 'atualizar':
 	          updateObj(data);
 	          break;
 	      case 'apagar':
-	          delUser(data.id_admin, table);
+	          enabledDisabled(data.empresa_id, tableAt, tableIn, false);
 	          break;
 	      default:
 	          $('#alertaErro').show();
@@ -153,15 +195,30 @@ function initTable(table, api) {
 	            $('#alertaErro').hide();
 	          }, 1000);  
 	    }
-	    //console.log(data);
-	    //alert(data.id_admin);
-	    //table.fnClearTable();//table.clear().draw();
 	});//onClick
+
+  $('#datatable-responsive-in tbody').on( 'click', 'button', function () {
+      var data = tableIn.row( $(this).parents('tr') ).data();
+      var idClick = $(this).attr('id');
+      switch(idClick) {
+        case 'atualizar':
+            updateObj(data);
+            break;
+        case 'ativar':
+            enabledDisabled(data.empresa_id, tableAt, tableIn, true);
+            break;
+        default:
+            $('#alertaErro').show();
+              setTimeout(function() {
+              $('#alertaErro').hide();
+            }, 1000);  
+      }
+  });//onClick
 
   $('#form-company-add').submit(function(){  
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
-    cadastrar(formData, table);
+    cadastrar(formData, tableAt);
     return false;
   });//CreateForm
 
@@ -170,9 +227,9 @@ function initTable(table, api) {
     var formData = new FormData(this);
     var status = $("#statusAt").val();
     if (status == '1') {
-      submitUp(formData, table);
+      submitUp(formData, tableAt);
     }if (status == '0') {
-      submitUp(formData);
+      submitUp(formData, tableIn);
     }
     return false;
   });//Update Form
@@ -309,6 +366,56 @@ function submitUp(formData, table) {
       return false;
 }//submitUp
 
-function enabledDisabled(argument) {
-  // body...
-}
+function enabledDisabled(idChange, tableAt, tableIn, status) {
+  if (status) {
+    stName = "ativar";
+  }else{
+    stName = "inativar";
+  }
+  bootbox.confirm({
+    message: "<h3 class='text-center'>Deseja "+stName+" esta empresa?</h3>",
+    buttons: {
+      confirm: {
+        label: 'Sim!',
+        className: 'btn-success'
+      },
+      cancel: {
+        label: 'Cancelar!',
+        className: 'btn-danger'
+      }
+    },
+    callback: function (confirma) {
+      if (confirma == true) {
+        $('#loadPublicacao').show();
+        var acao = 'manterEmpresa';
+        var tipoAcao = 'enabledDisabled'; 
+        $.ajax({
+          url:"manter.php",                    
+          type:"post",                            
+          data: "idChange="+idChange+"&acao="+acao+"&tipoAcao="+tipoAcao+"&status="+status,
+          dataType: "JSON",
+          success: function (obj){ 
+            console.log(obj);
+            if(obj.status == 200){
+
+              tableAt.ajax.reload();
+              tableIn.ajax.reload();
+
+              toastr.options.progressBar = true;
+              toastr.options.closeButton = true;
+              toastr.success(obj.result);
+
+            }if (obj.status == 500){
+
+              toastr.options.progressBar = true;
+              toastr.options.closeButton = true;
+              toastr.error(obj.result);
+            }
+          }
+        });
+      }else{
+
+      }
+    }//callback
+  });//bootbox
+}//delUser

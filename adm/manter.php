@@ -184,6 +184,48 @@ switch ($acao) {
 			} catch (Exception $e) {
 				echo $e->getCode();
 			}
+
+		}elseif ($tipoAcao == 'enabledDisabled') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'idChange' => $_POST['idChange'], 
+					'status' => $_POST['status'] 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/empresa/enabled');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
 		}
 	break;
 	//FimManterEnpresa
