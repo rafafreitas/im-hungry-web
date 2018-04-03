@@ -65,7 +65,7 @@
                       <div class="col-md-12 col-lg-12 col-xs-12">
                         <div id="div-foto-logo">
                           <label class="form-col-form-label" for="company-logo-at">Logo</label>
-                          <input id="company-logo-at" name="company-logo-at" type="file" accept="image/*" required>
+                          <input id="company-logo-at" name="company-logo-at" type="file" accept="image/*">
                         </div>
                       </div>
                     </div>

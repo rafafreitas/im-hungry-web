@@ -24,8 +24,26 @@ switch ($acao) {
 
 		      	$ch = curl_init();
 
-		     	curl_setopt($ch, CURLOPT_URL, $url.'/empresa/listAll');
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+		  		// curl_setopt($ch, CURLOPT_URL, $url.'/empresa/listAll');
+				// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				// 	'Content-Type: application/json',
+				// 	'Authorization: ' . $token
+				// 	)
+				// );
+
+				$data = array(
+					'enabled' => $_POST['enabled'], 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/empresa/listAll');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 					'Content-Type: application/json',
@@ -38,8 +56,9 @@ switch ($acao) {
 
 			    $var = json_decode($response);
 
-			    if ($var->status == 500) {
-			    	echo $var->result;
+			    if ($var->status == 500 && $var->qtd == 0) {
+			    	//echo $var->result;
+			    	echo "[]";
 			    }else{
 			    	$_SESSION['Token'] = $var->token;
 			    	$obj = $var->empresas;
@@ -109,7 +128,8 @@ switch ($acao) {
 			}
 
 		}elseif($tipoAcao == 'update'){
-
+			var_dump($_POST);
+			die;
 		}
 	break;
 	//FimManterEnpresa
@@ -136,6 +156,7 @@ switch ($acao) {
 				);
 
 				$response = curl_exec($ch);
+
       			curl_close($ch);
 
 			    $var = json_decode($response);

@@ -106,7 +106,7 @@ function initTable(table, api) {
            data : {
              acao : "manterEmpresa",
              tipoAcao: "listarAll",
-             status: true
+             enabled: true
            },
            dataSrc: ''
          },
@@ -230,7 +230,7 @@ function updateObj(obj) {
   $('#submitGif').hide();
   $('#retornoAt').hide();
   $("#idAt").val(obj.empresa_id);
-  $("#statusAt").val(obj.empresa_status);
+  $("#statusAt").val(obj.empresa_enabled);
   $("#reloadAt").val('0');
 
   buscaCep(obj.empresa_cep, "-at");
