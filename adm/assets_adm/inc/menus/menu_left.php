@@ -13,18 +13,18 @@
 				Índice Geral
 			</li>
 			<li class="nav-item nav-dropdown">
-				<a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-building-o"></i> Company</a>
+				<a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-building-o"></i> Estabelecimentos</a>
 				<ul class="nav-dropdown-items">
 					<li class="nav-item">
 						<a class="nav-link" href="company.php">
 							<i class="icon-check"></i> Minha Empresa
 						</a>
 					</li>
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<a class="nav-link" href="#">
 							<i class="fa fa-wpforms"></i> Menu Padrão
 						</a>
-					</li>
+					</li> -->
 					<li class="nav-item">
 						<a class="nav-link" href="filiais.php">
 							<i class="fa fa-code-fork"></i> Minhas Filiais
@@ -40,7 +40,7 @@
 				</a>
 				<ul class="nav-dropdown-items">
 					<li class="nav-item">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="checkoutCompany.php">
 							<i class="fa fa-simplybuilt"></i> Company 
 						</a>
 					</li>
