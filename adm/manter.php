@@ -102,7 +102,7 @@ switch ($acao) {
 					$data = json_encode($data);
 
 					$ch = curl_init();
-			     	curl_setopt($ch, CURLOPT_URL, $url.'/empresa/insert');
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/empresa/insert');
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_POST, true);
       				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -128,8 +128,62 @@ switch ($acao) {
 			}
 
 		}elseif($tipoAcao == 'update'){
-			var_dump($_POST);
-			die;
+			try {
+
+				$fotoNome = "";
+				
+				if (is_uploaded_file($_FILES['company-logo-at']['tmp_name']) ) {
+
+					$fotoNome = upload_file( 'company-logo-at', false, '', '', 'empresa', 'company.php');
+
+				}
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$data = array(
+						'idAt' => $_POST['idAt'], 
+						'nome' => $_POST['company-nome-at'], 
+						'telefone' => $_POST['company-telefone-at'], 
+						'cnpj' => $_POST['company-cnpj-at'], 
+						'cep' => $_POST['company-cep-at'], 
+						'lat' => null,
+						'long' => null,
+						'numero_end' => $_POST['company-numero-at'], 
+						'complemento_end' => $_POST['company-complemento-at'], 
+						'dataFund' => $_POST['company-fundacao-at'], 
+						'facebook' => $_POST['company-facebook-at'], 
+						'instagram' => $_POST['company-instagram-at'], 
+						'twitter' => $_POST['company-twitter-at'], 
+						'foto' => $fotoNome, 
+					);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/empresa/update');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getCode();
+			}
 		}
 	break;
 	//FimManterEnpresa

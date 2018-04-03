@@ -15,7 +15,7 @@ function initPage() {
     resetForm('form-company-add');
   }); 
 
-  $("#company-cep").keyup(function() {
+  $("#company-cep, #company-cep-at").keyup(function() {
     $('#loadCep').show();
     var cep = $(this).val().replace(/_/g, "");
     var temp = ($(this).attr('id') == "company-cep-at") ? '-at' : "";
@@ -169,19 +169,18 @@ function initTable(table, api) {
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
     var status = $("#statusAt").val();
-    if (status == 'A') {
-      submitUp(formData, tableAt);
-    }if (status == 'I') {
-      submitUp(formData, tableIn);
+    if (status == '1') {
+      submitUp(formData, table);
+    }if (status == '0') {
+      submitUp(formData);
     }
     return false;
   });//Update Form
 
   $("button.close").click(function(){
-    //$('#datatable-cond-active').DataTable().ajax.reload();
     var reload = $("#reloadAt").val();
     if (reload == 1) {
-      table.ajax.reload();
+      //table.ajax.reload();
     }
   });
 
@@ -189,8 +188,6 @@ function initTable(table, api) {
 
 function cadastrar(formData, table) {
   $('#loadPublicacao').show();
-  var acao = 'manterEmpresa';
-  var tipoAcao = 'insert';             
   $.ajax({
     url:"manter.php",                    
     type:"post",                            
@@ -279,32 +276,37 @@ function updateObj(obj) {
   $('#loadPublicacao').hide();
 }//updateObj
 
-function submitUp(json, table) {
+function submitUp(formData, table) {
   $('#submitGif').show();
   $('#retornoAt').hide();
-  var acao = 'manterEmpresa';
-  var tipoAcao = 'update';
   $.ajax({
-    type: "POST",
-    url: "manter.php",
-    data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
-    success: function(result)
-    {
-      if(result==1){
+    url:"manter.php",                    
+    type:"post",                            
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (result){ 
+      var obj = JSON.parse(result)  
+      console.log(obj);
+      if(obj.status == 200){
         $('#submitGif').hide();
         $('#retornoAt').show();
         $("#reloadAt").val('1');
-        $('#retornoAt').addClass('animated shake');                     
-        $("#retornoAt").html("<p class='text-center'>Informações atualizadas!</p>");
+        table.ajax.reload();
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.success(obj.result);
 
-      }if (result !=1){
+      }if (obj.status == 500){
         $('#submitGif').hide();
-        $('#retornoAt').show();
-        $('#retornoAt').addClass('animated shake');                     
-        $("#retornoAt").html("<p class='text-center'>"+ result+ "</p>");
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.error(obj.result);
       }
-    }
-  })
+    }//success
+  });//ajax
+      return false;
 }//submitUp
 
 function enabledDisabled(argument) {
