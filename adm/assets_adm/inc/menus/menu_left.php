@@ -33,23 +33,11 @@
 				</ul>
 			</li>
 
-			<li class="nav-item nav-dropdown">
-				<a class="nav-link nav-dropdown-toggle" href="#">
-					<i class="fa fa-shopping-cart"></i> Pedidos
+			<li class="nav-item">
+				<a class="nav-link" href="pedidos.php">
+					<i class="fa fa-shopping-cart"></i> Pedidos 
 					<span class="badge badge-warning">BREVE</span>
 				</a>
-				<ul class="nav-dropdown-items">
-					<li class="nav-item">
-						<a class="nav-link" href="checkoutCompany.php">
-							<i class="fa fa-simplybuilt"></i> Company 
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">
-							<i class="fa fa-code-fork"></i> Filial
-						</a>
-					</li>
-				</ul>
 			</li>
 
 			<li class="nav-item">
