@@ -54,48 +54,81 @@
                 <div class="card-header">
                   <strong>Visualização de Empresas</strong>
                 </div>
-                <div class="card-body">
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#table-ativas" role="tab" aria-controls="home">Pendentes</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#table-inativas" role="tab" aria-controls="profile">Entregues</a>
-                    </li>
-                  </ul>
 
-                  <div class="tab-content">
-                    <div class="tab-pane active" id="table-ativas" role="tabpanel">
-                      <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                        <thead>
-                          <tr>
-                            <th>Empresa</th>
-                            <th>Filial</th>
-                            <th>Cliente</th>
-                            <th>Código</th>
-                            <th>Ações</th>
-                          </tr>
-                        </thead>
-                        
-                      </table>
+                <div class="card-body">
+
+                  <div class="row">
+
+                    <div class="col-sm-6 col-lg-3">
+                      <div class="card text-white bg-primary">
+                        <div class="card-body pb-0">
+                          <div class="btn-group float-right">
+                            <button type="button" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="icon-settings"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="#">Detalhes</a>
+                              <a class="dropdown-item" href="#">Visualizar pedidos</a>
+                            </div>
+                          </div>
+                          <h2>Pizza Hut</h2>
+                          <h4 class="mb-0">1.137</h4>
+                          <p>Pedidos entregues</p>
+                        </div>
+                        <div class="chart-wrapper px-3" style="height:70px;">
+                          <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
+                        </div>
+                      </div>
                     </div>
-                    <div class="tab-pane" id="table-inativas" role="tabpanel">
-                      <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                        <thead>
-                          <tr>
-                            <th>Empresa</th>
-                            <th>Filial</th>
-                            <th>Cliente</th>
-                            <th>Código</th>
-                            <th>Ações</th>
-                          </tr>
-                        </thead>
-                        
-                      </table>
+
+                    <div class="col-sm-6 col-lg-3">
+                      <div class="card text-white bg-success">
+                        <div class="card-body pb-0">
+                          <div class="btn-group float-right">
+                            <button type="button" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="icon-settings"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="#">Detalhes</a>
+                              <a class="dropdown-item" href="#">Visualizar pedidos</a>
+                            </div>
+                          </div>
+                          <h2>Bobs</h2>
+                          <h4 class="mb-0">937</h4>
+                          <p>Pedidos entregues</p>
+                        </div>
+                        <div class="chart-wrapper px-3" style="height:70px;">
+                          <canvas id="card-chart2" class="chart chart-line" height="70"></canvas>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                      <div class="card text-white bg-warning">
+                        <div class="card-body pb-0">
+                          <div class="btn-group float-right">
+                            <button type="button" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="icon-settings"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="#">Detalhes</a>
+                              <a class="dropdown-item" href="#">Visualizar pedidos</a>
+                            </div>
+                          </div>
+                          <h2>Burguer King</h2>
+                          <h4 class="mb-0">787</h4>
+                          <p>Pedidos entregues</p>
+                        </div>
+                        <div class="chart-wrapper px-3" style="height:70px;">
+                          <canvas id="card-chart3" class="chart chart-line" height="70"></canvas>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div> <!-- div.row -->
 
                 </div>
+
                 <div class="card-footer">
                   <p>Antes de fazer alterações confirme os valores escolhidos.</p>
                 </div>
@@ -122,7 +155,7 @@
   <!-- File-Input -->
   <?php include "assets_adm/inc/file_input.php"; ?>
 
-  <script type="text/javascript" src="assets_adm/inc/js/manterCheckoutCompany.js"></script>
+  <script type="text/javascript" src="assets_adm/inc/js/manterPedidos.js"></script>
   
 </body>
 </html>
