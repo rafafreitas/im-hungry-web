@@ -6,14 +6,13 @@
 
  try{
       
-      $url = 'https://api.rafafreitas.com';
+      $url = 'http://api.rafafreitas.com';
       # Our new data
       $data = array(
           'email' => $_POST["login"],
           'senha' => $_POST["senha"],
-          'tipo' => '1',
       );
-      $ch = curl_init($url.'/usuario/login');
+      $ch = curl_init($url.'/web/usuario/login');
       # Form data string
       $postString = http_build_query($data, '', '&');
       # Setting our options
@@ -24,7 +23,7 @@
       $response = curl_exec($ch);
       //curl_error($ch);
       //var_dump(curl_error($ch));
-      //var_dump($response);
+      // var_dump($response);
 
       curl_close($ch);
       $var = json_decode($response);
@@ -39,6 +38,7 @@
         $_SESSION['UsuarioID'] = $var->usuario->user_id;
         $_SESSION['UsuarioNome'] = $var->usuario->user_nome;
         $_SESSION['UsuarioLogin'] = $var->usuario->user_email;
+        $_SESSION['UsuarioNivel'] = $var->usuario->tipo_id;
         $_SESSION['API'] = $url;
         $_SESSION['Token'] = $var->token;
 
