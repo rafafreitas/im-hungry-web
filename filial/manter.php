@@ -343,7 +343,7 @@ switch ($acao) {
 				// );
 
 				$data = array(
-					'nome' => $_POST['company-nome'], 
+					'status' => $_POST['tableStatus'], 
 				);
 
 				$data = json_encode($data);
@@ -379,7 +379,6 @@ switch ($acao) {
 			} catch (Exception $e) {
 				echo $e->getMessage();
 			}
-
 		}
 	break;
 

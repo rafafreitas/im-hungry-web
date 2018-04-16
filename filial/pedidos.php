@@ -13,6 +13,8 @@
   <!-- Head -->
   <?php include "assets_adm/inc/styles.php"; ?>
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -32,7 +34,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item">Admin</li>
         <li class="breadcrumb-item">Pedidos</li>
-        <li class="breadcrumb-item active">Companies</li>
+        <li class="breadcrumb-item active">Listagem</li>
 
         <!-- Breadcrumb Menu-->
         <li class="breadcrumb-menu d-md-down-none">
@@ -52,7 +54,7 @@
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-header">
-                  <strong>Visualização de Empresas</strong>
+                  <strong>Visualização de Pedidos</strong>
                 </div>
 
                 <div class="card-body">
@@ -73,7 +75,9 @@
                             <th></th>
                             <th>Cliente</th>
                             <th>Código</th>
+                            <th>Valor</th>
                             <th>Data/Hora</th>
+                            <th>Status</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
@@ -87,7 +91,9 @@
                             <th></th>
                             <th>Cliente</th>
                             <th>Código</th>
+                            <th>Valor</th>
                             <th>Data/Hora</th>
+                            <th>Status</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
@@ -123,6 +129,8 @@
 
   <!-- File-Input -->
   <?php include "assets_adm/inc/file_input.php"; ?>
+
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
   <script type="text/javascript" src="assets_adm/inc/js/manterPedidos.js"></script>
   
