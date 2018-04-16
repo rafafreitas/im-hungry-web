@@ -233,6 +233,7 @@ switch ($acao) {
 	case 'manterFilial':
 
 		if ($tipoAcao == 'listarAll') {
+
 			try {
 
 				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
@@ -242,8 +243,26 @@ switch ($acao) {
 
 		      	$ch = curl_init();
 
-		     	curl_setopt($ch, CURLOPT_URL, $url.'/filial/listAll');
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+		  		// curl_setopt($ch, CURLOPT_URL, $url.'/filial/listAll');
+				// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				// 	'Content-Type: application/json',
+				// 	'Authorization: ' . $token
+				// 	)
+				// );
+
+				$data = array(
+					'enabled' => $_POST['enabled'], 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/listAll');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 					'Content-Type: application/json',
@@ -252,13 +271,13 @@ switch ($acao) {
 				);
 
 				$response = curl_exec($ch);
-
       			curl_close($ch);
 
 			    $var = json_decode($response);
 
-			    if ($var->status == 500) {
-			    	echo $var->result;
+			    if ($var->status == 500 && $var->qtd == 0) {
+			    	//echo $var->result;
+			    	echo "[]";
 			    }else{
 			    	$_SESSION['Token'] = $var->token;
 			    	$obj = $var->filiais;
@@ -268,8 +287,6 @@ switch ($acao) {
 
 
 			} catch (Exception $e) {
-				//echo "\nPDO::errorCode(): ", $e->errorCode();
-				//echo $e->getCode();
 				echo $e->getMessage();
 			}
 
@@ -296,7 +313,7 @@ switch ($acao) {
 				$data = json_encode($data);
 
 				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url.'/filial/insert');
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/insert');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
