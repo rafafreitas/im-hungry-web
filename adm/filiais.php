@@ -61,6 +61,12 @@
 
                     <div class="form-group row">
                       <div class="col-md-4 col-lg-4 col-xs-12">
+                        <label class="form-col-form-label" for="empresa_idAt">Nome</label>
+                        <select id="empresa_idAt" name="empresa_idAt" class="form-control" required>
+                        </select>
+                      </div>
+
+                      <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="company-nome">Nome</label>
                         <input type="text" class="form-control" name="company-nome-at" id="company-nome-at" required>
                         
@@ -71,10 +77,7 @@
                         <input type="hidden" name="tipoAcao" value="update">
 
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-telefone-at">Telefone</label>
-                        <input type="text" class="form-control" name="company-telefone-at" id="company-telefone-at" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
-                      </div>
+                      
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="company-cnpj-at">CNPJ</label>
                         <input type="text" class="form-control" name="company-cnpj-at" id="company-cnpj-at" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" data-inputmask="'mask': '99.999.999/9999-99'" title="00.000.000/0000-00" required>
@@ -82,6 +85,11 @@
                     </div>
 
                     <div class="form-group row">
+
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="company-telefone-at">Telefone</label>
+                        <input type="text" class="form-control" name="company-telefone-at" id="company-telefone-at" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
+                      </div>
                       
                       <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="company-cep-at">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
@@ -89,12 +97,12 @@
                         <input type="text" class="form-control" name="company-cep-at" id="company-cep-at" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
                       </div>
 
-                      <div class="col-md-3 col-lg-3 col-xs-12">
+                      <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="company-rua-at">Rua</label>
                         <input type="text" class="form-control" name="company-rua-at" id="company-rua-at" disabled>
                       </div>
 
-                      <div class="col-md-3 col-lg-3 col-xs-12">
+                      <div class="col-md-2 col-lg-2 col-xs-12">
                         <label class="form-col-form-label" for="company-numero-at">Número</label>
                         <input type="number" class="form-control" name="company-numero-at" id="company-numero-at" required>
                       </div>
@@ -158,7 +166,7 @@
 
                     <div class="form-group row">
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-nome">Empresa</label>
+                        <label class="form-col-form-label" for="company-nome">Vinculada a Empresa</label>
                         <select id="empresa_id" name="empresa_id" class="form-control" required>
                             
                         </select>

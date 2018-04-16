@@ -34,9 +34,6 @@ function initPage() {
     }
     
   });
-
-
-
 }//initPage
 
 function buscaCep(cep, temp){
@@ -61,7 +58,7 @@ function buscaCep(cep, temp){
 
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.success(result.result);
+        toastr.warning(result.result);
 
       }else{
         $('#loadCep'+temp).hide();
@@ -239,7 +236,7 @@ function initTable(tableAt, tableIn, api) {
   $('#form-filial-add').submit(function(){  
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
-    cadastrar(formData, tableAt);
+    cadastrar(formData, tableIn);
     return false;
   });//CreateForm
 
@@ -299,57 +296,25 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj) {
-  $("#company-logo-at").fileinput('destroy');
+
+  console.log(obj);
 
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
   $("#idAt").val(obj.empresa_id);
-  $("#statusAt").val(obj.empresa_enabled);
+  $("#statusAt").val(obj.filial_enabled);
   $("#reloadAt").val('0');
 
-  buscaCep(obj.empresa_cep, "-at");
-  $("#company-nome-at").val(obj.empresa_nome);
-  $("#company-telefone-at").val(obj.empresa_telefone);
-  $("#company-cnpj-at").val(obj.empresa_cnpj);
-  $("#company-facebook-at").val(obj.empresa_facebook);
-  $("#company-instagram-at").val(obj.empresa_instagram);
-  $("#company-twitter-at").val(obj.empresa_twitter);
-  $("#company-fundacao-at").val(obj.empresa_data_fundacao);
-  $("#company-cep-at").val(obj.empresa_cep);
-  $("#company-numero-at").val(obj.empresa_numero_endereco);
-  $("#company-complemento-at").val(obj.empresa_complemento_endereco);
+  buscaCep(obj.filial_cep, "-at");
+  $("#empresa_idAt").val(obj.filial_id);
+  $("#company-nome-at").val(obj.filial_nome);
+  $("#company-telefone-at").val(obj.filial_telefone);
+  $("#company-cnpj-at").val(obj.filial_cnpj);
+  $("#company-cep-at").val(obj.filial_cep);
+  $("#company-numero-at").val(obj.filial_numero_endereco);
+  $("#company-complemento-at").val(obj.filial_complemento_endereco);
   
-  $("#company-logo-at").fileinput({
-    overwriteInitial: true,
-    initialPreview: [
-          "https://api.rafafreitas.com/uploads/empresa/"+obj.empresa_foto_marca
-          ],
-        initialPreviewConfig: [
-                          {
-                            caption: "Logo", 
-                            width: "120px", 
-                            key: 1},
-          ],
-
-    initialPreviewAsData: true, 
-    initialPreviewFileType: 'image', 
-          
-    allowedFileExtensions: ["jpg", "gif", "png"],
-    
-    previewFileType: "image",
-    showUpload: false, 
-    language: "pt-BR",
-
-    browseClass: "btn btn-success",
-      browseLabel: "Escolher",
-      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-
-    removeClass: "btn btn-danger",
-      removeLabel: "Remover",
-      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-  });
-
   $("#myModalAtualizar").modal({backdrop: false});
   $('#loadPublicacao').hide();
 }//updateObj
@@ -394,7 +359,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     stName = "inativar";
   }
   bootbox.confirm({
-    message: "<h3 class='text-center'>Deseja "+stName+" esta empresa?</h3>",
+    message: "<h3 class='text-center'>Deseja "+stName+" esta filial?</h3>",
     buttons: {
       confirm: {
         label: 'Sim!',
@@ -408,12 +373,17 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     callback: function (confirma) {
       if (confirma == true) {
         $('#loadPublicacao').show();
-        var acao = 'manterEmpresa';
+        var acao = 'manterFilial';
         var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    
-          type:"post",                            
-          data: "idChange="+idChange+"&acao="+acao+"&tipoAcao="+tipoAcao+"&status="+status,
+          type:"post",
+          data: {
+            acao : "manterFilial",
+            tipoAcao : "enabledDisabled",
+            status : "status",
+            idChange : "idChange"
+          },                     
           dataType: "JSON",
           success: function (obj){ 
             console.log(obj);
