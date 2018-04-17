@@ -35,3 +35,37 @@ div.img-full-login{
   margin-left: auto;
 }
 
+/* Pedidos */
+td.details-control {
+  background: url('../img/plus.png') no-repeat center center;
+  cursor: pointer;
+  background-size: 25px 25px;
+}
+tr.shown td.details-control {
+  background: url('../img/minus_02.png') no-repeat center center;
+  cursor: pointer;
+  background-size: 25px 25px;
+}
+div.divTable table.tabelaDinamica {
+  border-collapse: collapse;
+  border: 1px solid black;
+  max-width: 600px!important;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.divTable table.tabelaDinamica tr.trDetalhes td {
+  min-width: 100px;
+  border: 1px solid #000!important;
+  text-align: center;
+  background-color: #f86c6b;
+}
+div.divTable table.tabelaDinamica tr.trBody td {
+  min-width: 100px;
+  border: 1px solid #000!important;
+  line-height: 108px;
+  text-align: center;
+  font-size: 14pt;
+}
+div.divTable table.tabelaDinamica td img.icone-categ-img{
+  max-width: 150px;
+}

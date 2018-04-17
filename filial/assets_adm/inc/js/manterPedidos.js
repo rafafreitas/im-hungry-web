@@ -38,7 +38,12 @@ function initTable(tablePen, tableEnt) {
 			"defaultContent": ''
 		},
 		{ data: "user_nome" },
-		{ data: "checkout_ref_format" },
+		{ 
+			"render" : function(data, type, full, meta) {
+				var cod_ref = full.checkout_ref.slice(-6);
+				return '<p>'+cod_ref+'</p>'
+			} 
+		},
 		{ 
 			"render" : function(data, type, full, meta) {
 				var valor_pedido = full.checkout_valor_bruto.replace(".", ",");
@@ -48,9 +53,9 @@ function initTable(tablePen, tableEnt) {
 		{ data: "checkout_date_format" },
 		{ 
 			"render" : function(data, type, full, meta) {
-				var status  = (full.status_pedido == 'E')? "Entregue" : 
-				(full.status_pedido == 'C')? "Cancelado" : 
-				(full.status_pedido == 'P')? "Pendente" : "Status Inválido" ;
+				var status  = (full.checkout_flag == 'E')? "Entregue" : 
+				(full.checkout_flag == 'C')? "Cancelado" : 
+				(full.checkout_flag == 'P')? "Pendente" : "Status Inválido" ;
 				return '<p>'+status+'</p>'
 			} 
 		},
@@ -99,7 +104,12 @@ function initTable(tablePen, tableEnt) {
 			"defaultContent": ''
 		},
 		{ data: "user_nome" },
-		{ data: "checkout_ref_format" },
+		{ 
+			"render" : function(data, type, full, meta) {
+				var cod_ref = full.checkout_ref.slice(-6);
+				return '<p>'+cod_ref+'</p>'
+			} 
+		},
 		{ 
 			"render" : function(data, type, full, meta) {
 				var valor_pedido = full.checkout_valor_bruto.replace(".", ",");
@@ -109,9 +119,9 @@ function initTable(tablePen, tableEnt) {
 		{ data: "checkout_date_format" },
 		{ 
 			"render" : function(data, type, full, meta) {
-				var status  = (full.status_pedido == 'E')? "Entregue" : 
-				(full.status_pedido == 'C')? "Cancelado" : 
-				(full.status_pedido == 'P')? "Pendente" : "Status Inválido" ;
+				var status  = (full.checkout_flag == 'E')? "Entregue" : 
+				(full.checkout_flag == 'C')? "Cancelado" : 
+				(full.checkout_flag == 'P')? "Pendente" : "Status Inválido" ;
 				return '<p>'+status+'</p>'
 			} 
 		},
@@ -172,7 +182,7 @@ function initTable(tablePen, tableEnt) {
 		}
 	});
 
-	$('#datatable-ped-active tbody').on('click', 'td.details-control', function () {
+	$('#datatable-ped-pending tbody').on('click', 'td.details-control', function () {
 		var data = tablePen.row( $(this).parents('tr') ).data();
 		var tr = $(this).closest('tr');
 		var row = tablePen.row(tr);
@@ -182,54 +192,38 @@ function initTable(tablePen, tableEnt) {
 			tr.removeClass('shown');
 		}
 		else {
-			openChild(data.id_pedido, row, tr);
+
+			row.child( tableChild(row.data(), data.itens)).show();
+			tr.addClass('shown');
+
 		}
 	});
 
-	function openChild(id_pedido, row, tr){
-		$('#alertaRecor').show();
-		var acao = 'manterPedidos';
-		var tipoAcao = 'moreInfo';
-		$.post("manter.php",
-		{
-			acao: acao,
-			tipoAcao: tipoAcao,
-			id: id_pedido
-		}, 
-		function(result)
-		{
-			var obj = JSON.parse(result)
-			row.child( format(row.data(), obj)).show();
-			tr.addClass('shown');
-			$('#alertaRecor').hide();
-		});
-	}
-
 }//initTable
 
-function format (d,obj) {
+function tableChild (d,obj) {
 	console.log(d);
 	console.log(obj);
 	var historicoPed = "";
 
 	$.each(obj, function(key, value) {  
-		historicoPed += '<tr>';
-		historicoPed += '<td><img src="../_files/produtos/'+value.foto_prod+'" class="icone-categ-img"></td>';
-		historicoPed += '<td>'+value.nome_prod+'</td>';
-		historicoPed += '<td>'+value.desc_produto+'</td>';
-		historicoPed += '<td>R$'+value.preco_hist_ped+'</td>';
-		historicoPed += '<td>'+value.qtd_hist_ped+'</td>';
+		console.log(value);
+		var vaorTemp = value.checkout_item_valor.replace(".", ",");
+		historicoPed += '<tr class="trBody">';
+		historicoPed += '<td><img src="https://api.rafafreitas.com/uploads/itens/'+value.fotos[0].fot_file+'" class="icone-categ-img"></td>';
+		historicoPed += '<td>'+value.item_nome+'</td>';
+		historicoPed += '<td>R$'+value.checkout_item_valor.replace(".", ",")+'</td>';
+		historicoPed += '<td>'+value.checkout_item_qtd+'</td>';
 		historicoPed += '</tr>';
 	});
 
 	return '<div class="divTable">'+
-	'<h4>Pedido: #-'+d.id_pedido+'</h4>'+
-	'<h4>Comprador: '+d.nome_usu+'</h4>'+
+	'<h4 class="text-center">Pedido: #-'+d.checkout_ref.slice(-6)+'</h4>'+
+	'<h4 class="text-center">Cliente: '+d.user_nome+'</h4>'+
 	'<table class="tabelaDinamica">'+
 	'<tr class="trDetalhes">'+
-	'<td></td>'+
+	'<td>Imagem</td>'+
 	'<td>Produto</td>'+
-	'<td>Descrição</td>'+
 	'<td>Preço da Venda</td>'+
 	'<td>Quantidade</td>'+
 	'</tr>'+historicoPed+
