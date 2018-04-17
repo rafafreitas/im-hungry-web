@@ -73,10 +73,18 @@ switch ($acao) {
 
 					$fotoNome = upload_file( 'company-logo', false, '', '', 'empresa', 'company.php');
 
+					$telefone = str_replace('(', '' , $_POST['company-telefone']);
+	        		$telefone = str_replace(')', '' , $telefone);
+	        		$telefone = str_replace('-', '' , $telefone);
+
+	        		$cnpj = str_replace('/', '' , $_POST['company-cnpj']);
+	        		$cnpj = str_replace('.', '' , $cnpj);
+	        		$cnpj = str_replace('-', '' , $cnpj);
+
 					$data = array(
 						'nome' => $_POST['company-nome'], 
-						'telefone' => $_POST['company-telefone'], 
-						'cnpj' => $_POST['company-cnpj'], 
+						'telefone' => $telefone, 
+						'cnpj' => $cnpj, 
 						'cep' => $_POST['company-cep'], 
 						'lat' => null,
 						'long' => null,
@@ -133,11 +141,19 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
+				$telefone = str_replace('(', '' , $_POST['company-telefone-at']);
+				$telefone = str_replace(')', '' , $telefone);
+				$telefone = str_replace('-', '' , $telefone);
+
+				$cnpj = str_replace('/', '' , $_POST['company-cnpj-at']);
+				$cnpj = str_replace('.', '' , $cnpj);
+				$cnpj = str_replace('-', '' , $cnpj);
+
 				$data = array(
 						'idAt' => $_POST['idAt'], 
 						'nome' => $_POST['company-nome-at'], 
-						'telefone' => $_POST['company-telefone-at'], 
-						'cnpj' => $_POST['company-cnpj-at'], 
+						'telefone' => $telefone, 
+						'cnpj' => $cnpj, 
 						'cep' => $_POST['company-cep-at'], 
 						'lat' => null,
 						'long' => null,
