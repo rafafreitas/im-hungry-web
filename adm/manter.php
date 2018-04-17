@@ -24,15 +24,6 @@ switch ($acao) {
 
 		      	$ch = curl_init();
 
-		  		// curl_setopt($ch, CURLOPT_URL, $url.'/empresa/listAll');
-				// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				// 	'Content-Type: application/json',
-				// 	'Authorization: ' . $token
-				// 	)
-				// );
-
 				$data = array(
 					'enabled' => $_POST['enabled'], 
 				);
@@ -57,7 +48,6 @@ switch ($acao) {
 			    $var = json_decode($response);
 
 			    if ($var->status == 500 && $var->qtd == 0) {
-			    	//echo $var->result;
 			    	echo "[]";
 			    }else{
 			    	$_SESSION['Token'] = $var->token;
@@ -243,15 +233,6 @@ switch ($acao) {
 
 		      	$ch = curl_init();
 
-		  		// curl_setopt($ch, CURLOPT_URL, $url.'/filial/listAll');
-				// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				// 	'Content-Type: application/json',
-				// 	'Authorization: ' . $token
-				// 	)
-				// );
-
 				$data = array(
 					'enabled' => $_POST['enabled'], 
 				);
@@ -276,7 +257,6 @@ switch ($acao) {
 			    $var = json_decode($response);
 
 			    if ($var->status == 500 && $var->qtd == 0) {
-			    	//echo $var->result;
 			    	echo "[]";
 			    }else{
 			    	$_SESSION['Token'] = $var->token;
@@ -298,10 +278,18 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
+				$telefone = str_replace('(', '' , $_POST['company-telefone']);
+        		$telefone = str_replace(')', '' , $telefone);
+        		$telefone = str_replace('-', '' , $telefone);
+
+        		$cnpj = str_replace('/', '' , $_POST['company-cnpj']);
+        		$cnpj = str_replace('.', '' , $cnpj);
+        		$cnpj = str_replace('-', '' , $cnpj);
+
 				$data = array(
 					'nome' => $_POST['company-nome'], 
-					'telefone' => $_POST['company-telefone'], 
-					'cnpj' => $_POST['company-cnpj'], 
+					'telefone' => $telefone, 
+					'cnpj' => $cnpj, 
 					'cep' => $_POST['company-cep'], 
 					'lat' => null,
 					'long' => null,
@@ -343,12 +331,20 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
+				$telefone = str_replace('(', '' , $_POST['company-telefone-at']);
+        		$telefone = str_replace(')', '' , $telefone);
+        		$telefone = str_replace('-', '' , $telefone);
+
+        		$cnpj = str_replace('/', '' , $_POST['company-cnpj-at']);
+        		$cnpj = str_replace('.', '' , $cnpj);
+        		$cnpj = str_replace('-', '' , $cnpj);
+
 				$data = array(
 						'idAt' => $_POST['idAt'], 
 						'empresa_id' => $_POST['empresa_idAt'], 
 						'nome' => $_POST['company-nome-at'], 
-						'telefone' => $_POST['company-telefone-at'], 
-						'cnpj' => $_POST['company-cnpj-at'], 
+						'telefone' => $telefone, 
+						'cnpj' => $cnpj, 
 						'cep' => $_POST['company-cep-at'], 
 						'lat' => null,
 						'long' => null,
@@ -437,15 +433,6 @@ switch ($acao) {
 
 		      	$ch = curl_init();
 
-		  		// curl_setopt($ch, CURLOPT_URL, $url.'/empresa/listAll');
-				// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				// 	'Content-Type: application/json',
-				// 	'Authorization: ' . $token
-				// 	)
-				// );
-
 				$data = array(
 					'enabled' => $_POST['enabled'], 
 				);
@@ -485,6 +472,18 @@ switch ($acao) {
 			}
 
 		}
+	break;
+
+	case 'manterGraficos':
+
+		// curl_setopt($ch, CURLOPT_URL, $url.'/empresa/listAll');
+		// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		// 	'Content-Type: application/json',
+		// 	'Authorization: ' . $token
+		// 	)
+		// );
 	break;
 
 	case 'buscaCep':

@@ -302,12 +302,12 @@ function updateObj(obj) {
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
-  $("#idAt").val(obj.empresa_id);
+  $("#idAt").val(obj.filial_id);
   $("#statusAt").val(obj.filial_enabled);
   $("#reloadAt").val('0');
 
   buscaCep(obj.filial_cep, "-at");
-  $("#empresa_idAt").val(obj.filial_id);
+  $("#empresa_idAt").val(obj.empresa_id);
   $("#company-nome-at").val(obj.filial_nome);
   $("#company-telefone-at").val(obj.filial_telefone);
   $("#company-cnpj-at").val(obj.filial_cnpj);
@@ -373,16 +373,14 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     callback: function (confirma) {
       if (confirma == true) {
         $('#loadPublicacao').show();
-        var acao = 'manterFilial';
-        var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    
           type:"post",
           data: {
             acao : "manterFilial",
             tipoAcao : "enabledDisabled",
-            status : "status",
-            idChange : "idChange"
+            status : status,
+            idChange : idChange
           },                     
           dataType: "JSON",
           success: function (obj){ 
