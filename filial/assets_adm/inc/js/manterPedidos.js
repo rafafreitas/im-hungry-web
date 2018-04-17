@@ -3,9 +3,10 @@ var array_id  = [];
 $(document).ready(function(){
 
 	var tablePen;
+	var tableComp;
 	var tableEnt;
 	initPage();
-	initTable(tablePen, tableEnt);
+	initTable(tablePen, tableComp, tableEnt);
 
 });
 
@@ -14,7 +15,7 @@ function initPage() {
 	$('#loadPublicacao').hide();
 }//initPage
 
-function initTable(tablePen, tableEnt) {
+function initTable(tablePen, tableComp, tableEnt) {
 
 	tablePen = 
 	$('#datatable-ped-pending').DataTable( {
@@ -26,7 +27,73 @@ function initTable(tablePen, tableEnt) {
 			data : {
 				acao : "manterPedidos",
 				tipoAcao: "listarAll",
-				tableStatus: "P",
+				tableStatus: 1,
+			},
+			dataSrc: ''
+		},
+		columns: [
+		{
+			"className":      'details-control',
+			"orderable":      false,
+			"data":           null,
+			"defaultContent": ''
+		},
+		{ data: "user_nome" },
+		{ 
+			"render" : function(data, type, full, meta) {
+				var cod_ref = full.checkout_ref.slice(-6);
+				return '<p>'+cod_ref+'</p>'
+			} 
+		},
+		{ 
+			"render" : function(data, type, full, meta) {
+				var valor_pedido = full.checkout_valor_bruto.replace(".", ",");
+				return '<p>R$ '+valor_pedido+'</p>'
+			} 
+		},
+		{ data: "checkout_date_format" },
+		{ 
+			"render" : function(data, type, full, meta) {
+				var status  = (full.checkout_flag == 'E')? "Entregue" : 
+				(full.checkout_flag == 'C')? "Cancelado" : 
+				(full.checkout_flag == 'P')? "Pendente" : "Status Inválido" ;
+				return '<p>'+status+'</p>'
+			} 
+		},
+		{ 
+			defaultContent: "<button type='button' class='btn btn-success' id='delivered' title='Entregar Pedido'><span class='fa fa-check'></button>&nbsp;"+
+			"<button type='button' class='btn btn-danger' id='problem' title='Relatar Problema'><span class='fa fa-ban'></button>"
+		}
+		],
+		fixedHeader: true,
+		"language": {
+			"lengthMenu": "Exibir _MENU_ por página",
+			"zeroRecords": "Nada encontrado, desculpe.",
+			"processing": "Buscando novos pedidos...",
+			"info": "Exibindo página _PAGE_ de _PAGES_",
+			"infoEmpty": "Nenhum registro disponível",
+			"infoFiltered": "(Filtrado de _MAX_ registros totais)",
+			"search": "Buscar: ",
+			"paginate": {
+				"first":      "Primeiro",
+				"last":       "Último",
+				"next":       "Prox",
+				"previous":   "Anterior"
+			}
+		}
+	});
+
+	tableComp = 
+	$('#datatable-ped-completed').DataTable( {
+		processing: true,
+		responsive: true,
+		ajax: {
+			url: 'manter.php',
+			type: "POST",
+			data : {
+				acao : "manterPedidos",
+				tipoAcao: "listarAll",
+				tableStatus: 2,
 			},
 			dataSrc: ''
 		},
@@ -92,7 +159,7 @@ function initTable(tablePen, tableEnt) {
 			data : {
 				acao : "manterPedidos",
 				tipoAcao: "listarAll",
-				tableStatus: "E",
+				tableStatus: 3,
 			},
 			dataSrc: ''
 		},

@@ -60,7 +60,10 @@
                 <div class="card-body">
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#table-ativas" role="tab" aria-controls="home">Pendentes</a>
+                      <a class="nav-link active" data-toggle="tab" href="#table-ativas" role="tab" aria-controls="home">Em Andamento</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#table-concluidas" role="tab" aria-controls="home">Concluídos</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" data-toggle="tab" href="#table-inativas" role="tab" aria-controls="profile">Entregues</a>
@@ -84,6 +87,24 @@
                         
                       </table>
                     </div>
+
+                    <div class="tab-pane" id="table-concluidas" role="tabpanel">
+                      <table id="datatable-ped-completed" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Cliente</th>
+                            <th>Código</th>
+                            <th>Valor</th>
+                            <th>Data/Hora</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                          </tr>
+                        </thead>
+                        
+                      </table>
+                    </div>
+
                     <div class="tab-pane" id="table-inativas" role="tabpanel">
                       <table id="datatable-ped-delivered" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
