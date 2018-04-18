@@ -61,6 +61,54 @@ switch ($acao) {
 				echo $e->getMessage();
 			}
 		
+		}elseif ($tipoAcao == 'changeFlag') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'status' => $_POST['status'], 
+					'idChange' => $_POST['idChange']
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+		     	curl_setopt($ch, CURLOPT_URL, $url.'/web/pedidos');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+   				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+      			curl_close($ch);
+
+			    $var = json_decode($response);
+
+			    if ($var->status == 500 && $var->qtd == 0) {
+			    	//echo $var->result;
+			    	echo "[]";
+			    }else{
+			    	$_SESSION['Token'] = $var->token;
+			    	$obj = $var->pedidos;
+					$json=json_encode($obj);
+					echo "$json";
+			    }
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
 		}
 	break;
 
