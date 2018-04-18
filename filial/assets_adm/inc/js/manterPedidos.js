@@ -238,7 +238,7 @@ function initTable(tablePen, tableComp, tableEnt) {
 		var idClick = $(this).attr('id');
 		switch(idClick) {
 			case 'delivered':
-				alterFlag(data.checkout_id, 3 tablePen, tableComp);
+				alterFlag(data.checkout_id, 3, tablePen, tableComp);
 			break;
 			case 'problem':
 				toastr.options.progressBar = true;

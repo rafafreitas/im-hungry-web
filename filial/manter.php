@@ -79,7 +79,7 @@ switch ($acao) {
 				$data = json_encode($data);
 
 				$ch = curl_init();
-		     	curl_setopt($ch, CURLOPT_URL, $url.'/web/pedidos');
+		     	curl_setopt($ch, CURLOPT_URL, $url.'/web/checkout/changeFlag');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
    				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

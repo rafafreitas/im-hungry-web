@@ -62,10 +62,14 @@ div.divTable table.tabelaDinamica tr.trDetalhes td {
 div.divTable table.tabelaDinamica tr.trBody td {
   min-width: 100px;
   border: 1px solid #000!important;
-  line-height: 108px;
+  line-height: 70px;
   text-align: center;
   font-size: 14pt;
 }
+div.divTable table.tabelaDinamica tr.trBody {
+  background-color: #4dbd74;
+}
 div.divTable table.tabelaDinamica td img.icone-categ-img{
   max-width: 150px;
+  max-height: 70px;
 }
