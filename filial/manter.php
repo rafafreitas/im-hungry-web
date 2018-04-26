@@ -91,19 +91,11 @@ switch ($acao) {
 				);
 
 				$response = curl_exec($ch);
-      			curl_close($ch);
+	      		curl_close($ch);
 
-			    $var = json_decode($response);
-
-			    if ($var->status == 500 && $var->qtd == 0) {
-			    	//echo $var->result;
-			    	echo "[]";
-			    }else{
-			    	$_SESSION['Token'] = $var->token;
-			    	$obj = $var->pedidos;
-					$json=json_encode($obj);
-					echo "$json";
-			    }
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
 
 
 			} catch (Exception $e) {

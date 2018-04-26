@@ -234,11 +234,11 @@ function initTable(tablePen, tableComp, tableEnt) {
 	});
 
 	$('#datatable-ped-completed tbody').on( 'click', 'button', function () {
-		var data = tablePen.row( $(this).parents('tr') ).data();
+		var data = tableComp.row( $(this).parents('tr') ).data();
 		var idClick = $(this).attr('id');
 		switch(idClick) {
 			case 'delivered':
-				alterFlag(data.checkout_id, 3, tablePen, tableComp);
+				alterFlag(data.checkout_id, 3, tableComp, tableEnt);
 			break;
 			case 'problem':
 				toastr.options.progressBar = true;
@@ -253,7 +253,7 @@ function initTable(tablePen, tableComp, tableEnt) {
 	});
 
 	$('#datatable-ped-delivered tbody').on( 'click', 'button', function () {
-		var data = tablePen.row( $(this).parents('tr') ).data();
+		var data = tableEnt.row( $(this).parents('tr') ).data();
 		var idClick = $(this).attr('id');
 		switch(idClick) {
 			case 'problem':
@@ -321,10 +321,10 @@ function tableChild (d,obj) {
 	// `d` is the original data object for the row
 }
 
-function alterFlag(obj, flag, table1, table2){
+function alterFlag(idChange, flag, table1, table2){
   if (flag == '2') {
     stName = "confirmar a conclusão";
-  }if (status == '3') {
+  }if (flag == '3') {
     stName = "confirmar a entrega";
   }
   bootbox.confirm({
@@ -348,10 +348,11 @@ function alterFlag(obj, flag, table1, table2){
           data: {
             acao : "manterPedidos",
             tipoAcao : "changeFlag",
-            status : status,
+            status : flag,
             idChange : idChange
-          },                        
-          success: function (result){ 
+          },
+          dataType: "JSON",
+          success: function (obj){ 
             console.log(obj);
             if(obj.status == 200){
 
