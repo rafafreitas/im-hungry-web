@@ -6,34 +6,34 @@ $(document).ready(function(){
   $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
   initTable(tableAt, tableIn, api);
   initPage();
-  createSelect();
 
 });
 
 function initPage() {
   $(":input").inputmask();
+  $('#item-valor').maskMoney({prefix:'R$ ', thousands:'.', decimal:','});
+
   $('#loadPublicacao').hide();
   $('#btmCancelar').click(function(){
     resetForm('form-company-add');
   }); 
 
-  $("#company-cep, #company-cep-at").keyup(function() {
-    $('#loadCep'+temp).show();
-    var cep = $(this).val().replace(/_/g, "");
-    var temp = ($(this).attr('id') == "company-cep-at") ? '-at' : "";
-    
-    if ( cep.length != 9) {
-      $('#loadCep'+temp).hide();
-      $("#company-rua"+temp).val("");
-      $("#company-bairro"+temp).val("");
-      $("#company-cidade-uf"+temp).val("");
-      $("#company-lat"+temp).val("");
-      $("#company-long"+temp).val("");
-    }else{
-      buscaCep(cep, temp);
-    }
-    
+  $("#upFilesFotos").fileinput({
+    allowedFileExtensions: ["jpg", "gif", "png"],
+    maxFilePreviewSize: 10240,
+    previewFileType: "image",
+    showUpload: false, 
+    language: "pt-BR",
+
+    browseClass: "btn btn-success",
+      browseLabel: "Escolher",
+      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+
+    removeClass: "btn btn-danger",
+      removeLabel: "Remover",
+      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
   });
+
 }//initPage
 
 function buscaCep(cep, temp){
@@ -58,7 +58,7 @@ function buscaCep(cep, temp){
 
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.warning(result.result);
+        toastr.success(result.result);
 
       }else{
         $('#loadCep'+temp).hide();
@@ -72,39 +72,7 @@ function buscaCep(cep, temp){
 
     }
   });
-}//buscaCep
-
-function createSelect(){
-  $("#empresa_id").empty();
-  $("#empresa_idAt").empty();
-  $.ajax({
-    url:"manter.php",                    
-    type:"post",
-    data: {
-      acao : "manterEmpresa",
-      tipoAcao : "listarAll",
-      enabled : "true"
-    },                        
-    dataType: "JSON",
-
-    success: function (result){ 
-      $('select#empresa_id').append($("<option></option>").attr({value:"", disabled:"", selected:""}).text("---")); 
-      $('select#empresa_idAt').append($("<option></option>").attr({value:"", disabled:"", selected:""}).text("---")); 
-      $.each(result, function(key, value) {   
-        $('select#empresa_id')
-          .append($("<option></option>")
-          .attr({value:value.empresa_id})
-          .text(value.empresa_nome)); 
-      });
-      $.each(result, function(key, value) {  
-        $('select#empresa_idAt')
-          .append($("<option></option>")
-          .attr({value:value.empresa_id})
-          .text(value.empresa_nome)); 
-      });
-    }
-  });
-}//createSelect
+}
 
 function resetForm(form) {
   $('#'+form).each(function(){
@@ -121,7 +89,7 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "manterFilial",
+             acao : "manterEmpresa",
              tipoAcao: "listarAll",
              enabled: true
            },
@@ -129,13 +97,11 @@ function initTable(tableAt, tableIn, api) {
          },
     columns: [
                { data: "empresa_nome" },
-               { data: "filial_nome" },
-               { data: "filial_cnpj" },
-               { data: "filial_telefone" },
+               { data: "empresa_cnpj" },
+               { data: "empresa_telefone" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
                }
             ],
    fixedHeader: true,
@@ -164,7 +130,7 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "manterFilial",
+             acao : "manterEmpresa",
              tipoAcao: "listarAll",
              enabled: false
            },
@@ -172,13 +138,11 @@ function initTable(tableAt, tableIn, api) {
          },
     columns: [
                { data: "empresa_nome" },
-               { data: "filial_nome" },
-               { data: "filial_cnpj" },
-               { data: "filial_telefone" },
+               { data: "empresa_cnpj" },
+               { data: "empresa_telefone" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
+                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
                }
             ],
    fixedHeader: true,
@@ -206,11 +170,8 @@ function initTable(tableAt, tableIn, api) {
         case 'atualizar':
             updateObj(data);
             break;
-        case 'menu':
-            window.location = "menu.php?id="+data.filial_id;
-            break;
         case 'apagar':
-            enabledDisabled(data.filial_id, tableAt, tableIn, false);
+            enabledDisabled(data.empresa_id, tableAt, tableIn, false);
             break;
         default:
             $('#alertaErro').show();
@@ -227,11 +188,8 @@ function initTable(tableAt, tableIn, api) {
         case 'atualizar':
             updateObj(data);
             break;
-        case 'menu':
-            window.location = "menu.php?id="+data.filial_id;
-            break;
         case 'ativar':
-            enabledDisabled(data.filial_id, tableAt, tableIn, true);
+            enabledDisabled(data.empresa_id, tableAt, tableIn, true);
             break;
         default:
             $('#alertaErro').show();
@@ -241,10 +199,10 @@ function initTable(tableAt, tableIn, api) {
       }
   });//onClick
 
-  $('#form-filial-add').submit(function(){  
+  $('#form-company-add').submit(function(){  
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
-    cadastrar(formData, tableIn);
+    cadastrar(formData, tableAt);
     return false;
   });//CreateForm
 
@@ -286,7 +244,7 @@ function cadastrar(formData, table) {
 
         $('#loadPublicacao').hide();
         table.ajax.reload();
-        resetForm('form-filial-add');
+        resetForm('form-company-add');
 
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
@@ -304,25 +262,57 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj) {
-
-  console.log(obj);
+  $("#company-logo-at").fileinput('destroy');
 
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
-  $("#idAt").val(obj.filial_id);
-  $("#statusAt").val(obj.filial_enabled);
+  $("#idAt").val(obj.empresa_id);
+  $("#statusAt").val(obj.empresa_enabled);
   $("#reloadAt").val('0');
 
-  buscaCep(obj.filial_cep, "-at");
-  $("#empresa_idAt").val(obj.empresa_id);
-  $("#company-nome-at").val(obj.filial_nome);
-  $("#company-telefone-at").val(obj.filial_telefone);
-  $("#company-cnpj-at").val(obj.filial_cnpj);
-  $("#company-cep-at").val(obj.filial_cep);
-  $("#company-numero-at").val(obj.filial_numero_endereco);
-  $("#company-complemento-at").val(obj.filial_complemento_endereco);
+  buscaCep(obj.empresa_cep, "-at");
+  $("#company-nome-at").val(obj.empresa_nome);
+  $("#company-telefone-at").val(obj.empresa_telefone);
+  $("#company-cnpj-at").val(obj.empresa_cnpj);
+  $("#company-facebook-at").val(obj.empresa_facebook);
+  $("#company-instagram-at").val(obj.empresa_instagram);
+  $("#company-twitter-at").val(obj.empresa_twitter);
+  $("#company-fundacao-at").val(obj.empresa_data_fundacao);
+  $("#company-cep-at").val(obj.empresa_cep);
+  $("#company-numero-at").val(obj.empresa_numero_endereco);
+  $("#company-complemento-at").val(obj.empresa_complemento_endereco);
   
+  $("#company-logo-at").fileinput({
+    overwriteInitial: true,
+    initialPreview: [
+          "https://api.rafafreitas.com/uploads/empresa/"+obj.empresa_foto_marca
+          ],
+        initialPreviewConfig: [
+                          {
+                            caption: "Logo", 
+                            width: "120px", 
+                            key: 1},
+          ],
+
+    initialPreviewAsData: true, 
+    initialPreviewFileType: 'image', 
+          
+    allowedFileExtensions: ["jpg", "gif", "png"],
+    
+    previewFileType: "image",
+    showUpload: false, 
+    language: "pt-BR",
+
+    browseClass: "btn btn-success",
+      browseLabel: "Escolher",
+      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+
+    removeClass: "btn btn-danger",
+      removeLabel: "Remover",
+      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+  });
+
   $("#myModalAtualizar").modal({backdrop: false});
   $('#loadPublicacao').hide();
 }//updateObj
@@ -367,7 +357,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     stName = "inativar";
   }
   bootbox.confirm({
-    message: "<h3 class='text-center'>Deseja "+stName+" esta filial?</h3>",
+    message: "<h3 class='text-center'>Deseja "+stName+" esta empresa?</h3>",
     buttons: {
       confirm: {
         label: 'Sim!',
@@ -381,15 +371,12 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     callback: function (confirma) {
       if (confirma == true) {
         $('#loadPublicacao').show();
+        var acao = 'manterEmpresa';
+        var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    
-          type:"post",
-          data: {
-            acao : "manterFilial",
-            tipoAcao : "enabledDisabled",
-            status : status,
-            idChange : idChange
-          },                     
+          type:"post",                            
+          data: "idChange="+idChange+"&acao="+acao+"&tipoAcao="+tipoAcao+"&status="+status,
           dataType: "JSON",
           success: function (obj){ 
             console.log(obj);

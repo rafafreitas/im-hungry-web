@@ -438,6 +438,206 @@ switch ($acao) {
 	break;
 	//FimManterFilial
 
+	case 'manterMenu':
+
+		if ($tipoAcao == 'listarAll') {
+
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+				$filial_id = $_SESSION['filial_id'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'filial_id' => $_SESSION['filial_id'], 
+					'enabled' => $_POST['enabled'], 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/menu/listAll');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+      			curl_close($ch);
+
+			    $var = json_decode($response);
+
+			    if ($var->status == 500 && $var->qtd == 0) {
+			    	echo "[]";
+			    }else{
+			    	$_SESSION['Token'] = $var->token;
+			    	$obj = $var->empresas;
+					$json=json_encode($obj);
+					echo "$json";
+			    }
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}elseif ($tipoAcao == 'insert') {
+			try {
+
+				if (is_uploaded_file($_FILES['company-logo']['tmp_name'])) {
+
+					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+					$token = $_SESSION['Token'];
+					$url = $_SESSION['API'];
+					$filial_id = $_SESSION['filial_id'];
+
+					$file_ary = array();
+		            $file_count = count($_FILES['upFilesFotos']['name']);
+		            $file_keys = array_keys($_FILES['upFilesFotos']);
+
+		            for ($i=0; $i<$file_count; $i++) {
+		                foreach ($file_keys as $key) {
+		                    $file_ary[$i][$key] = $_FILES['upFilesFotos'][$key][$i];
+		                }
+		            }
+
+		            foreach ($file_ary as $key => $value) {
+		                $fotoNome[$key] = upload_file( $value, false, '', '', 'itens', 'menu.php?id='.$filial_id);
+		            }
+
+
+					$data = array(
+						'nome' => $_POST['item-nome'], 
+						'valor' => $_POST['item-valor'], 
+						'tempo' => $_POST['item-tempo'], 
+						'filial_id' => $filial_id, 
+						'fotos' => $fotoNome, 
+					);
+
+					$data = json_encode($data);
+
+					$ch = curl_init();
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/menu/insert');
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch, CURLOPT_POST, true);
+      				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+						'Content-Type: application/json',
+						'Authorization: ' . $token
+						)
+					);
+
+			      	$response = curl_exec($ch);
+	      			curl_close($ch);
+
+				    $var = json_decode($response);
+					$json=json_encode($var);
+					echo "$json";
+
+				}
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+			
+		}elseif($tipoAcao == 'update'){
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$data = array(
+						'nome' => $_POST['item-nome'], 
+						'valor' => $_POST['item-valor'], 
+						'tempo' => $_POST['item-tempo'], 
+						'filial_id' => $filial_id, 
+						'fotos' => $fotoNome, 
+					);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/update');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getCode();
+			}
+
+		}elseif ($tipoAcao == 'enabledDisabled') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'idChange' => $_POST['idChange'], 
+					'status' => $_POST['status'] 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/enabled');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}
+	break;
+	//FimManterFilial
+
 	case 'manterPedidos':
 		if ($tipoAcao == 'listarAll') {
 			try {

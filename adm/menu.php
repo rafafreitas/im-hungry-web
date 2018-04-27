@@ -25,6 +25,10 @@
   <div class="app-body">
   
     <?php include "assets_adm/inc/menus/menu_left.php" ?>
+    <?
+      if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+      $_SESSION['filial_id'] = $_GET['id'];
+    ?>
 
     <!-- Main content -->
     <main class="main">
@@ -32,7 +36,8 @@
       <!-- Breadcrumb -->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">Admin</li>
-        <li class="breadcrumb-item active">Filiais</li>
+        <li class="breadcrumb-item">Filiais</li>
+        <li class="breadcrumb-item active">Menu</li>
 
         <!-- Breadcrumb Menu-->
         <li class="breadcrumb-menu d-md-down-none">
@@ -52,7 +57,7 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Atualizar Filial</h3>
+                  <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Atualizar Item</h3>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="padding:30px 40px;">
@@ -159,83 +164,32 @@
               <form id="form-filial-add" class="form-horizontal" enctype="multipart/form-data">
               <div class="card">
                 <div class="card-header">
-                  <strong>Cadastrar Filial</strong>
+                  <strong>Cadastrar Item</strong>
                 </div>
                 <div class="card-body">
 
                     <div class="form-group row">
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-nome">Vinculada a Empresa</label>
-                        <select id="empresa_id" name="empresa_id" class="form-control" required>
-                            
-                        </select>
-                        
-                        <input type="hidden" name="acao" value="manterFilial">
-                        <input type="hidden" name="tipoAcao" value="insert">
-                      </div>
 
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-nome">Nome</label>
-                        <input type="text" class="form-control" name="company-nome" id="company-nome" required>
+                      <div class="col-md-4 col-lg-4 col-xs-12">
+                        <label class="form-col-form-label" for="item-nome">Nome</label>
+                        <input type="text" class="form-control" name="item-nome" id="item-nome" required>
                       </div>
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-telefone">Telefone</label>
-                        <input type="text" class="form-control" name="company-telefone" id="company-telefone" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
+                      <div class="col-md-4 col-lg-4 col-xs-12">
+                        <label class="form-col-form-label" for="item-valor">Preço</label>
+                        <input type="text" class="form-control" name="item-valor" id="item-valor" required>
                       </div>
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-cnpj">CNPJ</label>
-                        <input type="text" class="form-control" name="company-cnpj" id="company-cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" data-inputmask="'mask': '99.999.999/9999-99'" title="00.000.000/0000-00" required>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-cep">CEP <img  id="loadCep" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
-
-                        <input type="text" class="form-control" name="company-cep" id="company-cep" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
-                      </div>
-
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-rua">Rua</label>
-                        <input type="text" class="form-control" name="company-rua" id="company-rua" disabled>
-                      </div>
-
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-numero">Número</label>
-                        <input type="number" class="form-control" name="company-numero" id="company-numero" required>
-                      </div>
-
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-rua">Bairro</label>
-                        <input type="text" class="form-control" name="company-rua" id="company-bairro" disabled>
+                      <div class="col-md-4 col-lg-4 col-xs-12">
+                        <label class="form-col-form-label" for="item-tempo">Tempo Preparo</label>
+                        <input type="time" class="form-control" name="item-tempo" id="item-tempo" required>
                       </div>
                     </div>
 
                     <div class="form-group row">
 
-                      <div class="col-md-3 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-rua">Cidade - UF</label>
-                        <input type="text" class="form-control" name="company-rua" id="company-cidade-uf" disabled>
+                      <div class="col-md-12 col-lg-12 col-xs-12">
+                          <input id="upFilesFotos" name="upFilesFotos[]" type="file" multiple class="file-loading">
                       </div>
-                      
-                      <div class="col-md-3 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-lat">Latitude</label>
-                        <input type="text" class="form-control" name="company-lat" id="company-lat" disabled>
-                      </div>
-                      
-                      <div class="col-md-3 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-long">Longitude</label>
-                        <input type="text" class="form-control" name="company-long" id="company-long" disabled>
-                      </div>
-                    </div>
 
-                    <div class="form-group row">
-
-                      <div class="col-md-6 col-lg-6 col-xs-12">
-                        <label class="form-col-form-label" for="company-numero">Complemento</label>
-                        <textarea class="form-control" name="company-complemento" id="company-complemento" rows="4" required></textarea>
-                      </div>
                     </div>
 
                 </div>
@@ -322,7 +276,7 @@
   <?php include "assets_adm/inc/file_input.php"; ?>
 
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="assets_adm/inc/js/manterFilial.js"></script>
+  <script type="text/javascript" src="assets_adm/inc/js/manterMenu.js"></script>
   
 </body>
 </html>
