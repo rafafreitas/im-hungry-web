@@ -46,7 +46,7 @@
 
       <div class="container-fluid">
 
-        <!--Modal para atualizaçao-->
+        <!--Modal para atualizFaçao-->
           <div class="modal fade" id="myModalAtualizar" role="dialog">
             <div class="modal-dialog" style="max-width: 950px!important;">
               <!-- Modal content-->
@@ -152,6 +152,57 @@
             </div><!--modal-dialog (Atualizar)-->
           </div> 
         <!--modal fade (Atualizar)-->
+
+        <!--Modal para Fidelidade-->
+        <div class="modal fade" id="myModalFidelidade" role="dialog">
+          <div class="modal-dialog" style="max-width: 950px!important;">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Cadastrar Fidelidade na Filial</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body" style="padding:30px 40px;">
+
+                <form class="form-horizontal" id="formFidelidade" enctype="multipart/form-data" >
+
+                  <div class="form-group row">
+                    <div class="col-md-2 col-lg-2 col-xs-4">
+                      <label class="form-col-form-label" for="fidelidade-qtd">Quantidade</label>
+                      <input type="number" class="form-control" name="fidelidade-qtd" id="fidelidade-qtd" required>
+                      
+                      <input type="hidden" id="idFidelidade" name="idFidelidade">
+                      <input type="hidden" id="idFilial" name="idFilial">
+                    </div>
+                    
+                    <div class="col-md-2 col-lg-2 col-xs-6">
+                      <label class="form-col-form-label" for="fidelidade-valor">Valor Mínimo</label>
+                      <input type="text" class="form-control" name="fidelidade-valor" id="fidelidade-valor" pattern="\d{3}\,\d{2}" data-inputmask="'mask': '99,99'" title="00,00" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-6 col-lg-6 col-xs-12">
+                      <label class="form-col-form-label" for="fidelidade-beneficio">Benefício</label>
+                      <textarea class="form-control" name="fidelidade-beneficio" id="fidelidade-beneficio" rows="3" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group"> 
+                    <div class="col-sm-offset-1 col-sm-10">
+                      <button type="submit" class="btn btn-default" id="btnSalvarFidelidade">Salvar</button>
+                      <img  id="loadtGif" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+                      <p id="retornoFidelidade" class="text-center"></p>
+                    </div>
+                  </div>
+
+                </form>
+
+              </div> <!--modal-body (Fidelidade)-->
+            </div><!--modal-content (Fidelidade)-->
+          </div><!--modal-dialog (Fidelidade)-->
+        </div> 
+        <!--modal fade (Fidelidade)-->
 
         <div class="animated fadeIn">
           <div class="row">

@@ -135,7 +135,8 @@ function initTable(tableAt, tableIn, api) {
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
                                  "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>&nbsp;"+
+                                 "<button type='button' class='btn btn-primary' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>"
                }
             ],
    fixedHeader: true,
@@ -178,7 +179,8 @@ function initTable(tableAt, tableIn, api) {
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
                                  "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
+                                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>&nbsp;"+
+                                 "<button type='button' class='btn btn-primary' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>"
                }
             ],
    fixedHeader: true,
@@ -205,6 +207,9 @@ function initTable(tableAt, tableIn, api) {
       switch(idClick) {
         case 'atualizar':
             updateObj(data);
+            break;
+        case 'fidelidade':
+            setFidelidade(data);
             break;
         case 'menu':
             window.location = "menu.php?id="+data.filial_id;
@@ -326,6 +331,15 @@ function updateObj(obj) {
   $("#myModalAtualizar").modal({backdrop: false});
   $('#loadPublicacao').hide();
 }//updateObj
+
+function setFidelidade(obj){
+  console.log(obj);
+
+  $('#loadtGif').hide();
+
+  $("#myModalFidelidade").modal({backdrop: false});
+  
+}//setFidelidade
 
 function submitUp(formData, table) {
   $('#submitGif').show();
