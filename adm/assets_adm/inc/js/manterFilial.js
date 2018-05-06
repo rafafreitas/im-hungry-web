@@ -335,7 +335,23 @@ function updateObj(obj) {
 function setFidelidade(obj){
   console.log(obj);
 
-  $('#loadtGif').hide();
+  $("#idFidelidade").val(obj.cartao_fid_id);
+  $("#idFilial").val(obj.filial_id);
+
+  $("#fidelidade-qtd").val(obj.cartao_fid_qtd);
+  $("#fidelidade-valor").val(obj.cartao_fid_valor);
+  $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
+
+  if(obj.cartao_fid_id != null) {
+    $('#btnSalvarFidelidade').hide();
+    $('#btnFinalizarFidelidade').show();
+  }else{
+    $('#btnFinalizarFidelidade').hide();
+    $('#btnSalvarFidelidade').show();
+  }
+
+  $('#loadGifSalvar').hide();
+  $('#loadtGifFinalz').hide();
 
   $("#myModalFidelidade").modal({backdrop: false});
   

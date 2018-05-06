@@ -191,8 +191,10 @@
                   <div class="form-group"> 
                     <div class="col-sm-offset-1 col-sm-10">
                       <button type="submit" class="btn btn-default" id="btnSalvarFidelidade">Salvar</button>
-                      <img  id="loadtGif" src="../assets/img/gif/load.gif" style="max-width: 50px;">
-                      <p id="retornoFidelidade" class="text-center"></p>
+                      <img id="loadGifSalvar" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+                    
+                      <button type="submit" class="btn btn-default" id="btnFinalizarFidelidade">Finalizar</button>
+                      <img id="loadtGifFinalz" src="../assets/img/gif/load.gif" style="max-width: 50px;">
                     </div>
                   </div>
 
