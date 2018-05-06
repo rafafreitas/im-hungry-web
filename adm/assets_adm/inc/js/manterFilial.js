@@ -358,10 +358,13 @@ function setFidelidade(obj){
   $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
 
   if(obj.cartao_fid_id != null) {
-    $('#btnFidelidade').text("Finalizar");
+    $("#btnFidelidade").text("Finalizar");
     $("#h3-title-md-fidelidade").text("Finalizar Fidelidade na Filial");
+    $("#fidelidade-qtd").prop( "disabled", true );
+    $("#fidelidade-valor").prop( "disabled", true );
+    $("#fidelidade-beneficio").prop( "disabled", true );
   }else{
-    $('#btnFidelidade').text("Salvar");
+    $("#btnFidelidade").text("Salvar");
     $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
   }
 
