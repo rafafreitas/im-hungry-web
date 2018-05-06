@@ -345,9 +345,11 @@ function setFidelidade(obj){
   if(obj.cartao_fid_id != null) {
     $('#btnSalvarFidelidade').hide();
     $('#btnFinalizarFidelidade').show();
+    $("#h3-title-md-fidelidade").text("Finalizar Fidelidade na Filial");
   }else{
     $('#btnFinalizarFidelidade').hide();
     $('#btnSalvarFidelidade').show();
+    $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
   }
 
   $('#loadGifSalvar').hide();

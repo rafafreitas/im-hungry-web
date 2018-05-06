@@ -159,7 +159,7 @@
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Cadastrar Fidelidade na Filial</h3>
+                <h3 id="h3-title-md-fidelidade" class="text-center"><span class="glyphicon glyphicon-pencil"></span> Cadastrar Fidelidade na Filial</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body" style="padding:30px 40px;">
