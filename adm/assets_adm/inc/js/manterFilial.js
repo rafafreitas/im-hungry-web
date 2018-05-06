@@ -366,6 +366,9 @@ function setFidelidade(obj){
   }else{
     $("#btnFidelidade").text("Salvar");
     $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
+    $("#fidelidade-qtd").prop( "disabled", false );
+    $("#fidelidade-valor").prop( "disabled", false );
+    $("#fidelidade-beneficio").prop( "disabled", false );
   }
 
   $("#myModalFidelidade").modal({backdrop: false});
