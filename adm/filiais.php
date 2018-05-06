@@ -190,11 +190,11 @@
 
                   <div class="form-group"> 
                     <div class="col-sm-offset-1 col-sm-10">
-                      <button type="submit" class="btn btn-default" id="btnSalvarFidelidade">Salvar</button>
-                      <img id="loadGifSalvar" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+                      <button type="submit" class="btn btn-default" id="btnFidelidade">Salvar</button>
                     
-                      <button type="submit" class="btn btn-default" id="btnFinalizarFidelidade">Finalizar</button>
-                      <img id="loadtGifFinalz" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+                      <img id="loadtGifFidelidade" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+
+                      <p id="retornoFid" class="text-center"></p>
                     </div>
                   </div>
 

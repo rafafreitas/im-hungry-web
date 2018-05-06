@@ -265,6 +265,18 @@ function initTable(tableAt, tableIn, api) {
     return false;
   });//Update Form
 
+  $('#formFidelidade').submit(function(){
+    //var json = jQuery(this).serialize();
+    var formData = new FormData(this);
+    var status = $("#idFidelidade").val();
+    if (status == null) {
+      submitFidelidade(formData, "save");
+    }else {
+      submitFidelidade(formData, "remove");
+    }
+    return false;
+  });//formFidelidade
+
   $("button.close").click(function(){
     var reload = $("#reloadAt").val();
     if (reload == 1) {
@@ -335,6 +347,9 @@ function updateObj(obj) {
 function setFidelidade(obj){
   console.log(obj);
 
+  $('#loadtGifFidelidade').hide();
+  $('#retornoFid').hide();
+
   $("#idFidelidade").val(obj.cartao_fid_id);
   $("#idFilial").val(obj.filial_id);
 
@@ -343,17 +358,12 @@ function setFidelidade(obj){
   $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
 
   if(obj.cartao_fid_id != null) {
-    $('#btnSalvarFidelidade').hide();
-    $('#btnFinalizarFidelidade').show();
+    $('#btnFidelidade').text("Finalizar");
     $("#h3-title-md-fidelidade").text("Finalizar Fidelidade na Filial");
   }else{
-    $('#btnFinalizarFidelidade').hide();
-    $('#btnSalvarFidelidade').show();
+    $('#btnFidelidade').text("Salvar");
     $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
   }
-
-  $('#loadGifSalvar').hide();
-  $('#loadtGifFinalz').hide();
 
   $("#myModalFidelidade").modal({backdrop: false});
   
@@ -391,6 +401,13 @@ function submitUp(formData, table) {
   });//ajax
       return false;
 }//submitUp
+
+function submitFidelidade(formData, tomada) {
+  $('#loadtGifFidelidade').show();
+  $('#retornoFid').hide();
+  
+  return false;
+}//submitFidelidade
 
 function enabledDisabled(idChange, tableAt, tableIn, status) {
   if (status) {
