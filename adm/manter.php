@@ -434,6 +434,56 @@ switch ($acao) {
 				echo $e->getMessage();
 			}
 
+		}elseif ($tipoAcao == 'fidelidade') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$cartao_fid_id = $_POST['idFidelidade'];
+        		$qtd = $_POST['fidelidade-qtd'];
+        		$valor = str_replace(',', '.' , $_POST['fidelidade-valor']);
+        		$beneficio = $_POST['fidelidade-beneficio'];
+        		$filial_id = $_POST['idFilial'];
+
+				$tomada = $_POST["tomada"];
+
+				$data = array(
+					'cartao_fid_id' => $cartao_fid_id,
+					'qtd' => $qtd, 
+					'valor' => $valor, 
+					'beneficio' => $beneficio, 
+					'filial_id' => $filial_id
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/fidelidade/'.$tomada);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+				)
+
+			);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+			
 		}
 	break;
 	//FimManterFilial

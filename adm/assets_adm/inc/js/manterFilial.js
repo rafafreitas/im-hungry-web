@@ -266,13 +266,13 @@ function initTable(tableAt, tableIn, api) {
   });//Update Form
 
   $('#formFidelidade').submit(function(){
-    //var json = jQuery(this).serialize();
-    var formData = new FormData(this);
+    var json = jQuery(this).serialize();
+    //var formData = new FormData(this);
     var status = $("#idFidelidade").val();
-    if (status == null) {
-      submitFidelidade(formData, "save");
+    if (status == "") {
+      submitFidelidade(json, "insert");
     }else {
-      submitFidelidade(formData, "remove");
+      submitFidelidade(json, "remove");
     }
     return false;
   });//formFidelidade
@@ -408,10 +408,41 @@ function submitUp(formData, table) {
       return false;
 }//submitUp
 
-function submitFidelidade(formData, tomada) {
+function submitFidelidade(json, tomada) {
   $('#loadtGifFidelidade').show();
   $('#retornoFid').hide();
   
+  var acao = 'manterFilial';
+  var tipoAcao = 'fidelidade';
+
+  $.ajax({
+    url:"manter.php",                    
+    type:"post",                            
+    data: json+"&acao="+acao+"&tipoAcao="+tipoAcao+"&tomada="+tomada,
+    dataType: "JSON",
+    cache: false,
+    success: function (result){   
+      var obj = JSON.parse(result);
+      console.log(obj);
+      console.log(obj.status);
+      if(obj.status == 200){   
+
+        $('#loadtGifFidelidade').hide();
+        //resetForm('formAtualizar');
+
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.success(obj.result);
+
+      }if(obj.status == 500){
+        $('#loadtGifFidelidade').hide();
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.error(obj.result);
+      }  
+    }//success
+  });//ajax
+  console.log(data);
   return false;
 }//submitFidelidade
 
