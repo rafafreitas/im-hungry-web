@@ -41,8 +41,8 @@ function initTable(tablePen, tableComp, tableEnt) {
 		{ data: "user_nome" },
 		{ 
 			"render" : function(data, type, full, meta) {
-				var cod_ref = full.checkout_ref.slice(-6);
-				return '<p>'+cod_ref+'</p>'
+				var cod_ref = full.checkout_ref.slice(-5);
+				return '<p>#'+cod_ref+'</p>'
 			} 
 		},
 		{ 
@@ -107,8 +107,8 @@ function initTable(tablePen, tableComp, tableEnt) {
 		{ data: "user_nome" },
 		{ 
 			"render" : function(data, type, full, meta) {
-				var cod_ref = full.checkout_ref.slice(-6);
-				return '<p>'+cod_ref+'</p>'
+				var cod_ref = full.checkout_ref.slice(-5);
+				return '<p>#'+cod_ref+'</p>'
 			} 
 		},
 		{ 
@@ -173,8 +173,8 @@ function initTable(tablePen, tableComp, tableEnt) {
 		{ data: "user_nome" },
 		{ 
 			"render" : function(data, type, full, meta) {
-				var cod_ref = full.checkout_ref.slice(-6);
-				return '<p>'+cod_ref+'</p>'
+				var cod_ref = full.checkout_ref.slice(-5);
+				return '<p>#'+cod_ref+'</p>'
 			} 
 		},
 		{ 
@@ -304,7 +304,7 @@ function tableChild (d,obj) {
 	});
 
 	return '<div class="divTable">'+
-	'<h4 class="text-center">Pedido: #-'+d.checkout_ref.slice(-6)+'</h4>'+
+	'<h4 class="text-center">Pedido: #-'+d.checkout_ref.slice(-5)+'</h4>'+
 	'<h4 class="text-center">Cliente: '+d.user_nome+'</h4>'+
 	'<table class="tabelaDinamica">'+
 	'<tr class="trDetalhes">'+
