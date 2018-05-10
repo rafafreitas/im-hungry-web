@@ -20,11 +20,11 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
   
-  <?php include "assets_adm/inc/menus/header.php" ?>
+  <?php include "assets_adm/inc/menus/header.php"; ?>
 
   <div class="app-body">
   
-    <?php include "assets_adm/inc/menus/menu_left.php" ?>
+    <?php include "assets_adm/inc/menus/menu_left.php"; ?>
 
     <!-- Main content -->
     <main class="main">
@@ -177,7 +177,7 @@
                     
                     <div class="col-md-2 col-lg-2 col-xs-6">
                       <label class="form-col-form-label" for="fidelidade-valor">Valor Mínimo</label>
-                      <input type="text" class="form-control" name="fidelidade-valor" id="fidelidade-valor" pattern="\d{3}\,\d{2}" data-inputmask="'mask': '99,99'" title="00,00" required>
+                      <input type="text" class="form-control" name="fidelidade-valor" id="fidelidade-valor" required>
                     </div>
                   </div>
 

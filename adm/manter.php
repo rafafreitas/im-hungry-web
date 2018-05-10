@@ -281,7 +281,6 @@ switch ($acao) {
 					echo "$json";
 			    }
 
-
 			} catch (Exception $e) {
 				echo $e->getMessage();
 			}
@@ -442,21 +441,32 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
-				$cartao_fid_id = $_POST['idFidelidade'];
-        		$qtd = $_POST['fidelidade-qtd'];
-        		$valor = str_replace(',', '.' , $_POST['fidelidade-valor']);
-        		$beneficio = $_POST['fidelidade-beneficio'];
-        		$filial_id = $_POST['idFilial'];
-
 				$tomada = $_POST["tomada"];
 
-				$data = array(
-					'cartao_fid_id' => $cartao_fid_id,
-					'qtd' => $qtd, 
-					'valor' => $valor, 
-					'beneficio' => $beneficio, 
-					'filial_id' => $filial_id
-				);
+				if ($tomada == "insert") {
+					$cartao_fid_id = $_POST['idFidelidade'];
+	        		$qtd = $_POST['fidelidade-qtd'];
+	        		$valor = str_replace(',', '.' , $_POST['fidelidade-valor']);
+	        		$beneficio = $_POST['fidelidade-beneficio'];
+	        		$filial_id = $_POST['idFilial'];
+
+	        		$data = array(
+						'cartao_fid_id' => $cartao_fid_id,
+						'qtd' => $qtd, 
+						'valor' => $valor, 
+						'beneficio' => $beneficio, 
+						'filial_id' => $filial_id
+					);
+
+				}elseif ($tomada == "remove") {
+					$cartao_fid_id = $_POST['idFidelidade'];
+	        		$filial_id = $_POST['idFilial'];
+
+	        		$data = array(
+						'cartao_fid_id' => $cartao_fid_id,
+						'filial_id' => $filial_id
+					);
+				}
 
 				$data = json_encode($data);
 

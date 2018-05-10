@@ -12,6 +12,7 @@ $(document).ready(function(){
 
 function initPage() {
   $(":input").inputmask();
+  $('#fidelidade-valor').maskMoney({prefix:'R$ ', thousands:'.', decimal:','});
   $('#loadPublicacao').hide();
   $('#btmCancelar').click(function(){
     resetForm('form-company-add');
@@ -270,9 +271,9 @@ function initTable(tableAt, tableIn, api) {
     //var formData = new FormData(this);
     var status = $("#idFidelidade").val();
     if (status == "") {
-      submitFidelidade(json, "insert");
+      submitFidelidade(json, tableAt, tableIn, "insert");
     }else {
-      submitFidelidade(json, "remove");
+      submitFidelidade(json, tableAt, tableIn, "remove");
     }
     return false;
   });//formFidelidade
@@ -354,7 +355,7 @@ function setFidelidade(obj){
   $("#idFilial").val(obj.filial_id);
 
   $("#fidelidade-qtd").val(obj.cartao_fid_qtd);
-  $("#fidelidade-valor").val(obj.cartao_fid_valor);
+  $("#fidelidade-valor").val(obj.cartao_fid_valor.replace(".", ","));
   $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
 
   if(obj.cartao_fid_id != null) {
@@ -408,7 +409,7 @@ function submitUp(formData, table) {
       return false;
 }//submitUp
 
-function submitFidelidade(json, tomada) {
+function submitFidelidade(json, tableAt, tableIn, tomada) {
   $('#loadtGifFidelidade').show();
   $('#retornoFid').hide();
   
@@ -420,29 +421,27 @@ function submitFidelidade(json, tomada) {
     type:"post",                            
     data: json+"&acao="+acao+"&tipoAcao="+tipoAcao+"&tomada="+tomada,
     dataType: "JSON",
-    cache: false,
     success: function (result){   
-      var obj = JSON.parse(result);
-      console.log(obj);
-      console.log(obj.status);
-      if(obj.status == 200){   
+      console.log(result);
+      if(result.status == 200){   
 
-        $('#loadtGifFidelidade').hide();
-        //resetForm('formAtualizar');
-
-        toastr.options.progressBar = true;
-        toastr.options.closeButton = true;
-        toastr.success(obj.result);
-
-      }if(obj.status == 500){
         $('#loadtGifFidelidade').hide();
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.error(obj.result);
+        tableAt.ajax.reload();
+        tableIn.ajax.reload();
+        toastr.success(result.result);
+
+      }if(result.status == 500){
+        $('#loadtGifFidelidade').hide();
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        tableAt.ajax.reload();
+        tableIn.ajax.reload();
+        toastr.error(result.result);
       }  
     }//success
   });//ajax
-  console.log(data);
   return false;
 }//submitFidelidade
 
