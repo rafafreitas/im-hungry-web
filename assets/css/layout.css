@@ -72,4 +72,8 @@ div.divTable table.tabelaDinamica tr.trBody {
 div.divTable table.tabelaDinamica td img.icone-categ-img{
   max-width: 150px;
   max-height: 70px;
+}button.btn-fidelidade{
+  background-color: #ce4fdf;
+}button.btn-fidelidade:hover{
+  background-color: #bf45b7;
 }

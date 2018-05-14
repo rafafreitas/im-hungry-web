@@ -129,15 +129,40 @@ function initTable(tableAt, tableIn, api) {
            dataSrc: ''
          },
     columns: [
-               { data: "empresa_nome" },
                { data: "filial_nome" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                    var status = full.filial_status;
+                    if (status == "0") {
+                      var teste = "asd";
+                      return "<span class='badge badge-danger'>FECHADA</span>";
+                    }if (status == "1") {
+                      var teste = "asd";
+                      return "<span class='badge badge-success'>ABERTA</span>";
+                    }
+                  } 
+               },
                { data: "filial_cnpj" },
                { data: "filial_telefone" },
+               { data: "empresa_nome" },
                { 
-                 defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-primary' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>"
+                "render" : function(data, type, full, meta) {
+                    var status = full.filial_status;
+                    if (status == "0") {
+                      var label = "Abrir Filial";
+                      var labelId = "abrir";
+                    }if (status == "1") {
+                      var label = "Fechar Filial";
+                      var labelId = "fechar";
+                    }
+                    var buttons = "<button type='button' class='btn btn-warning' id='"+labelId+"' title='"+label+"'><span class='fa fa-power-off'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>";
+                    return buttons;
+                  } 
+
                }
             ],
    fixedHeader: true,
@@ -173,15 +198,37 @@ function initTable(tableAt, tableIn, api) {
            dataSrc: ''
          },
     columns: [
-               { data: "empresa_nome" },
                { data: "filial_nome" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                    var status = full.filial_status;
+                    if (status == "0") {
+                      return "<span class='badge badge-danger'>FECHADA</span>";
+                    }if (status == "1") {
+                      return "<span class='badge badge-success'>ABERTA</span>";
+                    }
+                  } 
+               },
                { data: "filial_cnpj" },
                { data: "filial_telefone" },
+               { data: "empresa_nome" }, 
                { 
-                 defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-primary' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>"
+                "render" : function(data, type, full, meta) {
+                    var status = full.filial_status;
+                    if (status == "0") {
+                      var label = "Abrir Filial";
+                      var labelId = "abrir";
+                    }if (status == "1") {
+                      var label = "Fechar Filial";
+                      var labelId = "fechar";
+                    }
+                    var buttons = "<button type='button' class='btn btn-warning' id='"+labelId+"' title='"+label+"'><span class='fa fa-power-off'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>"
+                    return buttons;
+                  }
                }
             ],
    fixedHeader: true,
@@ -206,6 +253,12 @@ function initTable(tableAt, tableIn, api) {
       var data = tableAt.row( $(this).parents('tr') ).data();
       var idClick = $(this).attr('id');
       switch(idClick) {
+        case 'abrir':
+            abrirFechar(data.filial_id, tableAt, true);
+            break;
+        case 'fechar':
+            abrirFechar(data.filial_id, tableAt, false);
+            break;
         case 'atualizar':
             updateObj(data);
             break;
@@ -230,6 +283,12 @@ function initTable(tableAt, tableIn, api) {
       var data = tableIn.row( $(this).parents('tr') ).data();
       var idClick = $(this).attr('id');
       switch(idClick) {
+        case 'abrir':
+            abrirFechar(data.filial_id, tableIn, true);
+            break;
+        case 'fechar':
+            abrirFechar(data.filial_id, tableIn, false);
+            break;
         case 'atualizar':
             updateObj(data);
             break;
@@ -345,37 +404,6 @@ function updateObj(obj) {
   $('#loadPublicacao').hide();
 }//updateObj
 
-function setFidelidade(obj){
-  console.log(obj);
-
-  $('#loadtGifFidelidade').hide();
-  $('#retornoFid').hide();
-
-  $("#idFidelidade").val(obj.cartao_fid_id);
-  $("#idFilial").val(obj.filial_id);
-
-  $("#fidelidade-qtd").val(obj.cartao_fid_qtd);
-  $("#fidelidade-valor").val(obj.cartao_fid_valor.replace(".", ","));
-  $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
-
-  if(obj.cartao_fid_id != null) {
-    $("#btnFidelidade").text("Finalizar");
-    $("#h3-title-md-fidelidade").text("Finalizar Fidelidade na Filial");
-    $("#fidelidade-qtd").prop( "disabled", true );
-    $("#fidelidade-valor").prop( "disabled", true );
-    $("#fidelidade-beneficio").prop( "disabled", true );
-  }else{
-    $("#btnFidelidade").text("Salvar");
-    $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
-    $("#fidelidade-qtd").prop( "disabled", false );
-    $("#fidelidade-valor").prop( "disabled", false );
-    $("#fidelidade-beneficio").prop( "disabled", false );
-  }
-
-  $("#myModalFidelidade").modal({backdrop: false});
-  
-}//setFidelidade
-
 function submitUp(formData, table) {
   $('#submitGif').show();
   $('#retornoAt').hide();
@@ -408,6 +436,36 @@ function submitUp(formData, table) {
   });//ajax
       return false;
 }//submitUp
+
+function setFidelidade(obj){
+  console.log(obj);
+
+  $('#loadtGifFidelidade').hide();
+  $('#retornoFid').hide();
+
+  $("#idFidelidade").val(obj.cartao_fid_id);
+  $("#idFilial").val(obj.filial_id);
+
+  $("#fidelidade-qtd").val(obj.cartao_fid_qtd);
+  $("#fidelidade-valor").val(obj.cartao_fid_valor.replace(".", ","));
+  $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
+
+  if(obj.cartao_fid_id != null) {
+    $("#btnFidelidade").text("Finalizar");
+    $("#h3-title-md-fidelidade").text("Finalizar Fidelidade na Filial");
+    $("#fidelidade-qtd").prop( "disabled", true );
+    $("#fidelidade-valor").prop( "disabled", true );
+    $("#fidelidade-beneficio").prop( "disabled", true );
+  }else{
+    $("#btnFidelidade").text("Salvar");
+    $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
+    $("#fidelidade-qtd").prop( "disabled", false );
+    $("#fidelidade-valor").prop( "disabled", false );
+    $("#fidelidade-beneficio").prop( "disabled", false );
+  }
+
+  $("#myModalFidelidade").modal({backdrop: false});
+}//setFidelidade
 
 function submitFidelidade(json, tableAt, tableIn, tomada) {
   $('#loadtGifFidelidade').show();
@@ -444,6 +502,62 @@ function submitFidelidade(json, tableAt, tableIn, tomada) {
   });//ajax
   return false;
 }//submitFidelidade
+
+function abrirFechar(idChange, table, status){
+  if (status) {
+    stName = "aberta";
+  }else{
+    stName = "fechada";
+  }
+  bootbox.confirm({
+    message: "<h3 class='text-center'>Confirma que esta filial será "+stName+" ?</h3>",
+    buttons: {
+      confirm: {
+        label: 'Sim!',
+        className: 'btn-success'
+      },
+      cancel: {
+        label: 'Cancelar!',
+        className: 'btn-danger'
+      }
+    },
+    callback: function (confirma) {
+      if (confirma == true) {
+        $('#loadPublicacao').show();
+        $.ajax({
+          url:"manter.php",                    
+          type:"post",
+          data: {
+            acao : "manterFilial",
+            tipoAcao : "abrirFechar",
+            status : status,
+            idChange : idChange
+          },                     
+          dataType: "JSON",
+          success: function (obj){ 
+            console.log(obj);
+            if(obj.status == 200){
+
+              table.ajax.reload();
+
+              toastr.options.progressBar = true;
+              toastr.options.closeButton = true;
+              toastr.success(obj.result);
+
+            }if (obj.status == 500){
+
+              toastr.options.progressBar = true;
+              toastr.options.closeButton = true;
+              toastr.error(obj.result);
+            }
+          }
+        });
+      }else{
+
+      }
+    }//callback
+  });//bootbox
+}
 
 function enabledDisabled(idChange, tableAt, tableIn, status) {
   if (status) {

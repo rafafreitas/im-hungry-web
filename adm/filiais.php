@@ -321,10 +321,11 @@
                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Vinculada à Empresa</th>
-                            <th>Nome da Filial</th>
+                            <th>Filial</th>
+                            <th>Status</th>
                             <th>CNPJ</th>
                             <th>Telefone</th>
+                            <th>Vinculada à Empresa</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
@@ -335,10 +336,11 @@
                       <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Vinculada à Empresa</th>
-                            <th>Nome da Filial</th>
+                            <th>Filial</th>
+                            <th>Status</th>
                             <th>CNPJ</th>
                             <th>Telefone</th>
+                            <th>Vinculada à Empresa</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
