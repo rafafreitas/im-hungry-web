@@ -20,12 +20,12 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
   
-  <?php include "assets_adm/inc/menus/header.php" ?>
+  <?php include "assets_adm/inc/menus/header.php"; ?>
 
 
   <div class="app-body">
   
-    <?php include "assets_adm/inc/menus/menu_left.php" ?>
+    <?php include "assets_adm/inc/menus/menu_left.php"; ?>
     
 
     <!-- Main content -->

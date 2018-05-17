@@ -20,11 +20,11 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
   
-  <?php include "assets_adm/inc/menus/header.php" ?>
+  <?php include "assets_adm/inc/menus/header.php"; ?>
 
   <div class="app-body">
   
-    <?php include "assets_adm/inc/menus/menu_left.php" ?>
+    <?php include "assets_adm/inc/menus/menu_left.php"; ?>
     <?
       if (!isset($_SESSION)){session_cache_expire(30);session_start();}
       $_SESSION['filial_id'] = $_GET['id'];
@@ -187,7 +187,8 @@
                     <div class="form-group row">
 
                       <div class="col-md-12 col-lg-12 col-xs-12">
-                          <input id="upFilesFotos" name="upFilesFotos[]" type="file" multiple class="file-loading">
+                        <label class="form-col-form-label" for="item-tempo">Fotos</label>
+                        <input id="upFilesFotos" name="upFilesFotos[]" type="file" multiple class="file-loading">
                       </div>
 
                     </div>
@@ -222,10 +223,10 @@
                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Vinculada à Empresa</th>
-                            <th>Nome da Filial</th>
-                            <th>CNPJ</th>
-                            <th>Telefone</th>
+                            <th></th>
+                            <th>Produto</th>
+                            <th>Preço</th>
+                            <th>Tempo de Preparo</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
@@ -236,10 +237,10 @@
                       <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Vinculada à Empresa</th>
-                            <th>Nome da Filial</th>
-                            <th>CNPJ</th>
-                            <th>Telefone</th>
+                            <th></th>
+                            <th>Produto</th>
+                            <th>Preço</th>
+                            <th>Tempo de Preparo</th>
                             <th>Ações</th>
                           </tr>
                         </thead>

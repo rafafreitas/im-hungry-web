@@ -36,44 +36,6 @@ function initPage() {
 
 }//initPage
 
-function buscaCep(cep, temp){
-  var acao = 'buscaCep';
-  var tipoAcao = 'listar';
-
-  $.ajax({
-    url:"manter.php",                    
-    type:"post",                            
-    data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
-    dataType: "JSON",
-    success: function (result){ 
-      console.log(result);
-
-      if (result.status == 500 && result.qtd == 0) {
-        $('#loadCep'+temp).hide();
-        $("#company-rua"+temp).val("");
-        $("#company-bairro"+temp).val("");
-        $("#company-cidade-uf"+temp).val("");
-        $("#company-lat"+temp).val("");
-        $("#company-long"+temp).val("");
-
-        toastr.options.progressBar = true;
-        toastr.options.closeButton = true;
-        toastr.success(result.result);
-
-      }else{
-        $('#loadCep'+temp).hide();
-        $("#company-rua"+temp).val(result.dados.logradouro);
-        $("#company-bairro"+temp).val(result.dados.bairro);
-        $("#company-cidade-uf"+temp).val(result.dados.cidade+'-'+result.dados.uf);
-        $("#company-lat"+temp).val(result.dados.latitude);
-        $("#company-long"+temp).val(result.dados.longitude);
-
-      }
-
-    }
-  });
-}
-
 function resetForm(form) {
   $('#'+form).each(function(){
     this.reset(); 
@@ -89,19 +51,25 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "manterEmpresa",
+             acao : "manterMenu",
              tipoAcao: "listarAll",
              enabled: true
            },
            dataSrc: ''
          },
     columns: [
-               { data: "empresa_nome" },
-               { data: "empresa_cnpj" },
-               { data: "empresa_telefone" },
+               { data: "item_id" },
+               { data: "item_nome" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                      var valor_item = full.item_valor.replace(".", ",");
+                      return '<p>R$ '+valor_item+'</p>'
+                  } 
+               },
+               { data: "item_tempo_medio" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
                }
             ],
    fixedHeader: true,
@@ -130,19 +98,25 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "manterEmpresa",
+             acao : "manterMenu",
              tipoAcao: "listarAll",
              enabled: false
            },
            dataSrc: ''
          },
     columns: [
-               { data: "empresa_nome" },
-               { data: "empresa_cnpj" },
-               { data: "empresa_telefone" },
+               { data: "item_id" },
+               { data: "item_nome" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                      var valor_item = full.item_valor.replace(".", ",");
+                      return '<p>R$ '+valor_item+'</p>'
+                  } 
+               },
+               { data: "item_tempo_medio" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
+                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
                }
             ],
    fixedHeader: true,

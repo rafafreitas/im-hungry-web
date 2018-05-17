@@ -581,7 +581,7 @@ switch ($acao) {
 			    	echo "[]";
 			    }else{
 			    	$_SESSION['Token'] = $var->token;
-			    	$obj = $var->empresas;
+			    	$obj = $var->menu;
 					$json=json_encode($obj);
 					echo "$json";
 			    }
