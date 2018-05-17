@@ -58,7 +58,12 @@ function initTable(tableAt, tableIn, api) {
            dataSrc: ''
          },
     columns: [
-               { data: "item_id" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                    var icone = full.fotos[0].fot_file;
+                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/itens/'+icone+'" class="icone-categ-img"></div>'
+                  } 
+               },
                { data: "item_nome" },
                { 
                   "render" : function(data, type, full, meta) {
