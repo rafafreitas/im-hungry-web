@@ -594,7 +594,7 @@ switch ($acao) {
 		}elseif ($tipoAcao == 'insert') {
 			try {
 
-				if (is_uploaded_file($_FILES['company-logo']['tmp_name'])) {
+				if (!empty($_FILES['upFilesFotos'])) {
 
 					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
 
@@ -613,14 +613,14 @@ switch ($acao) {
 		            }
 
 		            foreach ($file_ary as $key => $value) {
-		                $fotoNome[$key] = upload_file( $value, false, '', '', 'itens', 'menu.php?id='.$filial_id);
+		                $fotoNome[$key] = upload_mult_file( $value, false, '', '', 'itens', 'menu.php?id='.$filial_id);
 		            }
-
 
 					$data = array(
 						'nome' => $_POST['item-nome'], 
 						'valor' => $_POST['item-valor'], 
 						'tempo' => $_POST['item-tempo'], 
+						'promo' => $_POST['item-promo'], 
 						'filial_id' => $filial_id, 
 						'fotos' => $fotoNome, 
 					);
@@ -638,6 +638,7 @@ switch ($acao) {
 						'Authorization: ' . $token
 						)
 					);
+
 
 			      	$response = curl_exec($ch);
 	      			curl_close($ch);

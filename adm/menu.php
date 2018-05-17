@@ -161,7 +161,7 @@
         <div class="animated fadeIn">
           <div class="row">
             <div class="col-sm-12">
-              <form id="form-filial-add" class="form-horizontal" enctype="multipart/form-data">
+              <form id="form-item-add" class="form-horizontal" enctype="multipart/form-data">
               <div class="card">
                 <div class="card-header">
                   <strong>Cadastrar Item</strong>
@@ -171,16 +171,24 @@
                     <div class="form-group row">
 
                       <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="item-nome">Nome</label>
+                        <label class="form-col-form-label" for="item-nome">Nome do Item</label>
                         <input type="text" class="form-control" name="item-nome" id="item-nome" required>
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="item-valor">Preço</label>
                         <input type="text" class="form-control" name="item-valor" id="item-valor" required>
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-2 col-lg-2 col-xs-12">
                         <label class="form-col-form-label" for="item-tempo">Tempo Preparo</label>
                         <input type="time" class="form-control" name="item-tempo" id="item-tempo" required>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="item-promo">Promoção</label>
+                        <select id="item-promo" name="item-promo" class="form-control" required>
+                          <option value="">---</option>
+                          <option value="true">Sim</option>
+                          <option value="false">Não</option>
+                        </select>
                       </div>
                     </div>
 
@@ -190,6 +198,9 @@
                         <label class="form-col-form-label" for="item-tempo">Fotos</label>
                         <input id="upFilesFotos" name="upFilesFotos[]" type="file" multiple class="file-loading">
                       </div>
+
+                      <input type="hidden" name="acao" value="manterMenu">
+                      <input type="hidden" name="tipoAcao" value="insert">
 
                     </div>
 

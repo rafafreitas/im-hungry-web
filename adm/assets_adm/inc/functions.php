@@ -47,7 +47,7 @@ function upload_mult_file($input, $resize, $width, $height, $pasta, $retorno){
 			$handle->image_y                 = $height;	
 		
 		
-		$handle->Process('../_files/'.$pasta);
+		$handle->Process('../../api/uploads/'.$pasta);
 
 		if ($handle->processed) {
 			$name = $handle->file_dst_name;

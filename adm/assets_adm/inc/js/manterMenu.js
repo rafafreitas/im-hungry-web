@@ -178,7 +178,7 @@ function initTable(tableAt, tableIn, api) {
       }
   });//onClick
 
-  $('#form-company-add').submit(function(){  
+  $('#form-item-add').submit(function(){  
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
     cadastrar(formData, tableAt);
@@ -223,7 +223,7 @@ function cadastrar(formData, table) {
 
         $('#loadPublicacao').hide();
         table.ajax.reload();
-        resetForm('form-company-add');
+        resetForm('form-item-add');
 
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
