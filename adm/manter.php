@@ -577,10 +577,9 @@ switch ($acao) {
 
 			    $var = json_decode($response);
 
-			    if ($var->status == 500 && $var->qtd == 0) {
+			    if ($var->status == 500) {
 			    	echo "[]";
 			    }else{
-			    	$_SESSION['Token'] = $var->token;
 			    	$obj = $var->menu;
 					$json=json_encode($obj);
 					echo "$json";
@@ -735,6 +734,69 @@ switch ($acao) {
 			} catch (Exception $e) {
 				echo $e->getMessage();
 			}
+
+		}elseif ($tipoAcao == 'addImage') {
+
+			try {
+
+				if (!empty($_FILES['upFilesFotos-at'])) {
+
+					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+					$token = $_SESSION['Token'];
+					$url = $_SESSION['API'];
+					$item_id = $_POST['id'];
+					$filial_id = $_SESSION['filial_id'];
+
+	                $files = array(); 
+					foreach ($_FILES['upFilesFotos-at'] as $k => $l) {
+						foreach ($l as $i => $v) {
+							if (!array_key_exists($i, $files)) $files[$i] = array();
+							$files[$i][$k] = $v;
+						}
+					}
+
+					foreach ($files as $file) {
+						$imgNome = upload_mult_file( $file, false, '', '', 'itens', 'menu.php?id='.$filial_id);
+					}
+
+					$data = array(
+						'item_id' => $item_id, 
+						'foto' => $imgNome, 
+					);
+
+					$data = json_encode($data);
+
+					$ch = curl_init();
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/item/foto');
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch, CURLOPT_POST, true);
+      				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+						'Content-Type: application/json',
+						'Authorization: ' . $token
+						)
+					);
+
+
+			      	$response = curl_exec($ch);
+	      			curl_close($ch);
+
+				    $var = json_decode($response);
+					$json=json_encode($var);
+					echo "$json";
+
+				}
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}elseif ($tipoAcao == 'delImage') {
+
+			echo "{}";
 
 		}
 	break;

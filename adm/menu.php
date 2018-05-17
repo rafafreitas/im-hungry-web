@@ -65,82 +65,42 @@
                   <form class="form-horizontal" id="formAtualizar" enctype="multipart/form-data" >
 
                     <div class="form-group row">
+
                       <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="empresa_idAt">Nome</label>
-                        <select id="empresa_idAt" name="empresa_idAt" class="form-control" required>
+                        <label class="form-col-form-label" for="item-nome-at">Nome do Item</label>
+                        <input type="text" class="form-control" name="item-nome-at" id="item-nome-at" required>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="item-valor-at">Preço</label>
+                        <input type="text" class="form-control" name="item-valor-at" id="item-valor-at" required>
+                      </div>
+                      <div class="col-md-2 col-lg-2 col-xs-12">
+                        <label class="form-col-form-label" for="item-tempo-at">Tempo Preparo</label>
+                        <input type="time" class="form-control" name="item-tempo-at" id="item-tempo-at" required>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="item-promo-at">Promoção</label>
+                        <select id="item-promo-at" name="item-promo-at" class="form-control" required>
+                          <option value="">---</option>
+                          <option value="true">Sim</option>
+                          <option value="false">Não</option>
                         </select>
                       </div>
-
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-nome">Nome</label>
-                        <input type="text" class="form-control" name="company-nome-at" id="company-nome-at" required>
-                        
-                        <input type="hidden" id="idAt" name="idAt">
-                        <input type="hidden" id="statusAt" name="statusAt">
-                        <input type="hidden" id="reloadAt" name="reloadAt">
-                        <input type="hidden" name="acao" value="manterFilial">
-                        <input type="hidden" name="tipoAcao" value="update">
-
-                      </div>
-                      
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-cnpj-at">CNPJ</label>
-                        <input type="text" class="form-control" name="company-cnpj-at" id="company-cnpj-at" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" data-inputmask="'mask': '99.999.999/9999-99'" title="00.000.000/0000-00" required>
-                      </div>
                     </div>
 
                     <div class="form-group row">
 
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-telefone-at">Telefone</label>
-                        <input type="text" class="form-control" name="company-telefone-at" id="company-telefone-at" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
-                      </div>
-                      
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-cep-at">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
-
-                        <input type="text" class="form-control" name="company-cep-at" id="company-cep-at" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
+                      <div class="col-md-12 col-lg-12 col-xs-12">
+                        <label class="form-col-form-label" for="item-tempo">Fotos</label>
+                        <input id="upFilesFotos-at" name="upFilesFotos-at[]" type="file" multiple class="file-loading">
                       </div>
 
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="company-rua-at">Rua</label>
-                        <input type="text" class="form-control" name="company-rua-at" id="company-rua-at" disabled>
-                      </div>
+                      <input type="hidden" name="acao" value="manterMenu">
+                      <input type="hidden" name="tipoAcao" value="update">
+                      <input type="hidden" id="idAt" name="idAt">
+                      <input type="hidden" id="statusAt" name="statusAt">
+                      <input type="hidden" id="reloadAt" name="reloadAt">
 
-                      <div class="col-md-2 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="company-numero-at">Número</label>
-                        <input type="number" class="form-control" name="company-numero-at" id="company-numero-at" required>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-bairro">Bairro</label>
-                        <input type="text" class="form-control" name="company-bairro-at" id="company-bairro-at" disabled>
-                      </div>
-
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-cidade-uf">Cidade - UF</label>
-                        <input type="text" class="form-control" name="company-cidade-uf-at" id="company-cidade-uf-at" disabled>
-                      </div>
-                      
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-lat">Latitude</label>
-                        <input type="text" class="form-control" name="company-lat-at" id="company-lat-at" disabled>
-                      </div>
-                      
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="company-long">Longitude</label>
-                        <input type="text" class="form-control" name="company-long-at" id="company-long-at" disabled>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-
-                      <div class="col-md-6 col-lg-6 col-xs-12">
-                        <label class="form-col-form-label" for="company-complemento">Complemento</label>
-                        <textarea class="form-control" name="company-complemento-at" id="company-complemento-at" rows="4" required></textarea>
-                      </div>
                     </div>
 
                     <div class="form-group"> 

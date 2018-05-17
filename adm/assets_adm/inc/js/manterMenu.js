@@ -147,7 +147,7 @@ function initTable(tableAt, tableIn, api) {
       var idClick = $(this).attr('id');
       switch(idClick) {
         case 'atualizar':
-            updateObj(data);
+            updateObj(data, tableAt);
             break;
         case 'apagar':
             enabledDisabled(data.empresa_id, tableAt, tableIn, false);
@@ -165,7 +165,7 @@ function initTable(tableAt, tableIn, api) {
       var idClick = $(this).attr('id');
       switch(idClick) {
         case 'atualizar':
-            updateObj(data);
+            updateObj(data, tableIn);
             break;
         case 'ativar':
             enabledDisabled(data.empresa_id, tableAt, tableIn, true);
@@ -240,56 +240,69 @@ function cadastrar(formData, table) {
   return false;
 }//cadastrar
 
-function updateObj(obj) {
-  $("#company-logo-at").fileinput('destroy');
+function updateObj(obj, table) {
+  $("#upFilesFotos-at").fileinput('destroy');
 
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
-  $("#idAt").val(obj.empresa_id);
-  $("#statusAt").val(obj.empresa_enabled);
+  $("#idAt").val(obj.item_id);
+  $("#statusAt").val(obj.item_status);
   $("#reloadAt").val('0');
 
-  buscaCep(obj.empresa_cep, "-at");
-  $("#company-nome-at").val(obj.empresa_nome);
-  $("#company-telefone-at").val(obj.empresa_telefone);
-  $("#company-cnpj-at").val(obj.empresa_cnpj);
-  $("#company-facebook-at").val(obj.empresa_facebook);
-  $("#company-instagram-at").val(obj.empresa_instagram);
-  $("#company-twitter-at").val(obj.empresa_twitter);
-  $("#company-fundacao-at").val(obj.empresa_data_fundacao);
-  $("#company-cep-at").val(obj.empresa_cep);
-  $("#company-numero-at").val(obj.empresa_numero_endereco);
-  $("#company-complemento-at").val(obj.empresa_complemento_endereco);
-  
-  $("#company-logo-at").fileinput({
-    overwriteInitial: true,
-    initialPreview: [
-          "https://api.rafafreitas.com/uploads/empresa/"+obj.empresa_foto_marca
-          ],
-        initialPreviewConfig: [
-                          {
-                            caption: "Logo", 
-                            width: "120px", 
-                            key: 1},
-          ],
+  $("#item-nome-at").val(obj.item_nome);
+  $("#item-valor-at").val(obj.item_valor.replace(".", ","));
+  $("#item-tempo-at").val(obj.item_tempo_medio);
+  if (obj.item_promocao == "1"){$("#item-promo-at").val('true');}
+  if (obj.item_promocao == "0"){$("#item-promo-at").val('false');}
 
+  var initialPreview = [];
+  var initialPreviewConfig = [];
+  var aux, temp = 0
+
+  $.each(obj.fotos, function(key, value) {  
+    initialPreview.push("https://api.rafafreitas.com/uploads/itens/"+value.fot_file); 
+    initialPreviewConfig.push({ 
+      caption: value.fot_file, 
+      size: 762980, 
+      url: 'manter.php', 
+      key: value.fot_id, 
+      extra:  {
+        id: value.fot_id, 
+        acao: 'manterMenu', 
+        tipoAcao: 'delImage'
+      } 
+    }
+    );
+    aux++; 
+  });
+
+  $("#upFilesFotos-at").fileinput({
+    overwriteInitial: false,
+
+    initialPreview,
+    initialPreviewConfig,
     initialPreviewAsData: true, 
     initialPreviewFileType: 'image', 
-          
-    allowedFileExtensions: ["jpg", "gif", "png"],
-    
-    previewFileType: "image",
-    showUpload: false, 
+
+    uploadUrl: 'manter.php',
+    uploadExtraData: {acao:'manterMenu', tipoAcao: 'addImage', id: obj.item_id},
     language: "pt-BR",
+    'showUpload':true, 
+    allowedFileExtensions: ["jpg", "gif", "png"],
+    maxFilePreviewSize: 10240
+  }).on('fileuploaded', function(event, data, id, index) {
 
-    browseClass: "btn btn-success",
-      browseLabel: "Escolher",
-      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+    temp++;
+    if (temp == aux) {
+      temp = 0;
+      table.ajax.reload();
+    }
+    
+    toastr.options.progressBar = true;
+    toastr.options.closeButton = true;
+    toastr.success(data.response.result);
 
-    removeClass: "btn btn-danger",
-      removeLabel: "Remover",
-      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
   });
 
   $("#myModalAtualizar").modal({backdrop: false});
