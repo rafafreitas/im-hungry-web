@@ -12,6 +12,7 @@ $(document).ready(function(){
 function initPage() {
   $(":input").inputmask();
   $('#item-valor').maskMoney({prefix:'R$ ', thousands:'.', decimal:','});
+  $('#item-valor-at').maskMoney({prefix:'R$ ', thousands:'.', decimal:','});
 
   $('#loadPublicacao').hide();
   $('#btmCancelar').click(function(){
@@ -74,6 +75,7 @@ function initTable(tableAt, tableIn, api) {
                { data: "item_tempo_medio" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
+                                 "<button type='button' class='btn btn-warning' id='imagens' title='Atualizar Imagens'><span class='fa fa-picture-o'></button>&nbsp;"+
                                  "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
                }
             ],
@@ -121,6 +123,7 @@ function initTable(tableAt, tableIn, api) {
                { data: "item_tempo_medio" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
+                                 "<button type='button' class='btn btn-warning' id='imagens' title='Atualizar Imagens'><span class='fa fa-picture-o'></button>&nbsp;"+
                                  "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
                }
             ],
@@ -149,6 +152,9 @@ function initTable(tableAt, tableIn, api) {
         case 'atualizar':
             updateObj(data, tableAt);
             break;
+        case 'imagens':
+            updateImg(data, tableAt);
+            break;
         case 'apagar':
             enabledDisabled(data.empresa_id, tableAt, tableIn, false);
             break;
@@ -166,6 +172,9 @@ function initTable(tableAt, tableIn, api) {
       switch(idClick) {
         case 'atualizar':
             updateObj(data, tableIn);
+            break;
+        case 'imagens':
+            updateImg(data, tableIn);
             break;
         case 'ativar':
             enabledDisabled(data.empresa_id, tableAt, tableIn, true);
@@ -241,8 +250,6 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj, table) {
-  $("#upFilesFotos-at").fileinput('destroy');
-
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
@@ -255,6 +262,13 @@ function updateObj(obj, table) {
   $("#item-tempo-at").val(obj.item_tempo_medio);
   if (obj.item_promocao == "1"){$("#item-promo-at").val('true');}
   if (obj.item_promocao == "0"){$("#item-promo-at").val('false');}
+
+  $("#myModalAtualizar").modal({backdrop: false});
+  $('#loadPublicacao').hide();
+}//updateObj
+
+function updateImg(obj, table){
+  $("#upFilesFotos-at").fileinput('destroy');
 
   var initialPreview = [];
   var initialPreviewConfig = [];
@@ -303,11 +317,12 @@ function updateObj(obj, table) {
     toastr.options.closeButton = true;
     toastr.success(data.response.result);
 
+  }).on('filepredelete', function (event, data) {
+
   });
 
-  $("#myModalAtualizar").modal({backdrop: false});
-  $('#loadPublicacao').hide();
-}//updateObj
+  $("#myModalImagens").modal({backdrop: false});
+}
 
 function submitUp(formData, table) {
   $('#submitGif').show();

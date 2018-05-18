@@ -86,21 +86,13 @@
                           <option value="false">Não</option>
                         </select>
                       </div>
-                    </div>
-
-                    <div class="form-group row">
-
-                      <div class="col-md-12 col-lg-12 col-xs-12">
-                        <label class="form-col-form-label" for="item-tempo">Fotos</label>
-                        <input id="upFilesFotos-at" name="upFilesFotos-at[]" type="file" multiple class="file-loading">
-                      </div>
 
                       <input type="hidden" name="acao" value="manterMenu">
                       <input type="hidden" name="tipoAcao" value="update">
                       <input type="hidden" id="idAt" name="idAt">
                       <input type="hidden" id="statusAt" name="statusAt">
                       <input type="hidden" id="reloadAt" name="reloadAt">
-
+                      
                     </div>
 
                     <div class="form-group"> 
@@ -117,6 +109,41 @@
             </div><!--modal-dialog (Atualizar)-->
           </div> 
         <!--modal fade (Atualizar)-->
+
+        <!--Modal para Imagens-->
+          <div class="modal fade" id="myModalImagens" role="dialog">
+            <div class="modal-dialog" style="max-width: 950px!important;">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Atualizar Fotos</h3>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="padding:30px 40px;">
+
+                  <form class="form-horizontal" id="formAtualizar" enctype="multipart/form-data" >
+
+                    <div class="form-group row">
+
+                      <div class="col-md-12 col-lg-12 col-xs-12">
+                        <label class="form-col-form-label" for="item-tempo">Fotos</label>
+                        <input id="upFilesFotos-at" name="upFilesFotos-at[]" type="file" multiple class="file-loading">
+                      </div>
+
+                    </div>
+
+                    <div class="form-group"> 
+                      <div class="col-sm-offset-2 col-sm-10">
+                        
+                      </div>
+                    </div>
+
+                  </form>
+                </div> <!--modal-body (Imagens)-->
+              </div><!--modal-content (Imagens)-->
+            </div><!--modal-dialog (Imagens)-->
+          </div> 
+        <!--modal fade (Imagens)-->
 
         <div class="animated fadeIn">
           <div class="row">
