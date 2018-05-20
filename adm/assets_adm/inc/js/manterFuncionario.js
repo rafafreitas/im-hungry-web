@@ -93,27 +93,20 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "manterFuncionario",
+             acao : "ManterFuncionario",
              tipoAcao: "listarAll",
              enabled: true
            },
            dataSrc: ''
          },
     columns: [
-               { 
-                  "render" : function(data, type, full, meta) {
-                    var foto = user_foto_perfil;
-                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionario/'+foto+'" class="icone-categ-img"></div>'
-                  } 
-               },
-               { data: "item_nome" },
+               { data: "user_nome" },
                { data: "user_cpf" },
                { data: "user_telefone" },
                { data: "user_email" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-warning' id='imagens' title='Atualizar Imagens'><span class='fa fa-picture-o'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
                }
             ],
    fixedHeader: true,
@@ -142,27 +135,20 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "manterFuncionario",
+             acao : "ManterFuncionario",
              tipoAcao: "listarAll",
              enabled: false
            },
            dataSrc: ''
          },
     columns: [
-               { 
-                  "render" : function(data, type, full, meta) {
-                    var foto = user_foto_perfil;
-                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionario/'+foto+'" class="icone-categ-img"></div>'
-                  } 
-               },
-               { data: "item_nome" },
+               { data: "user_nome" },
                { data: "user_cpf" },
                { data: "user_telefone" },
                { data: "user_email" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-warning' id='imagens' title='Atualizar Imagens'><span class='fa fa-picture-o'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
                }
             ],
    fixedHeader: true,

@@ -238,7 +238,6 @@
                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Foto</th>
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Telefone</th>
@@ -253,7 +252,6 @@
                       <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th>Foto</th>
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Telefone</th>
