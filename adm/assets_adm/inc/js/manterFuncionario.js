@@ -10,23 +10,24 @@ $(document).ready(function(){
 });
 
 function initPage() {
-  $("#upFilesFotos").fileinput({
-    allowedFileExtensions: ["jpg", "gif", "png"],
-    maxFilePreviewSize: 10240,
-    previewFileType: "image",
-    showUpload: false, 
-    language: "pt-BR",
+  
+  $("#funcionario-cep, #funcionario-cep-at").keyup(function() {
+    $('#loadCep'+temp).show();
+    var cep = $(this).val().replace(/_/g, "");
+    var temp = ($(this).attr('id') == "funcionario-cep-at") ? '-at' : "";
+    
+    if ( cep.length != 9) {
+      $('#loadCep'+temp).hide();
+      $("#funcionario-rua"+temp).val("");
+      $("#funcionario-bairro"+temp).val("");
+      $("#funcionario-cidade-uf"+temp).val("");
+    }else{
+      buscaCep(cep, temp);
+    }
 
-    browseClass: "btn btn-success",
-      browseLabel: "Escolher",
-      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-
-    removeClass: "btn btn-danger",
-      removeLabel: "Remover",
-      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
   });
 
-  $("#upFilesFotos-at").fileinput({
+    $("#funcionario-foto, #funcionario-foto-at").fileinput({
     allowedFileExtensions: ["jpg", "gif", "png"],
     maxFilePreviewSize: 10240,
     previewFileType: "image",
@@ -43,6 +44,39 @@ function initPage() {
   });
 
 }//initPage
+
+function buscaCep(cep, temp){
+  var acao = 'buscaCep';
+  var tipoAcao = 'listar';
+
+  $.ajax({
+    url:"manter.php",                    
+    type:"post",                            
+    data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
+    dataType: "JSON",
+    success: function (result){ 
+      console.log(result);
+
+      if (result.status == 500 && result.qtd == 0) {
+        $('#loadCep'+temp).hide();
+        $("#funcionario-rua"+temp).val("");
+        $("#funcionario-bairro"+temp).val("");
+        $("#funcionario-cidade-uf"+temp).val("");
+
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.success(result.result);
+
+      }else{
+        $('#loadCep'+temp).hide();
+        $("#funcionario-rua"+temp).val(result.dados.logradouro);
+        $("#funcionario-bairro"+temp).val(result.dados.bairro);
+        $("#funcionario-cidade-uf"+temp).val(result.dados.cidade+'-'+result.dados.uf);
+      }
+
+    }
+  });
+}
 
 function resetForm(form) {
   $('#'+form).each(function(){
@@ -154,13 +188,10 @@ function initTable(tableAt, tableIn, api) {
       var idClick = $(this).attr('id');
       switch(idClick) {
         case 'atualizar':
-            updateObj(data, tableAt);
-            break;
-        case 'imagens':
-            updateImg(data, tableAt);
+            updateObj(data);
             break;
         case 'apagar':
-            enabledDisabled(data.empresa_id, tableAt, tableIn, false);
+            enabledDisabled(data.usuario_id, tableAt, tableIn, false);
             break;
         default:
             $('#alertaErro').show();
@@ -175,13 +206,10 @@ function initTable(tableAt, tableIn, api) {
       var idClick = $(this).attr('id');
       switch(idClick) {
         case 'atualizar':
-            updateObj(data, tableIn);
-            break;
-        case 'imagens':
-            updateImg(data, tableIn);
+            updateObj(data);
             break;
         case 'ativar':
-            enabledDisabled(data.empresa_id, tableAt, tableIn, true);
+            enabledDisabled(data.usuario_id, tableAt, tableIn, true);
             break;
         default:
             $('#alertaErro').show();
@@ -191,7 +219,7 @@ function initTable(tableAt, tableIn, api) {
       }
   });//onClick
 
-  $('#form-item-add').submit(function(){  
+  $('#form-funcionario-add').submit(function(){  
     //var json = jQuery(this).serialize();
     var formData = new FormData(this);
     cadastrar(formData, tableAt);
@@ -236,7 +264,7 @@ function cadastrar(formData, table) {
 
         $('#loadPublicacao').hide();
         table.ajax.reload();
-        resetForm('form-item-add');
+        resetForm('form-funcionario-add');
 
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
@@ -261,72 +289,47 @@ function updateObj(obj, table) {
   $("#statusAt").val(obj.item_status);
   $("#reloadAt").val('0');
 
-  $("#item-nome-at").val(obj.item_nome);
-  $("#item-valor-at").val(obj.item_valor.replace(".", ","));
-  $("#item-tempo-at").val(obj.item_tempo_medio);
-  if (obj.item_promocao == "1"){$("#item-promo-at").val('true');}
-  if (obj.item_promocao == "0"){$("#item-promo-at").val('false');}
+  $("#funcionario-nome-at").val(obj.user_nome);
+  $("#funcionario-cpf-at").val(obj.user_cpf);
+  $("#funcionario-telefone-at").val(obj.user_telefone);
+  $("#funcionario-email-at").val(obj.user_email);
+  $("#funcionario-senha-at").val(obj.user_senha);
+  $("#funcionario-cep-at").val(obj.user_cep);
+  $("#funcionario-numero-at").val(obj.user_endereco_numero);
+
+  $("#company-logo-at").fileinput({
+    overwriteInitial: true,
+    initialPreview: [
+          "https://api.rafafreitas.com/uploads/funcionario/"+obj.user_foto_perfil
+          ],
+        initialPreviewConfig: [
+                          {
+                            caption: "Logo", 
+                            width: "120px", 
+                            key: 1},
+          ],
+
+    initialPreviewAsData: true, 
+    initialPreviewFileType: 'image', 
+          
+    allowedFileExtensions: ["jpg", "gif", "png"],
+    
+    previewFileType: "image",
+    showUpload: false, 
+    language: "pt-BR",
+
+    browseClass: "btn btn-success",
+      browseLabel: "Escolher",
+      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+
+    removeClass: "btn btn-danger",
+      removeLabel: "Remover",
+      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+  });
 
   $("#myModalAtualizar").modal({backdrop: false});
   $('#loadPublicacao').hide();
 }//updateObj
-
-function updateImg(obj, table){
-  $("#upFilesFotos-at").fileinput('destroy');
-
-  var initialPreview = [];
-  var initialPreviewConfig = [];
-  var aux, temp = 0
-
-  $.each(obj.fotos, function(key, value) {  
-    initialPreview.push("https://api.rafafreitas.com/uploads/itens/"+value.fot_file); 
-    initialPreviewConfig.push({ 
-      caption: value.fot_file, 
-      size: 762980, 
-      url: 'manter.php', 
-      key: value.fot_id, 
-      extra:  {
-        id: value.fot_id, 
-        acao: 'manterMenu', 
-        tipoAcao: 'delImage'
-      } 
-    }
-    );
-    aux++; 
-  });
-
-  $("#upFilesFotos-at").fileinput({
-    overwriteInitial: false,
-
-    initialPreview,
-    initialPreviewConfig,
-    initialPreviewAsData: true, 
-    initialPreviewFileType: 'image', 
-
-    uploadUrl: 'manter.php',
-    uploadExtraData: {acao:'manterMenu', tipoAcao: 'addImage', id: obj.item_id},
-    language: "pt-BR",
-    'showUpload':true, 
-    allowedFileExtensions: ["jpg", "gif", "png"],
-    maxFilePreviewSize: 10240
-  }).on('fileuploaded', function(event, data, id, index) {
-
-    temp++;
-    if (temp == aux) {
-      temp = 0;
-      table.ajax.reload();
-    }
-    
-    toastr.options.progressBar = true;
-    toastr.options.closeButton = true;
-    toastr.success(data.response.result);
-
-  }).on('filepredelete', function (event, data) {
-
-  });
-
-  $("#myModalImagens").modal({backdrop: false});
-}
 
 function submitUp(formData, table) {
   $('#submitGif').show();
@@ -368,7 +371,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     stName = "inativar";
   }
   bootbox.confirm({
-    message: "<h3 class='text-center'>Deseja "+stName+" esta empresa?</h3>",
+    message: "<h3 class='text-center'>Deseja "+stName+" esta funcionario?</h3>",
     buttons: {
       confirm: {
         label: 'Sim!',
@@ -382,7 +385,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     callback: function (confirma) {
       if (confirma == true) {
         $('#loadPublicacao').show();
-        var acao = 'manterEmpresa';
+        var acao = 'manterFuncionario';
         var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    

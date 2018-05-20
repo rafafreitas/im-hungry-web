@@ -68,6 +68,11 @@
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-nome-at">Nome</label>
                         <input type="text" class="form-control" name="funcionario-nome-at" id="funcionario-nome-at" required>
+                        <input type="hidden" id="idAt" name="idAt">
+                        <input type="hidden" id="statusAt" name="statusAt">
+                        <input type="hidden" id="reloadAt" name="reloadAt">
+                        <input type="hidden" name="acao" value="manterFuncionario">
+                        <input type="hidden" name="tipoAcao" value="update">
                       </div>
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-cpf-at">CPF</label>
@@ -92,7 +97,8 @@
 
                     <div class="form-group row">
                       <div class="col-md-1 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-cep-at">CEP <img  id="loadCep" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+
                         <input type="text" class="form-control" name="funcionario-cep-at" id="funcionario-cep-at" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
                       </div>
                       <div class="col-md-4 col-lg-3 col-xs-12">
@@ -115,7 +121,7 @@
 
                     <div class="form-group row">
                       <div class="col-md-12 col-lg-11 col-xs-12">
-                          <input id="upFilesFotos-at" name="upFilesFotos-at[]" type="file" multiple class="file-loading">
+                          <input id="funcionario-foto-at" name="funcionario-foto-at" type="file" accept="image/*" required>
                       </div>
                     </div>
 
@@ -137,7 +143,7 @@
         <div class="animated fadeIn">
           <div class="row">
             <div class="col-sm-12">
-              <form id="form-filial-add" class="form-horizontal" enctype="multipart/form-data">
+              <form id="form-funcionario-add" class="form-horizontal" enctype="multipart/form-data">
               <div class="card">
                 <div class="card-header">
                   <strong>Cadastrar Funcionário</strong>
@@ -148,6 +154,8 @@
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-nome">Nome</label>
                         <input type="text" class="form-control" name="funcionario-nome" id="funcionario-nome" required>
+                        <input type="hidden" name="acao" value="manterFuncionario">
+                        <input type="hidden" name="tipoAcao" value="insert">
                       </div>
                       <div class="col-md-4 col-lg-4 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-cpf">CPF</label>
@@ -172,7 +180,8 @@
 
                     <div class="form-group row">
                       <div class="col-md-1 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+
                         <input type="text" class="form-control" name="funcionario-cep" id="funcionario-cep" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
                       </div>
                       <div class="col-md-4 col-lg-3 col-xs-12">
@@ -195,7 +204,7 @@
 
                     <div class="form-group row">
                       <div class="col-md-12 col-lg-11 col-xs-12">
-                          <input id="upFilesFotos" name="upFilesFotos[]" type="file" multiple class="file-loading">
+                          <input id="funcionario-foto" name="funcionario-foto" type="file" multiple class="file-loading">
                       </div>
                     </div>
 
