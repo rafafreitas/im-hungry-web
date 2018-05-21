@@ -156,7 +156,7 @@ function initTable(tableAt, tableIn, api) {
             updateImg(data, tableAt);
             break;
         case 'apagar':
-            enabledDisabled(data.empresa_id, tableAt, tableIn, false);
+            enabledDisabled(data.item_id, tableAt, tableIn, false);
             break;
         default:
             $('#alertaErro').show();
@@ -177,7 +177,7 @@ function initTable(tableAt, tableIn, api) {
             updateImg(data, tableIn);
             break;
         case 'ativar':
-            enabledDisabled(data.empresa_id, tableAt, tableIn, true);
+            enabledDisabled(data.item_id, tableAt, tableIn, true);
             break;
         default:
             $('#alertaErro').show();
@@ -195,13 +195,13 @@ function initTable(tableAt, tableIn, api) {
   });//CreateForm
 
   $('#formAtualizar').submit(function(){
-    //var json = jQuery(this).serialize();
-    var formData = new FormData(this);
+    var json = jQuery(this).serialize();
+    //var formData = new FormData(this);
     var status = $("#statusAt").val();
     if (status == '1') {
-      submitUp(formData, tableAt);
+      submitUp(json, tableAt);
     }if (status == '0') {
-      submitUp(formData, tableIn);
+      submitUp(json, tableIn);
     }
     return false;
   });//Update Form
@@ -288,12 +288,11 @@ function updateImg(obj, table){
       } 
     }
     );
-    aux++; 
   });
 
   $("#upFilesFotos-at").fileinput({
     overwriteInitial: false,
-
+    minFileCount: 1,
     initialPreview,
     initialPreviewConfig,
     initialPreviewAsData: true, 
@@ -308,53 +307,61 @@ function updateImg(obj, table){
   }).on('fileuploaded', function(event, data, id, index) {
 
     temp++;
+    if (temp == 1) {aux = $("#upFilesFotos-at").fileinput("getFilesCount");}
     if (temp == aux) {
       temp = 0;
+      toastr.options.progressBar = true;
+      toastr.options.closeButton = true;
+      toastr.success(data.response.result);
       table.ajax.reload();
     }
     
-    toastr.options.progressBar = true;
-    toastr.options.closeButton = true;
-    toastr.success(data.response.result);
-
   }).on('filepredelete', function (event, data) {
+
+    console.log(event);
+    console.log(data);
+
+    var abort = true;
+    if (confirm("Are you sure you want to delete this image?")) {
+      abort = false;
+    }
+    return abort; 
 
   });
 
   $("#myModalImagens").modal({backdrop: false});
 }
 
-function submitUp(formData, table) {
+function submitUp(json, table) {
+  var acao = 'manterMenu';
+  var tipoAcao = 'update';
   $('#submitGif').show();
   $('#retornoAt').hide();
   $.ajax({
     url:"manter.php",                    
     type:"post",                            
-    data: formData,
-    cache: false,
-    contentType: false,
-    processData: false,
+    data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
+    dataType: "JSON",
     success: function (result){ 
-      var obj = JSON.parse(result)  
-      console.log(obj);
-      if(obj.status == 200){
+      console.log(result);
+      if(result.status == 200){
         $('#submitGif').hide();
         $('#retornoAt').show();
         $("#reloadAt").val('1');
         table.ajax.reload();
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.success(obj.result);
+        toastr.success(result.result);
 
-      }if (obj.status == 500){
+      }if (result.status == 500){
         $('#submitGif').hide();
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.error(obj.result);
+        toastr.error(result.result);
       }
     }//success
   });//ajax
-      return false;
+  return false;
 }//submitUp
 
 function enabledDisabled(idChange, tableAt, tableIn, status) {
@@ -382,8 +389,13 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
         var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    
-          type:"post",                            
-          data: "idChange="+idChange+"&acao="+acao+"&tipoAcao="+tipoAcao+"&status="+status,
+          type:"post",
+          data: {
+            acao : "manterMenu",
+            tipoAcao : "enabledDisabled",
+            status : status,
+            idChange : idChange
+          },                     
           dataType: "JSON",
           success: function (obj){ 
             console.log(obj);

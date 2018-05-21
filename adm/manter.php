@@ -662,17 +662,18 @@ switch ($acao) {
 				$url = $_SESSION['API'];
 
 				$data = array(
-						'nome' => $_POST['item-nome'], 
-						'valor' => $_POST['item-valor'], 
-						'tempo' => $_POST['item-tempo'], 
-						'filial_id' => $filial_id, 
-						'fotos' => $fotoNome, 
+						'nome' => $_POST['item-nome-at'], 
+						'valor' => $_POST['item-valor-at'], 
+						'tempo' => $_POST['item-tempo-at'], 
+						'promo' => $_POST['item-promo-at'], 
+						'statusAt' => $_POST['statusAt'], 
+						'item_id' => $_POST['idAt'] 
 					);
 
 				$data = json_encode($data);
 
 				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/update');
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/menu/update');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -797,6 +798,44 @@ switch ($acao) {
 		}elseif ($tipoAcao == 'delImage') {
 
 			echo "{}";
+			die;
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+				$fot_id = $_POST['id'];
+				$filial_id = $_SESSION['filial_id'];
+
+				$data = array(
+					'fot_id' => $fot_id, 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+		     	curl_setopt($ch, CURLOPT_URL, $url.'/web/item/foto');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+   				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+		      	$response = curl_exec($ch);
+      			curl_close($ch);
+
+			    $var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
 
 		}
 	break;
