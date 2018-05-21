@@ -282,9 +282,11 @@ function updateImg(obj, table){
       url: 'manter.php', 
       key: value.fot_id, 
       extra:  {
-        id: value.fot_id, 
         acao: 'manterMenu', 
-        tipoAcao: 'delImage'
+        tipoAcao: 'delImage',
+        fot_id: value.fot_id, 
+        item_id: value.item_id, 
+        flag : false
       } 
     }
     );
@@ -316,16 +318,48 @@ function updateImg(obj, table){
       table.ajax.reload();
     }
     
-  }).on('filepredelete', function (event, data) {
-
-    console.log(event);
-    console.log(data);
+  }).on('filepredelete', function (event, key, data, extra) {
+    
+    console.log(extra);
 
     var abort = true;
-    if (confirm("Are you sure you want to delete this image?")) {
-      abort = false;
-    }
-    return abort; 
+    $.ajax({
+      url:"manter.php",                    
+      type:"post",
+      data: {
+        acao : extra.acao,
+        tipoAcao : extra.tipoAcao,
+        item_id : extra.item_id,
+        fot_id : extra.fot_id,
+        flag : true
+      },                     
+      dataType: "JSON",
+      success: function (obj){ 
+        console.log(obj);
+        if(obj.status == 200){
+
+          table.ajax.reload();
+
+          toastr.options.progressBar = true;
+          toastr.options.closeButton = true;
+          toastr.success(obj.result);
+
+          abort = false;
+          console.log("suc="+abort);
+          return abort;
+
+        }if (obj.status == 500){
+
+          toastr.options.progressBar = true;
+          toastr.options.closeButton = true;
+          toastr.error(obj.result);
+          abort = true;
+          console.log("err="+abort);
+          return true;
+
+        }
+      }
+    });
 
   });
 

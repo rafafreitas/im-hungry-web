@@ -797,44 +797,52 @@ switch ($acao) {
 
 		}elseif ($tipoAcao == 'delImage') {
 
-			echo "{}";
-			die;
-			try {
+			$enabled = ($_POST['flag'] == 'true') ? true : false;
 
-				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+			if ($enabled) {
 
-				$token = $_SESSION['Token'];
-				$url = $_SESSION['API'];
-				$fot_id = $_POST['id'];
-				$filial_id = $_SESSION['filial_id'];
+				try {
 
-				$data = array(
-					'fot_id' => $fot_id, 
-				);
+					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
 
-				$data = json_encode($data);
+					$token = $_SESSION['Token'];
+					$url = $_SESSION['API'];
+					$item_id = $_POST['item_id'];
+					$fot_id = $_POST['fot_id'];
 
-				$ch = curl_init();
-		     	curl_setopt($ch, CURLOPT_URL, $url.'/web/item/foto');
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-				curl_setopt($ch, CURLOPT_POST, true);
-   				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-					'Content-Type: application/json',
-					'Authorization: ' . $token
-					)
-				);
+					$data = array(
+						'item_id' => $item_id, 
+						'fot_id' => $fot_id
+					);
 
-		      	$response = curl_exec($ch);
-      			curl_close($ch);
+					$data = json_encode($data);
 
-			    $var = json_decode($response);
-				$json=json_encode($var);
-				echo "$json";
+					$ch = curl_init();
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/item/foto/del');
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch, CURLOPT_POST, true);
+	   				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+						'Content-Type: application/json',
+						'Authorization: ' . $token
+						)
+					);
 
-			} catch (Exception $e) {
-				echo $e->getMessage();
+			      	$response = curl_exec($ch);
+	      			curl_close($ch);
+
+				    $var = json_decode($response);
+					$json=json_encode($var);
+					echo "$json";
+
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+				
+			}else{
+				echo "{}";
+				die;
 			}
 
 		}
