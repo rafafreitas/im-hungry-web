@@ -915,12 +915,16 @@ switch ($acao) {
 						'senha' => $_POST['funcionario-senha'], 
 						'cep' => $_POST['funcionario-cep'], 
 						'numero_end' => $_POST['funcionario-numero'], 
+						'enabled' => "true", 
+						'tipo_usuario' => "2",
+						'filial_id' => $_SESSION['filial_id'],
+						'foto_perfil' => "wait",
 					);
 
 					$data = json_encode($data);
 
 					$ch = curl_init();
-			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/funcionario/insert');
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/usuario/insert');
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_POST, true);
       				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
