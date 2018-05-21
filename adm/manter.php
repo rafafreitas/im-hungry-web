@@ -892,6 +892,57 @@ switch ($acao) {
 				echo $e->getMessage();
 			}
 
+		}elseif ($tipoAcao == 'insert') {
+			try {
+
+					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+					$token = $_SESSION['Token'];
+					$url = $_SESSION['API'];
+
+					$telefone = str_replace('(', '' , $_POST['funcionario-telefone']);
+	        		$telefone = str_replace(')', '' , $telefone);
+	        		$telefone = str_replace('-', '' , $telefone);
+
+	        		$cpf = str_replace('.', '' , $_POST['funcionario-cpf']);
+	        		$cpf = str_replace('-', '' , $cpf);
+
+					$data = array(
+						'nome' => $_POST['funcionario-nome'], 
+						'cpf' => $cpf, 
+						'telefone' => $telefone, 
+						'email' => $_POST['funcionario-email'], 
+						'senha' => $_POST['funcionario-senha'], 
+						'cep' => $_POST['funcionario-cep'], 
+						'numero_end' => $_POST['funcionario-numero'], 
+					);
+
+					$data = json_encode($data);
+
+					$ch = curl_init();
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/funcionario/insert');
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch, CURLOPT_POST, true);
+      				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+						'Content-Type: application/json',
+						'Authorization: ' . $token
+						)
+					);
+
+			      	$response = curl_exec($ch);
+	      			curl_close($ch);
+
+				    $var = json_decode($response);
+					$json=json_encode($var);
+					echo "$json";
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
 		}
 
 	break;

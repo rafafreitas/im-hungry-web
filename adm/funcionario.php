@@ -65,7 +65,7 @@
                   <form class="form-horizontal" id="formAtualizar" enctype="multipart/form-data" >
 
                     <div class="form-group row">
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-4 col-lg-5 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-nome-at">Nome</label>
                         <input type="text" class="form-control" name="funcionario-nome-at" id="funcionario-nome-at" required>
                         <input type="hidden" id="idAt" name="idAt">
@@ -81,7 +81,7 @@
                       <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-telefone-at">Telefone</label>
                         <input type="text" class="form-control" name="funcionario-telefone-at" id="funcionario-telefone-at" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
-                      </div>                    
+                      </div>
                     </div>
 
                     <div class="form-group row">
@@ -105,7 +105,7 @@
                         <label class="form-col-form-label" for="funcionario-rua-at">Rua</label>
                         <input type="text" class="form-control" name="funcionario-rua-at" id="funcionario-rua-at" disabled>
                       </div>
-                      <div class="col-md-2 col-lg-1 col-xs-12">
+                      <div class="col-md-4 col-lg-2 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-numero-at">Número</label>
                         <input type="number" class="form-control" name="funcionario-numero-at" id="funcionario-numero-at" required>
                       </div>
@@ -291,6 +291,7 @@
   <!-- File-Input -->
   <?php include "assets_adm/inc/file_input.php"; ?>
 
+  
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
   <script type="text/javascript" src="assets_adm/inc/js/manterFuncionario.js"></script>
   

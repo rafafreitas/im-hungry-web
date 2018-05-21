@@ -24,7 +24,7 @@ function initPage() {
     }else{
       buscaCep(cep, temp);
     }
-
+    
   });
 
     $("#funcionario-foto, #funcionario-foto-at").fileinput({
@@ -275,6 +275,7 @@ function updateObj(obj, table) {
   $("#statusAt").val(obj.item_status);
   $("#reloadAt").val('0');
 
+  buscaCep(obj.user_cep, "-at");
   $("#funcionario-nome-at").val(obj.user_nome);
   $("#funcionario-cpf-at").val(obj.user_cpf);
   $("#funcionario-telefone-at").val(obj.user_telefone);
@@ -283,7 +284,7 @@ function updateObj(obj, table) {
   $("#funcionario-cep-at").val(obj.user_cep);
   $("#funcionario-numero-at").val(obj.user_endereco_numero);
 
-  $("#company-logo-at").fileinput({
+  $("#funcionario-foto").fileinput({
     overwriteInitial: true,
     initialPreview: [
           "https://api.rafafreitas.com/uploads/funcionario/"+obj.user_foto_perfil
