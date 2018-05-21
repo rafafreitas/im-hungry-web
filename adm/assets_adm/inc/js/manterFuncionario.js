@@ -358,7 +358,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     stName = "inativar";
   }
   bootbox.confirm({
-    message: "<h3 class='text-center'>Deseja "+stName+" esta funcionario?</h3>",
+    message: "<h3 class='text-center'>Deseja "+stName+" este funcionario?</h3>",
     buttons: {
       confirm: {
         label: 'Sim!',
