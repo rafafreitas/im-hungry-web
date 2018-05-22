@@ -666,7 +666,6 @@ switch ($acao) {
 						'valor' => $_POST['item-valor-at'], 
 						'tempo' => $_POST['item-tempo-at'], 
 						'promo' => $_POST['item-promo-at'], 
-						'statusAt' => $_POST['statusAt'], 
 						'item_id' => $_POST['idAt'] 
 					);
 
@@ -713,7 +712,7 @@ switch ($acao) {
 				$data = json_encode($data);
 
 				$ch = curl_init();
-			    curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/enabled');
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/menu/enabled');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
       			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

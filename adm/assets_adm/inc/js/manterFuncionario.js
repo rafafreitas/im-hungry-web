@@ -194,7 +194,7 @@ function initTable(tableAt, tableIn, api) {
           updateObj(data);
           break;
         case 'desativar':
-          enabledDisabled(data.usuario_id, tableAt, tableIn, false);
+          enabledDisabled(data.user_id, tableAt, tableIn, false);
           break;
         default:
           $('#alertaErro').show();
@@ -212,7 +212,7 @@ function initTable(tableAt, tableIn, api) {
           updateObj(data);
           break;
         case 'ativar':
-          enabledDisabled(data.usuario_id, tableAt, tableIn, true);
+          enabledDisabled(data.user_id, tableAt, tableIn, true);
           break;
         default:
           $('#alertaErro').show();
@@ -375,6 +375,7 @@ function submitUp(formData, table) {
 }//submitUp
 
 function enabledDisabled(idChange, tableAt, tableIn, status) {
+  console.log(idChange);
   if (status) {
     stName = "ativar";
   }else{
@@ -395,12 +396,15 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     callback: function (confirma) {
       if (confirma == true) {
         $('#loadPublicacao').show();
-        var acao = 'manterFuncionario';
-        var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    
-          type:"post",                            
-          data: "idChange="+idChange+"&acao="+acao+"&tipoAcao="+tipoAcao+"&status="+status,
+          type:"post",
+          data: {
+            acao : "manterFuncionario",
+            tipoAcao : "enabledDisabled",
+            status : status,
+            idChange : idChange
+          },                     
           dataType: "JSON",
           success: function (obj){ 
             console.log(obj);

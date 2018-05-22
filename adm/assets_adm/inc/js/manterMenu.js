@@ -112,7 +112,12 @@ function initTable(tableAt, tableIn, api) {
            dataSrc: ''
          },
     columns: [
-               { data: "item_id" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                    var icone = full.fotos[0].fot_file;
+                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/itens/'+icone+'" class="icone-categ-img"></div>'
+                  } 
+               },
                { data: "item_nome" },
                { 
                   "render" : function(data, type, full, meta) {
@@ -124,7 +129,7 @@ function initTable(tableAt, tableIn, api) {
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
                                  "<button type='button' class='btn btn-warning' id='imagens' title='Atualizar Imagens'><span class='fa fa-picture-o'></button>&nbsp;"+
-                                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                                 "<button type='button' class='btn btn-info' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
                }
             ],
    fixedHeader: true,
@@ -400,7 +405,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     stName = "inativar";
   }
   bootbox.confirm({
-    message: "<h3 class='text-center'>Deseja "+stName+" esta empresa?</h3>",
+    message: "<h3 class='text-center'>Deseja "+stName+" este item do menu?</h3>",
     buttons: {
       confirm: {
         label: 'Sim!',
@@ -414,8 +419,6 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
     callback: function (confirma) {
       if (confirma == true) {
         $('#loadPublicacao').show();
-        var acao = 'manterEmpresa';
-        var tipoAcao = 'enabledDisabled'; 
         $.ajax({
           url:"manter.php",                    
           type:"post",
