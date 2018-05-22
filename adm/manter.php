@@ -964,31 +964,35 @@ switch ($acao) {
 			try {
 
 				$fotoNome = "";
+				
+				if (is_uploaded_file($_FILES['funcionario-foto-at']['tmp_name']) ) {
+					$fotoNome = upload_file( 'funcionario-foto-at', false, '', '', 'funcionario', 'funcionario.php');
+				}
+
 				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
 
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
-					$telefone = str_replace('(', '' , $_POST['funcionario-telefone']);
-	        		$telefone = str_replace(')', '' , $telefone);
-	        		$telefone = str_replace('-', '' , $telefone);
+				$telefone = str_replace('(', '' , $_POST['funcionario-telefone-at']);
+				$telefone = str_replace(')', '' , $telefone);
+				$telefone = str_replace('-', '' , $telefone);
 
-	        		$cpf = str_replace('.', '' , $_POST['funcionario-cpf']);
-	        		$cpf = str_replace('-', '' , $cpf);
+				$cpf = str_replace('.', '' , $_POST['funcionario-cpf-at']);
+				$cpf = str_replace('-', '' , $cpf);
 
-					$data = array(
-						'nome' => $_POST['funcionario-nome'], 
-						'cpf' => $cpf, 
-						'telefone' => $telefone, 
-						'email' => $_POST['funcionario-email'], 
-						'senha' => $_POST['funcionario-senha'], 
-						'cep' => $_POST['funcionario-cep'], 
-						'numero_end' => $_POST['funcionario-numero'], 
-						'enabled' => "true", 
-						'tipo_usuario' => "2",
-						'filial_id' => $_SESSION['filial_id'],
-						'foto_perfil' => "wait",
-					);
+				$data = array(
+					'idAt' => $_POST['idAt'], 
+					'nome' => $_POST['funcionario-nome-at'], 
+					'cpf' => $cpf, 
+					'telefone' => $telefone, 
+					'data' => $_POST['funcionario-data-at'], 
+					'email' => $_POST['funcionario-email-at'], 
+					'cep' => $_POST['funcionario-cep-at'], 
+					'numero_end' => $_POST['funcionario-numero-at'], 
+					'complemento' => $_POST['funcionario-complemento-at'], 
+					'foto_perfil' => $fotoNome
+				);
 
 				$data = json_encode($data);
 

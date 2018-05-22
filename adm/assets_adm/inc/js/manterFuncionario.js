@@ -285,33 +285,39 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj, table) {
+  
+  $("#funcionario-foto-at").fileinput('destroy');
+  
+  console.log(obj);
   $('#loadPublicacao').show();
   $('#submitGif').hide();
   $('#retornoAt').hide();
-  $("#idAt").val(obj.item_id);
-  $("#statusAt").val(obj.item_status);
+  $("#idAt").val(obj.user_id);
+  $("#statusAt").val(obj.user_status);
   $("#reloadAt").val('0');
 
   buscaCep(obj.user_cep, "-at");
   $("#funcionario-nome-at").val(obj.user_nome);
   $("#funcionario-cpf-at").val(obj.user_cpf);
   $("#funcionario-telefone-at").val(obj.user_telefone);
+  $("#funcionario-data-at").val(obj.user_data);
   $("#funcionario-email-at").val(obj.user_email);
-  $("#funcionario-senha-at").val(obj.user_senha);
   $("#funcionario-cep-at").val(obj.user_cep);
   $("#funcionario-numero-at").val(obj.user_endereco_numero);
+  $("#funcionario-complemento-at").val(obj.user_endereco_complemento);
 
-  $("#funcionario-foto").fileinput({
+  $("#funcionario-foto-at").fileinput({
     overwriteInitial: true,
     initialPreview: [
-          "https://api.rafafreitas.com/uploads/funcionario/"+obj.user_foto_perfil
-          ],
-        initialPreviewConfig: [
-                          {
-                            caption: "Logo", 
-                            width: "120px", 
-                            key: 1},
-          ],
+      "https://api.rafafreitas.com/uploads/funcionario/"+obj.user_foto_perfil
+    ],
+    initialPreviewConfig: [
+      {
+        caption: "Logo", 
+        width: "120px", 
+        key: 1
+      },
+    ],
 
     initialPreviewAsData: true, 
     initialPreviewFileType: 'image', 
@@ -323,12 +329,12 @@ function updateObj(obj, table) {
     language: "pt-BR",
 
     browseClass: "btn btn-success",
-      browseLabel: "Escolher",
-      browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+    browseLabel: "Escolher",
+    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
 
     removeClass: "btn btn-danger",
-      removeLabel: "Remover",
-      removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+    removeLabel: "Remover",
+    removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
   });
 
   $("#myModalAtualizar").modal({backdrop: false});
@@ -365,7 +371,7 @@ function submitUp(formData, table) {
       }
     }//success
   });//ajax
-      return false;
+  return false;
 }//submitUp
 
 function enabledDisabled(idChange, tableAt, tableIn, status) {
