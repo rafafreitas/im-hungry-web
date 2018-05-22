@@ -320,10 +320,9 @@ function updateImg(obj, table){
     
   }).on('filepredelete', function (event, key, data, extra) {
     
-    console.log(extra);
-
     var abort = true;
     $.ajax({
+      async: false,
       url:"manter.php",                    
       type:"post",
       data: {
@@ -339,14 +338,10 @@ function updateImg(obj, table){
         if(obj.status == 200){
 
           table.ajax.reload();
-
           toastr.options.progressBar = true;
           toastr.options.closeButton = true;
           toastr.success(obj.result);
-
           abort = false;
-          console.log("suc="+abort);
-          return abort;
 
         }if (obj.status == 500){
 
@@ -354,12 +349,12 @@ function updateImg(obj, table){
           toastr.options.closeButton = true;
           toastr.error(obj.result);
           abort = true;
-          console.log("err="+abort);
-          return true;
 
         }
       }
     });
+
+    return abort;
 
   });
 
