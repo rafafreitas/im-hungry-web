@@ -157,10 +157,10 @@ function initTable(tableAt, tableIn, api) {
                     }
                     var buttons = "<button type='button' class='btn btn-warning' id='"+labelId+"' title='"+label+"'><span class='fa fa-power-off'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                  "<button type='button' class='btn btn-default' id='funcionario' title='Funcionário'><span class='fa fa-user'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>&nbsp;"+
-                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>";
+                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-funcionario' id='funcionario' title='Funcionário'><span class='fa fa-user'></button";
                     return buttons;
                   } 
 
@@ -225,10 +225,10 @@ function initTable(tableAt, tableIn, api) {
                     }
                     var buttons = "<button type='button' class='btn btn-warning' id='"+labelId+"' title='"+label+"'><span class='fa fa-power-off'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                  "<button type='button' class='btn btn-default' id='funcionario' title='Funcionário'><span class='fa fa-user'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>&nbsp;"+
-                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>"
+                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-funcionario' id='funcionario' title='Funcionário'><span class='fa fa-user'></button>";
                     return buttons;
                   }
                }

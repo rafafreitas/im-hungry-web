@@ -10,7 +10,12 @@ $(document).ready(function(){
 });
 
 function initPage() {
-  
+  $(":input").inputmask();
+
+  $('#btmCancelar').click(function(){
+    resetForm('form-company-add');
+  }); 
+
   $("#funcionario-cep, #funcionario-cep-at").keyup(function() {
     $('#loadCep'+temp).show();
     var cep = $(this).val().replace(/_/g, "");
@@ -27,7 +32,7 @@ function initPage() {
     
   });
 
-    $("#funcionario-foto, #funcionario-foto-at").fileinput({
+  $("#funcionario-foto, #funcionario-foto-at").fileinput({
     allowedFileExtensions: ["jpg", "gif", "png"],
     maxFilePreviewSize: 10240,
     previewFileType: "image",
@@ -93,20 +98,26 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "ManterFuncionario",
+             acao : "manterFuncionario",
              tipoAcao: "listarAll",
              enabled: true
            },
            dataSrc: ''
          },
     columns: [
+               { 
+                  "render" : function(data, type, full, meta) {
+                    var icone = full.user_foto_perfil;
+                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionario/'+icone+'" class="icone-categ-img"></div>'
+                  } 
+               },
                { data: "user_nome" },
                { data: "user_cpf" },
                { data: "user_telefone" },
                { data: "user_email" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                 "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>"
+                                 "<button type='button' class='btn btn-danger' id='desativar' title='Desativar Funcionário'><span class='fa fa-ban'></button>"
                }
             ],
    fixedHeader: true,
@@ -135,20 +146,26 @@ function initTable(tableAt, tableIn, api) {
            url: 'manter.php',
            type: "POST",
            data : {
-             acao : "ManterFuncionario",
+             acao : "manterFuncionario",
              tipoAcao: "listarAll",
              enabled: false
            },
            dataSrc: ''
          },
     columns: [
+               { 
+                  "render" : function(data, type, full, meta) {
+                    var icone = full.user_foto_perfil;
+                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionario/'+icone+'" class="icone-categ-img"></div>'
+                  } 
+               },
                { data: "user_nome" },
                { data: "user_cpf" },
                { data: "user_telefone" },
                { data: "user_email" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>"
+                                 "<button type='button' class='btn btn-warning' id='ativar' title='Ativar Funcionário'><span class='fa fa-check'></button>"
                }
             ],
    fixedHeader: true,
@@ -174,16 +191,16 @@ function initTable(tableAt, tableIn, api) {
       var idClick = $(this).attr('id');
       switch(idClick) {
         case 'atualizar':
-            updateObj(data);
-            break;
-        case 'apagar':
-            enabledDisabled(data.usuario_id, tableAt, tableIn, false);
-            break;
+          updateObj(data);
+          break;
+        case 'desativar':
+          enabledDisabled(data.usuario_id, tableAt, tableIn, false);
+          break;
         default:
-            $('#alertaErro').show();
-              setTimeout(function() {
-              $('#alertaErro').hide();
-            }, 1000);  
+          $('#alertaErro').show();
+          setTimeout(function() {
+            $('#alertaErro').hide();
+          }, 1000);  
       }
   });//onClick
 
@@ -192,16 +209,16 @@ function initTable(tableAt, tableIn, api) {
       var idClick = $(this).attr('id');
       switch(idClick) {
         case 'atualizar':
-            updateObj(data);
-            break;
+          updateObj(data);
+          break;
         case 'ativar':
-            enabledDisabled(data.usuario_id, tableAt, tableIn, true);
-            break;
+          enabledDisabled(data.usuario_id, tableAt, tableIn, true);
+          break;
         default:
-            $('#alertaErro').show();
-              setTimeout(function() {
-              $('#alertaErro').hide();
-            }, 1000);  
+          $('#alertaErro').show();
+          setTimeout(function() {
+            $('#alertaErro').hide();
+          }, 1000);  
       }
   });//onClick
 

@@ -76,6 +76,11 @@ div.divTable table.tabelaDinamica td img.icone-categ-img{
   background-color: #ce4fdf;
 }button.btn-fidelidade:hover{
   background-color: #bf45b7;
+}button.btn-funcionario{
+  background-color: #9ed812;
+  width: 40px;
+}button.btn-funcionario:hover{
+  background-color: #86b966;
 }.icone-categ-div{
   max-width: 80px;
   max-height: 80px;

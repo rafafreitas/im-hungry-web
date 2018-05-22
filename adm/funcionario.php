@@ -151,13 +151,22 @@
                 <div class="card-body">
 
                     <div class="form-group row">
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-12 col-lg-12 col-xs-12">
+                        <div id="div-foto-logo">
+                          <label class="form-col-form-label" for="company-logo-at">Foto</label>
+                          <input id="funcionario-foto" name="funcionario-foto" type="file" accept="image/*" required>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-nome">Nome</label>
                         <input type="text" class="form-control" name="funcionario-nome" id="funcionario-nome" required>
                         <input type="hidden" name="acao" value="manterFuncionario">
                         <input type="hidden" name="tipoAcao" value="insert">
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-cpf">CPF</label>
                         <input type="text" class="form-control" name="funcionario-cpf" id="funcionario-cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" data-inputmask="'mask': '999.999.999-99'" title="999.999.999-99" required>
                       </div>
@@ -165,46 +174,49 @@
                         <label class="form-col-form-label" for="funcionario-telefone">Telefone</label>
                         <input type="text" class="form-control" name="funcionario-telefone" id="funcionario-telefone" pattern="\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$" data-inputmask="'mask': '(99)99999-9999'" title="(00)00000-0000 ou (00)000000-0000" required>
                       </div>                    
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="funcionario-data">Data Nascimento</label>
+                        <input type="date" class="form-control" name="funcionario-data" id="funcionario-data" required>
+                      </div>
                     </div>
 
+                   
                     <div class="form-group row">
-                      <div class="col-md-4 col-lg-4 col-xs-12">
+                      <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-email">Email</label>
                         <input type="text" class="form-control" name="funcionario-email" id="funcionario-email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                       </div>
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-senha">Senha</label>
-                        <input type="password" class="form-control" name="funcionario-senha" id="funcionario-senha" required>
+
+                      <div class="col-md-2 col-lg-2 col-xs-12">
+                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+                        <input type="text" class="form-control" name="funcionario-cep" id="funcionario-cep" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
+                      </div>
+
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="funcionario-rua">Rua</label>
+                        <input type="text" class="form-control" name="funcionario-rua" id="funcionario-rua" disabled>
+                      </div>
+
+                      <div class="col-md-3 col-lg-1 col-xs-12">
+                        <label class="form-col-form-label" for="funcionario-numero">Número</label>
+                        <input type="number" class="form-control" name="funcionario-numero" id="funcionario-numero" required>
+                      </div>
+                      
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="funcionario-bairro">Bairro</label>
+                        <input type="text" class="form-control" name="funcionario-bairro" id="funcionario-bairro" disabled>
                       </div>
                     </div>
 
                     <div class="form-group row">
-                      <div class="col-md-1 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
-
-                        <input type="text" class="form-control" name="funcionario-cep" id="funcionario-cep" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
-                      </div>
-                      <div class="col-md-4 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-rua">Rua</label>
-                        <input type="text" class="form-control" name="funcionario-rua" id="funcionario-rua" disabled>
-                      </div>
-                      <div class="col-md-2 col-lg-1 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-numero">Número</label>
-                        <input type="number" class="form-control" name="funcionario-numero" id="funcionario-numero" required>
-                      </div>
-                      <div class="col-md-3 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-bairro">Bairro</label>
-                        <input type="text" class="form-control" name="funcionario-bairro" id="funcionario-bairro" disabled>
-                      </div>
                       <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="funcionario-cidade-uf">Cidade - UF</label>
                         <input type="text" class="form-control" name="funcionario-cidade-uf" id="funcionario-cidade-uf" disabled>
                       </div>
-                    </div>
 
-                    <div class="form-group row">
-                      <div class="col-md-12 col-lg-11 col-xs-12">
-                          <input id="funcionario-foto" name="funcionario-foto" type="file" multiple class="file-loading">
+                      <div class="col-md-6 col-lg-6 col-xs-12">
+                        <label class="form-col-form-label" for="funcionario-complemento">Complemento</label>
+                        <textarea class="form-control" name="funcionario-complemento" id="funcionario-complemento" rows="4"></textarea>
                       </div>
                     </div>
 
@@ -238,6 +250,7 @@
                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
+                            <th></th>
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Telefone</th>
@@ -252,6 +265,7 @@
                       <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
+                            <th></th>
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Telefone</th>

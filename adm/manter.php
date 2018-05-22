@@ -849,7 +849,7 @@ switch ($acao) {
 	break;
 	//FimManterMenu
 
-	case 'ManterFuncionario':
+	case 'manterFuncionario':
 
 		if ($tipoAcao == 'listarAll') {
 			try {
@@ -889,7 +889,6 @@ switch ($acao) {
 			    if ($var->status == 500 && $var->qtd == 0) {
 			    	echo "[]";
 			    }else{
-			    	$_SESSION['Token'] = $var->token;
 			    	$obj = $var->funcionarios;
 					$json=json_encode($obj);
 					echo "$json";
@@ -903,10 +902,14 @@ switch ($acao) {
 		}elseif ($tipoAcao == 'insert') {
 			try {
 
+				if (is_uploaded_file($_FILES['funcionario-foto']['tmp_name'])) {
+
 					if (!isset($_SESSION)){session_cache_expire(30);session_start();}
 
 					$token = $_SESSION['Token'];
 					$url = $_SESSION['API'];
+
+					$fotoNome = upload_file( 'funcionario-foto', false, '', '', 'funcionarios', 'funcionario.php');
 
 					$telefone = str_replace('(', '' , $_POST['funcionario-telefone']);
 	        		$telefone = str_replace(')', '' , $telefone);
@@ -919,14 +922,15 @@ switch ($acao) {
 						'nome' => $_POST['funcionario-nome'], 
 						'cpf' => $cpf, 
 						'telefone' => $telefone, 
+						'data' => $_POST['funcionario-data'], 
 						'email' => $_POST['funcionario-email'], 
-						'senha' => $_POST['funcionario-senha'], 
 						'cep' => $_POST['funcionario-cep'], 
 						'numero_end' => $_POST['funcionario-numero'], 
+						'complemento' => $_POST['funcionario-complemento'], 
 						'enabled' => "true", 
 						'tipo_usuario' => "2",
 						'filial_id' => $_SESSION['filial_id'],
-						'foto_perfil' => "wait",
+						'foto_perfil' => $fotoNome
 					);
 
 					$data = json_encode($data);
@@ -949,6 +953,7 @@ switch ($acao) {
 				    $var = json_decode($response);
 					$json=json_encode($var);
 					echo "$json";
+				}
 
 
 			} catch (Exception $e) {
