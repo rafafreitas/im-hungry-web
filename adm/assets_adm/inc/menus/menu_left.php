@@ -57,12 +57,12 @@
 			
 			<li class="nav-item mt-auto">
 				<a class="nav-link nav-link-success" href="http://coreui.io/" target="_top">
-					<i class="fa fa-apple"></i> Download Android
+					<i class="fa fa-android"></i> Download Android
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link nav-link-danger" href="http://coreui.io/pro/" target="_top">
-					<i class="fa fa-android"></i> Download <strong>IO's</strong>
+					<i class="fa fa-apple"></i> Download <strong>IO's</strong>
 				</a>
 			</li>
 

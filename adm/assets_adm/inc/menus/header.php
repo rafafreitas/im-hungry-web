@@ -8,17 +8,13 @@
   </button>
 
   <ul class="nav navbar-nav d-md-down-none">
-    <li class="nav-item px-3">
+    <!-- <li class="nav-item px-3">
       <a class="nav-link" href="#">Dashboard</a>
     </li>
     <li class="nav-item px-3">
       <a class="nav-link" href="#">Users</a>
-    </li>
-    <li class="nav-item px-3">
-      <a class="nav-link" href="#">Settings</a>
-    </li>
+    </li> -->
   </ul>
-
 
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item dropdown d-md-down-none">
@@ -29,7 +25,7 @@
         <div class="dropdown-header text-center">
           <strong>You have 5 notifications</strong>
         </div>
-        <a href="#" class="dropdown-item">
+        <!-- <a href="#" class="dropdown-item">
           <i class="icon-user-follow text-success"></i> New user registered
         </a>
         <a href="#" class="dropdown-item">
@@ -73,7 +69,7 @@
             <div class="progress-bar bg-danger" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
           </span>
           <small class="text-muted">243GB/256GB</small>
-        </a>
+        </a> -->
       </div>
     </li>
     <li class="nav-item dropdown d-md-down-none">
@@ -81,7 +77,7 @@
         <i class="icon-list"></i><span class="badge badge-pill badge-warning">15</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
-        <div class="dropdown-header text-center">
+        <!-- <div class="dropdown-header text-center">
           <strong>You have 5 pending tasks</strong>
         </div>
         <a href="#" class="dropdown-item">
@@ -133,10 +129,10 @@
           <span class="progress progress-xs">
             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
           </span>
-        </a>
+        </a>-->
         <a href="#" class="dropdown-item text-center">
           <strong>View all tasks</strong>
-        </a>
+        </a> 
       </div>
     </li>
     <li class="nav-item dropdown d-md-down-none">
@@ -147,7 +143,7 @@
         <div class="dropdown-header text-center">
           <strong>You have 4 messages</strong>
         </div>
-        <a href="#" class="dropdown-item">
+        <!-- <a href="#" class="dropdown-item">
           <div class="message">
             <div class="py-3 mr-3 float-left">
               <div class="avatar">
@@ -160,89 +156,93 @@
               <small class="text-muted float-right mt-1">Just now</small>
             </div>
             <div class="text-truncate font-weight-bold">
-              <span class="fa fa-exclamation text-danger"></span> Important message</div>
-              <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
+              <span class="fa fa-exclamation text-danger"></span> Important message
             </div>
-          </a>
-          <a href="#" class="dropdown-item">
-            <div class="message">
-              <div class="py-3 mr-3 float-left">
-                <div class="avatar">
-                  <img src="../assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                  <span class="avatar-status badge-warning"></span>
-                </div>
-              </div>
-              <div>
-                <small class="text-muted">John Doe</small>
-                <small class="text-muted float-right mt-1">5 minutes ago</small>
-              </div>
-              <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-              <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
+            <div class="small text-muted text-truncate">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
             </div>
-          </a>
-          <a href="#" class="dropdown-item">
-            <div class="message">
-              <div class="py-3 mr-3 float-left">
-                <div class="avatar">
-                  <img src="../assets/img/avatars/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                  <span class="avatar-status badge-danger"></span>
-                </div>
-              </div>
-              <div>
-                <small class="text-muted">John Doe</small>
-                <small class="text-muted float-right mt-1">1:52 PM</small>
-              </div>
-              <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-              <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
-            </div>
-          </a>
-          <a href="#" class="dropdown-item">
-            <div class="message">
-              <div class="py-3 mr-3 float-left">
-                <div class="avatar">
-                  <img src="../assets/img/avatars/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                  <span class="avatar-status badge-info"></span>
-                </div>
-              </div>
-              <div>
-                <small class="text-muted">John Doe</small>
-                <small class="text-muted float-right mt-1">4:03 PM</small>
-              </div>
-              <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-              <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
-            </div>
-          </a>
-          <a href="#" class="dropdown-item text-center">
-            <strong>View all messages</strong>
-          </a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          <img src="../assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+          </div>
         </a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <div class="dropdown-header text-center">
-            <strong>Account</strong>
+        <a href="#" class="dropdown-item">
+          <div class="message">
+            <div class="py-3 mr-3 float-left">
+              <div class="avatar">
+                <img src="../assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <span class="avatar-status badge-warning"></span>
+              </div>
+            </div>
+            <div>
+              <small class="text-muted">John Doe</small>
+              <small class="text-muted float-right mt-1">5 minutes ago</small>
+            </div>
+            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+            <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
           </div>
-          <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
-          <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
-          <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a>
-          <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a>
-          <div class="dropdown-header text-center">
-            <strong>Settings</strong>
+        </a>
+        <a href="#" class="dropdown-item">
+          <div class="message">
+            <div class="py-3 mr-3 float-left">
+              <div class="avatar">
+                <img src="../assets/img/avatars/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <span class="avatar-status badge-danger"></span>
+              </div>
+            </div>
+            <div>
+              <small class="text-muted">John Doe</small>
+              <small class="text-muted float-right mt-1">1:52 PM</small>
+            </div>
+            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+            <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
           </div>
-          <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-dark">42</span></a>
-          <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
-          <div class="divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
-          <a class="dropdown-item" href="logout.php"><i class="fa fa-lock"></i> Logout</a>
+        </a>
+        <a href="#" class="dropdown-item">
+          <div class="message">
+            <div class="py-3 mr-3 float-left">
+              <div class="avatar">
+                <img src="../assets/img/avatars/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <span class="avatar-status badge-info"></span>
+              </div>
+            </div>
+            <div>
+              <small class="text-muted">John Doe</small>
+              <small class="text-muted float-right mt-1">4:03 PM</small>
+            </div>
+            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+            <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
+          </div>
+        </a> -->
+        <a href="#" class="dropdown-item text-center">
+          <strong>View all messages</strong>
+        </a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <img src="../assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <div class="dropdown-header text-center">
+          <strong>Account</strong>
         </div>
-      </li>
-      <button class="navbar-toggler aside-menu-toggler" type="button">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </ul>
-  </header>
+        <a class="dropdown-item" href="perfil.php"><i class="fa fa-user"></i> Perfil</a>
+        <!-- <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a> -->
+        <div class="dropdown-header text-center">
+          <strong>Settings</strong>
+        </div>
+        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Configurações</a>
+        <!-- <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-dark">42</span></a>
+        <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
+        <div class="divider"></div>
+        <!-- <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
+        <a class="dropdown-item" href="logout.php"><i class="fa fa-lock"></i> Logout</a>
+      </div>
+    </li>
+    <button class="navbar-toggler aside-menu-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </ul>
+
+</header>

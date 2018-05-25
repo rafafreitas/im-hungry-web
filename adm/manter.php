@@ -1113,6 +1113,7 @@ switch ($acao) {
 
 		}
 	break;
+	//FimManterPedidos
 
 	case 'manterGraficos':
 
@@ -1124,6 +1125,115 @@ switch ($acao) {
 		// 	'Authorization: ' . $token
 		// 	)
 		// );
+	break;
+	//FimManterGraficos
+
+	case 'manterPerfil':
+		if ($tipoAcao == 'update') {
+			try {
+
+				$fotoNome = "";
+				
+				if (is_uploaded_file($_FILES['perfil-foto']['tmp_name']) ) {
+
+					$fotoNome = upload_file( 'perfil-foto', false, '', '', 'usuarios', 'perfil.php');
+
+				}
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$telefone = str_replace('(', '' , $_POST['perfil-telefone']);
+				$telefone = str_replace(')', '' , $telefone);
+				$telefone = str_replace('-', '' , $telefone);
+
+				$cpf = str_replace('/', '' , $_POST['perfil-cpf']);
+				$cpf = str_replace('.', '' , $cpf);
+				$cpf = str_replace('-', '' , $cpf);
+
+				$data = array(
+						'idAt' => $_SESSION['UsuarioID'], 
+						'nome' => $_POST['perfil-nome'], 
+						'telefone' => $telefone, 
+						'cpf' => $cpf, 
+						'data' => $_POST['perfil-data'], 
+						'email' => $_POST['perfil-email'], 
+						'cep' => $_POST['perfil-cep'], 
+						'numero_end' => $_POST['perfil-numero'], 
+						'complemento' => $_POST['perfil-complemento'], 
+						'foto_perfil' => $fotoNome 
+					);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/usuario/update');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getCode();
+			}
+		
+		}elseif ($tipoAcao == 'getInfo') {
+
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+				$user_id = $_SESSION['UsuarioID'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'user_id' => $_SESSION['UsuarioID'], 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/usuario/perfil');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}
 	break;
 
 	case 'buscaCep':
@@ -1166,8 +1276,8 @@ switch ($acao) {
 			}
 
 		}
-
-		break;
+	break;
+	//FimBuscaCep
 
 	default:
 		echo "Ocorreu um erro na chamada da função, os parâmetros de ação não foram localizados.";
