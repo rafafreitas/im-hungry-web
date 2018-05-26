@@ -16,13 +16,18 @@ div.img-full-login{
   height: 100%;
 }div.bg-login{
   /*background-color: #3a7adbb5!important;*/
-  background-color: #20a8d8c7!important;
-}div.bg-login button{
+  background-color: #e7352dbf!important;
+  border-color: #ca6a42!important;
+}div.bg-login button, button#btn-login{
   border-color: #000!important;
-  background-color: #21a8d8!important;
-}div.bg-login button:hover{
+  background-color: #c2d80d!important;
+}.btn-link-login{
+  color: #c2d80d;
+}.btn-link-login:hover{
+  color: #000;
+}div.bg-login button:hover, button#btn-login:hover{
   border-color: #000!important;
-  background-color: #1b8eb7!important;
+  background-color: #899909!important;
 }p#erroLogin{
   margin-bottom: 0px!important;
 }form.form-padrao{

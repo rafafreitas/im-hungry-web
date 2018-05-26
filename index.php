@@ -16,7 +16,7 @@
 <body class="app flex-row align-items-center">
   <div class="img-full-login">
     <div id="back-div"></div>
-   <img src="assets/img/back.jpg">
+   <img src="assets/img/back.png">
   </div><!-- /.video-full -->
   <div class="container">
     <div class="row justify-content-center">
@@ -45,7 +45,7 @@
                     <button type="submit" id="btn-login" class="btn btn-primary px-4">Login</button>
                   </div>
                   <div class="col-6 text-right">
-                    <button type="button" class="btn btn-link px-0">Esqueceu a senha?</button>
+                    <button type="button" class="btn btn-link btn-link-login px-0">Esqueceu a senha?</button>
                   </div>
                 </div>
               </form>
@@ -55,7 +55,7 @@
             <div class="card-body text-center">
               <div>
                 <h2>Inscreva-se</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>Ainda não possui cadastro? Faça como milhões de estabelecimentos e impulsione suas vendas com o poder de alcance do I`m Hungry. <br>É grátis!</p>
                 <a href="register.php">
                   <button id="register-but" type="button" class="btn btn-primary active mt-3">Registrar Agora!</button>
                 </a>

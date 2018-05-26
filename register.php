@@ -16,7 +16,7 @@
 <body class="app flex-row align-items-center">
   <div class="img-full-login">
     <div id="back-div"></div>
-   <img src="assets/img/back.jpg">
+   <img src="assets/img/back.png">
   </div><!-- /.video-full -->
   <div class="container">
     <div class="row justify-content-center">
@@ -55,6 +55,8 @@
             </div>
 
             <button type="submit" class="btn btn-block btn-success" id="btnRegister" >Registrar Conta!</button>
+            <button type="button" class="btn btn-block btn-warning" id="btnBackLogin" >Login!</button>
+
           </form>
           </div>
           <div class="card-footer p-4">

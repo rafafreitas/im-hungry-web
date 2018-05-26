@@ -11,6 +11,10 @@ function resetForm(form) {
   });
 }//ResetForm
 
+$('#btnBackLogin').click(function(event) {
+  window.location.href = "index.php";
+});
+
 $('#formRegister').submit(function(){ 
   var json = jQuery(this).serialize();
   //var formData = new FormData(this);
