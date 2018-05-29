@@ -12,7 +12,7 @@ function resetForm(form) {
 }//ResetForm
 
 $('#btnBackLogin').click(function(event) {
-  window.location.href = "index.php";
+  window.location.href = "login";
 });
 
 $('#formRegister').submit(function(){ 

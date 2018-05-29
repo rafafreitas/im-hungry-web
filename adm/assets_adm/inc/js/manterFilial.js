@@ -265,13 +265,13 @@ function initTable(tableAt, tableIn, api) {
             updateObj(data);
             break;
         case 'funcionario':
-            window.location = "funcionario.php?id="+data.filial_id;
+            window.location = "meus-funcionarios/"+data.filial_id;
             break;
         case 'fidelidade':
             setFidelidade(data);
             break;
         case 'menu':
-            window.location = "menu.php?id="+data.filial_id;
+            window.location = "menu/"+data.filial_id;
             break;
         case 'apagar':
             enabledDisabled(data.filial_id, tableAt, tableIn, false);
@@ -295,13 +295,13 @@ function initTable(tableAt, tableIn, api) {
             abrirFechar(data.filial_id, tableIn, false);
             break;
         case 'funcionario':
-            window.location = "funcionario.php?id="+data.filial_id;
+            window.location = "meus-funcionarios/"+data.filial_id;
             break;
         case 'funcionario':
             updateObj(data);
             break;
         case 'menu':
-            window.location = "menu.php?id="+data.filial_id;
+            window.location = "menu/"+data.filial_id;
             break;
         case 'ativar':
             enabledDisabled(data.filial_id, tableAt, tableIn, true);

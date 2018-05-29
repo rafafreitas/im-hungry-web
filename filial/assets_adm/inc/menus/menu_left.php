@@ -3,7 +3,7 @@
 	<nav class="sidebar-nav">
 		<ul class="nav">
 			<li class="nav-item">
-				<a class="nav-link" href="index.php">
+				<a class="nav-link" href="dashboard">
 					<i class="icon-speedometer"></i> Dashboard 
 					<span class="badge badge-warning">BREVE</span>
 				</a>
@@ -14,7 +14,7 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="pedidos.php">
+				<a class="nav-link" href="pedidos">
 					<i class="fa fa-shopping-cart"></i> Pedidos 
 					<span class="badge badge-warning">BREVE</span>
 				</a>

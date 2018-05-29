@@ -71,7 +71,7 @@ switch ($acao) {
 					$token = $_SESSION['Token'];
 					$url = $_SESSION['API'];
 
-					$fotoNome = upload_file( 'company-logo', false, '', '', 'empresa', 'company.php');
+					$fotoNome = upload_file( 'company-logo', false, '', '', 'empresa', 'empresas');
 
 					$telefone = str_replace('(', '' , $_POST['company-telefone']);
 	        		$telefone = str_replace(')', '' , $telefone);
@@ -132,7 +132,7 @@ switch ($acao) {
 				
 				if (is_uploaded_file($_FILES['company-logo-at']['tmp_name']) ) {
 
-					$fotoNome = upload_file( 'company-logo-at', false, '', '', 'empresa', 'company.php');
+					$fotoNome = upload_file( 'company-logo-at', false, '', '', 'empresa', 'empresas');
 
 				}
 
@@ -612,7 +612,7 @@ switch ($acao) {
 		            }
 
 		            foreach ($file_ary as $key => $value) {
-		                $fotoNome[$key] = upload_mult_file( $value, false, '', '', 'itens', 'menu.php?id='.$filial_id);
+		                $fotoNome[$key] = upload_mult_file( $value, false, '', '', 'itens', 'menu/'.$filial_id);
 		            }
 
 					$data = array(
@@ -757,7 +757,7 @@ switch ($acao) {
 					}
 
 					foreach ($files as $file) {
-						$imgNome = upload_mult_file( $file, false, '', '', 'itens', 'menu.php?id='.$filial_id);
+						$imgNome = upload_mult_file( $file, false, '', '', 'itens', 'menu/'.$filial_id);
 					}
 
 					$data = array(
@@ -908,7 +908,7 @@ switch ($acao) {
 					$token = $_SESSION['Token'];
 					$url = $_SESSION['API'];
 
-					$fotoNome = upload_file( 'funcionario-foto', false, '', '', 'funcionarios', 'funcionario.php');
+					$fotoNome = upload_file( 'funcionario-foto', false, '', '', 'funcionarios', 'meus-funcionarios');
 
 					$telefone = str_replace('(', '' , $_POST['funcionario-telefone']);
 	        		$telefone = str_replace(')', '' , $telefone);
@@ -965,7 +965,7 @@ switch ($acao) {
 				$fotoNome = "";
 				
 				if (is_uploaded_file($_FILES['funcionario-foto-at']['tmp_name']) ) {
-					$fotoNome = upload_file( 'funcionario-foto-at', false, '', '', 'funcionario', 'funcionario.php');
+					$fotoNome = upload_file( 'funcionario-foto-at', false, '', '', 'funcionario', 'meus-funcionarios');
 				}
 
 				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
@@ -1136,7 +1136,7 @@ switch ($acao) {
 				
 				if (is_uploaded_file($_FILES['perfil-foto']['tmp_name']) ) {
 
-					$fotoNome = upload_file( 'perfil-foto', false, '', '', 'usuarios', 'perfil.php');
+					$fotoNome = upload_file( 'perfil-foto', false, '', '', 'usuarios', 'meu-perfil');
 
 				}
 

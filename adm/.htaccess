@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^empresas/?$ company.php [NC,L]
+  RewriteRule ^filiais/?$ filiais.php [NC,L]
+  RewriteRule ^meus-funcionarios/([0-9]+)?$ funcionario.php?id=$1 [NC,L]
+  RewriteRule ^dashboard/?$ index.php [NC,L]
+  RewriteRule ^menu/([0-9]+)?$ menu.php?id=$1 [NC,L]
+  RewriteRule ^pedidos/?$ pedidos.php [NC,L]
+  RewriteRule ^meu-perfil/?$ perfil.php [NC,L]
+
+</IfModule>

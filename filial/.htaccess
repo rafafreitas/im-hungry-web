@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^dashboard/?$ index.php [NC,L]
+  RewriteRule ^pedidos/?$ pedidos.php [NC,L]
+  RewriteRule ^meu-perfil/?$ perfil.php [NC,L]
+
+</IfModule>

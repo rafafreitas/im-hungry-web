@@ -38,7 +38,7 @@
         <li class="breadcrumb-menu d-md-down-none">
           <div class="btn-group" role="group" aria-label="Button group">
             <a class="btn" href="#"><i class="icon-speech"></i></a>
-            <a class="btn" href="index.php"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+            <a class="btn" href="dashboard"><i class="icon-graph"></i> &nbsp;Dashboard</a>
             <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Configurações</a>
           </div>
         </li>

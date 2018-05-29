@@ -3,7 +3,7 @@
 	<nav class="sidebar-nav">
 		<ul class="nav">
 			<li class="nav-item">
-				<a class="nav-link" href="index.php">
+				<a class="nav-link" href="dashboard">
 					<i class="icon-speedometer"></i> Dashboard 
 					<span class="badge badge-warning">BREVE</span>
 				</a>
@@ -16,7 +16,7 @@
 				<a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-building-o"></i> Estabelecimentos</a>
 				<ul class="nav-dropdown-items">
 					<li class="nav-item">
-						<a class="nav-link" href="company.php">
+						<a class="nav-link" href="empresas">
 							<i class="icon-check"></i> Minha Empresa
 						</a>
 					</li>
@@ -26,7 +26,7 @@
 						</a>
 					</li> -->
 					<li class="nav-item">
-						<a class="nav-link" href="filiais.php">
+						<a class="nav-link" href="filiais">
 							<i class="fa fa-code-fork"></i> Minhas Filiais
 						</a>
 					</li>
@@ -34,7 +34,7 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="pedidos.php">
+				<a class="nav-link" href="pedidos">
 					<i class="fa fa-shopping-cart"></i> Pedidos 
 					<span class="badge badge-warning">BREVE</span>
 				</a>
@@ -56,12 +56,12 @@
 
 			
 			<li class="nav-item mt-auto">
-				<a class="nav-link nav-link-success" href="http://coreui.io/" target="_top">
+				<a class="nav-link nav-link-success" href="https://play.google.com/store" target="_top">
 					<i class="fa fa-android"></i> Download Android
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link nav-link-danger" href="http://coreui.io/pro/" target="_top">
+				<a class="nav-link nav-link-danger" href="https://www.apple.com/br/" target="_top">
 					<i class="fa fa-apple"></i> Download <strong>IO's</strong>
 				</a>
 			</li>

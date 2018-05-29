@@ -13,13 +13,13 @@ if (!isset($_SESSION['UsuarioID']) ||
     
 	switch ($_SESSION['UsuarioNivel']) {
         case 1:
-            header("Location: adm/index.php");
+            header("Location: adm/dashboard");
             break;
         case 2:
-            header("Location: filial/index.php");
+            header("Location: filial/pedidos");
             break;
         case 3:
-            header("Location: register.php");
+            header("Location: register");
             break;
 	}
     

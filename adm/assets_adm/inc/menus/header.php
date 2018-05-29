@@ -224,7 +224,7 @@
         <div class="dropdown-header text-center">
           <strong>Account</strong>
         </div>
-        <a class="dropdown-item" href="perfil.php"><i class="fa fa-user"></i> Perfil</a>
+        <a class="dropdown-item" href="meu-perfil"><i class="fa fa-user"></i> Perfil</a>
         <!-- <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
         <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
         <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a>
@@ -244,5 +244,4 @@
       <span class="navbar-toggler-icon"></span>
     </button>
   </ul>
-
 </header>

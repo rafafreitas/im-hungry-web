@@ -56,7 +56,7 @@
               <div>
                 <h2>Inscreva-se</h2>
                 <p>Ainda não possui cadastro? Faça como milhões de estabelecimentos e impulsione suas vendas com o poder de alcance do I`m Hungry. <br>É grátis!</p>
-                <a href="register.php">
+                <a href="register">
                   <button id="register-but" type="button" class="btn btn-primary active mt-3">Registrar Agora!</button>
                 </a>
               </div>
@@ -77,9 +77,14 @@
             var login=$('#in-email').val();
             var senha=$('#in-senha').val();
             $.ajax({
-              url:"validacao.php",
-              type:"post",
-              data: "login="+login+"&senha="+senha, 
+              url:"manter.php",                    
+              type:"post", 
+              data: {
+                acao : "login",
+                tipoAcao : "",
+                login : login,
+                senha : senha
+              },
               success: function (result){
                 if(result==1){             
                   location.href='red.php'
