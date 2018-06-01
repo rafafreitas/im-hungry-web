@@ -1,3 +1,4 @@
+<?php include_once 'face.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,9 +63,9 @@
           <div class="card-footer p-4">
             <div class="row">
               <div class="col-6">
-                <button class="btn btn-block btn-facebook" type="button">
+                <a href="<?php echo $loginUrl; ?>" class="btn btn-block btn-facebook" type="button">
                   <span>Facebook</span>
-                </button>
+                </a>
               </div>
               <div class="col-6">
                 <button class="btn btn-block btn-google" type="button">
