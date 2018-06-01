@@ -13,6 +13,17 @@ if (isset($_GET['state'])) {
 
 try {
   $accessToken = $helper->getAccessToken();
+
+  // Returns a `Facebook\FacebookResponse` object
+  $response = $fb->get('/me?fields=id,name,email', $accessToken);
+
+  $user = $response->getGraphUser();
+  echo 'ID: ' . $user['id'] . '<br>';
+  echo 'Name: ' . $user['name'] . '<br>';
+  echo 'Email: ' . $user['email'] . '<br>';
+  // OR
+  // echo 'Name: ' . $user->getName();
+    
 } catch(Facebook\Exceptions\FacebookResponseException $e) {
   // When Graph returns an error
   echo 'Graph returned an error: ' . $e->getMessage();
@@ -38,19 +49,19 @@ if (! isset($accessToken)) {
 }
 
 // Logged in
-echo '<h3>Access Token</h3>';
-var_dump($accessToken->getValue());
+//echo '<h3>Access Token</h3>';
+//var_dump($accessToken->getValue());
 
 // The OAuth 2.0 client handler helps us manage access tokens
 $oAuth2Client = $fb->getOAuth2Client();
 
 // Get the access token metadata from /debug_token
 $tokenMetadata = $oAuth2Client->debugToken($accessToken);
-echo '<h3>Metadata</h3>';
-var_dump($tokenMetadata);
+//echo '<h3>Metadata</h3>';
+//var_dump($tokenMetadata);
 
 // Validation (these will throw FacebookSDKException's when they fail)
-$tokenMetadata->validateAppId('{app-id}'); // Replace {app-id} with your app id
+$tokenMetadata->validateAppId('414679185647587'); // Replace {app-id} with your app id
 // If you know the user ID this access token belongs to, you can validate it here
 //$tokenMetadata->validateUserId('123');
 $tokenMetadata->validateExpiration();
