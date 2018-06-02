@@ -3,7 +3,7 @@
 	<nav class="sidebar-nav">
 		<ul class="nav">
 			<li class="nav-item">
-				<a class="nav-link" href="dashboard">
+				<a class="nav-link" href="/adm/dashboard">
 					<i class="icon-speedometer"></i> Dashboard 
 					<span class="badge badge-warning">BREVE</span>
 				</a>
@@ -16,7 +16,7 @@
 				<a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-building-o"></i> Estabelecimentos</a>
 				<ul class="nav-dropdown-items">
 					<li class="nav-item">
-						<a class="nav-link" href="empresas">
+						<a class="nav-link" href="/adm/empresas">
 							<i class="icon-check"></i> Minha Empresa
 						</a>
 					</li>
@@ -26,7 +26,7 @@
 						</a>
 					</li> -->
 					<li class="nav-item">
-						<a class="nav-link" href="filiais">
+						<a class="nav-link" href="/adm/filiais">
 							<i class="fa fa-code-fork"></i> Minhas Filiais
 						</a>
 					</li>
@@ -34,7 +34,7 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="pedidos">
+				<a class="nav-link" href="/adm/pedidos">
 					<i class="fa fa-shopping-cart"></i> Pedidos 
 					<span class="badge badge-warning">BREVE</span>
 				</a>

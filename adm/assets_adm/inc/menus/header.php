@@ -147,7 +147,7 @@
           <div class="message">
             <div class="py-3 mr-3 float-left">
               <div class="avatar">
-                <img src="../assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <img src="/assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="avatar-status badge-success"></span>
               </div>
             </div>
@@ -167,7 +167,7 @@
           <div class="message">
             <div class="py-3 mr-3 float-left">
               <div class="avatar">
-                <img src="../assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <img src="/assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="avatar-status badge-warning"></span>
               </div>
             </div>
@@ -183,7 +183,7 @@
           <div class="message">
             <div class="py-3 mr-3 float-left">
               <div class="avatar">
-                <img src="../assets/img/avatars/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <img src="/assets/img/avatars/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="avatar-status badge-danger"></span>
               </div>
             </div>
@@ -199,7 +199,7 @@
           <div class="message">
             <div class="py-3 mr-3 float-left">
               <div class="avatar">
-                <img src="../assets/img/avatars/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                <img src="/assets/img/avatars/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="avatar-status badge-info"></span>
               </div>
             </div>
@@ -218,7 +218,7 @@
     </li>
     <li class="nav-item dropdown">
       <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        <img src="../assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+        <img src="/assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <div class="dropdown-header text-center">

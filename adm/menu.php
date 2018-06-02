@@ -98,7 +98,7 @@
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default" id="btnAtualizar">Atualizar</button>
-                        <img  id="submitGif" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+                        <img  id="submitGif" src="/assets/img/gif/load.gif" style="max-width: 50px;">
                         <p id="retornoAt" class="text-center"></p>
                       </div>
                     </div>
@@ -275,7 +275,7 @@
   <?php include "assets_adm/inc/file_input.php"; ?>
 
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="assets_adm/inc/js/manterMenu.js"></script>
+  <script type="text/javascript" src="/adm/assets_adm/inc/js/manterMenu.js"></script>
   
 </body>
 </html>
