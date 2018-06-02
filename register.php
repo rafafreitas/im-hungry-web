@@ -61,17 +61,20 @@
           </form>
           </div>
           <div class="card-footer p-4">
-            <div class="row">
+            <div align="center" class="row">
               <div class="col-6">
-                <a href="<?php echo $loginUrl; ?>" class="btn btn-block btn-facebook" type="button">
-                  <span>Facebook</span>
-                </a>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-block btn-google" type="button">
-                  <span>Google</span>
-                </button>
-              </div>
+                  <a style="width: 120px;" href="<?php echo $loginUrl; ?>" class="btn btn-block btn-facebook" type="button">
+                    <span>Facebook</span>
+                  </a>
+                </div>
+                <div class="col-6">
+                  <div class="g-signin2" data-onsuccess="onSignIn">Click here to sign in with google</div> 
+                  <form action="getdata.php" method="post" id="dateForm" target="_blank" onsubmit="self.close();"> 
+                      <div class="data"> 
+                          <input type="submit" value="Login"/> 
+                      </div> 
+                  </form>
+                </div>
             </div>
           </div>
         </div>
@@ -82,6 +85,19 @@
   <!-- JS -->
   <? include "assets/inc/js.php"; ?>
   <script type="text/javascript" src="assets/inc/js/manterRegister.js"></script>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script> 
+        <meta name="google-signin-client_id" content="your_client_id"> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+        <!--<script src="scrpt.js"></script>--> 
+        <script> function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        $(".g-signin2").css("display", "none");
+        $(".data").css("display", "block");
+        $("#pic").attr('src', profile.getImageUrl());
+    }</script> 
+    <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
 
 </body>
 </html>
