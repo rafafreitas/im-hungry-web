@@ -58,10 +58,7 @@
                   </div>
                   <div class="col-6">
                     <div class="g-signin2" data-onsuccess="onSignIn">Click here to sign in with google</div> 
-                    <form action="getdata.php" method="post" id="dateForm" target="_blank" onsubmit="self.close();"> 
-                        <div class="data"> 
-                            <input type="submit" value="Login"/> 
-                        </div> 
+                    <form action="google-callback.php" method="post" id="dateForm" target="_blank" onsubmit="self.close();">
                     </form>
                   </div>
                 </div>
@@ -118,16 +115,29 @@
     </script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script> 
-        <meta name="google-signin-client_id" content="your_client_id"> 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-        <!--<script src="scrpt.js"></script>--> 
-        <script> function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        $(".g-signin2").css("display", "none");
-        $(".data").css("display", "block");
-        $("#pic").attr('src', profile.getImageUrl());
-    }</script> 
+    <meta name="google-signin-client_id" content="430825112141-2pbgqftnet7smu9k87vnqoibsh8mugn9.apps.googleusercontent.com"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <!--<script src="scrpt.js"></script>--> 
+    <script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      var nome = profile.getName();
+      var email = profile.getEmail();
+      var senha = profile.getId();
+      var img = ('src', profile.getImageUrl());
+      $.ajax({
+        url:"google-callback.php",                    
+        type:"post", 
+        data: {
+          nome : nome,
+          email : email,
+          senha : senha,
+          img : img
+        },
+      });
+    }
+    </script> 
     <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
 
 </body>

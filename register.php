@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-6">
                   <div class="g-signin2" data-onsuccess="onSignIn">Click here to sign in with google</div> 
-                  <form action="getdata.php" method="post" id="dateForm" target="_blank" onsubmit="self.close();"> 
+                  <form action="google-callback.php" method="post" id="dateForm" target="_blank" onsubmit="self.close();"> 
                       <div class="data"> 
                           <input type="submit" value="Login"/> 
                       </div> 
@@ -87,17 +87,19 @@
   <script type="text/javascript" src="assets/inc/js/manterRegister.js"></script>
 
   <script src="https://apis.google.com/js/platform.js" async defer></script> 
-        <meta name="google-signin-client_id" content="your_client_id"> 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-        <!--<script src="scrpt.js"></script>--> 
-        <script> function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        $(".g-signin2").css("display", "none");
-        $(".data").css("display", "block");
-        $("#pic").attr('src', profile.getImageUrl());
-    }</script> 
-    <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
+  <meta name="google-signin-client_id" content="430825112141-2pbgqftnet7smu9k87vnqoibsh8mugn9.apps.googleusercontent.com"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+  <!--<script src="scrpt.js"></script>--> 
+  <script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      $(".g-signin2").css("display", "none");
+      $(".data").css("display", "block");
+      $("#pic").attr('src', profile.getImageUrl());
+    }
+  </script>  
+  <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
 
 </body>
 </html>
