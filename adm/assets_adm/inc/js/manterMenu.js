@@ -3,7 +3,7 @@ $(document).ready(function(){
   var api;
   var tableAt;
   var tableIn;
-  $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
+  //$.get("../_db/url.php", function(result) { api = JSON.parse(result)});
   initTable(tableAt, tableIn, api);
   initPage();
 
@@ -49,7 +49,7 @@ function initTable(tableAt, tableIn, api) {
     processing: true,
     responsive: true,
     ajax: {
-           url: 'manter.php',
+           url: '../manter.php',
            type: "POST",
            data : {
              acao : "manterMenu",
@@ -102,7 +102,7 @@ function initTable(tableAt, tableIn, api) {
     processing: true,
     responsive: true,
     ajax: {
-           url: 'manter.php',
+           url: '../manter.php',
            type: "POST",
            data : {
              acao : "manterMenu",
