@@ -1,4 +1,5 @@
 <header class="app-header navbar">
+  <meta name="google-signin-client_id" content="430825112141-2pbgqftnet7smu9k87vnqoibsh8mugn9.apps.googleusercontent.com">
   <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -237,7 +238,7 @@
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
         <div class="divider"></div>
         <!-- <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-        <a class="dropdown-item" href="logout.php"><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" href="logout.php" onclick="signOut();"> <i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
     <button class="navbar-toggler aside-menu-toggler" type="button">
@@ -245,3 +246,21 @@
     </button>
   </ul>
 </header>
+<body>
+  <script>
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+
+    function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>

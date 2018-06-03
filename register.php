@@ -87,19 +87,40 @@
   <script type="text/javascript" src="assets/inc/js/manterRegister.js"></script>
 
   <script src="https://apis.google.com/js/platform.js" async defer></script> 
-  <meta name="google-signin-client_id" content="430825112141-2pbgqftnet7smu9k87vnqoibsh8mugn9.apps.googleusercontent.com"> 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-  <!--<script src="scrpt.js"></script>--> 
-  <script>
+    <meta name="google-signin-client_id" content="430825112141-2pbgqftnet7smu9k87vnqoibsh8mugn9.apps.googleusercontent.com"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <!--<script src="scrpt.js"></script>--> 
+    <script>
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
-      $(".g-signin2").css("display", "none");
-      $(".data").css("display", "block");
-      $("#pic").attr('src', profile.getImageUrl());
+      var nome = profile.getName();
+      var email = profile.getEmail();
+      var senha = profile.getId();
+      var img = ('src', profile.getImageUrl());
+      $.ajax({
+        url:"google-callback.php",                    
+        type:"post", 
+        data: {
+          nome : nome,
+          email : email,
+          senha : senha,
+          img : img
+        },
+        success: function (result){
+          if(result==1){
+            window.location.href = 'red.php';
+          }if (result !=1){
+            $('#erroLogin').addClass('animated shake');
+            $('#erroLogin').show();
+            $("#erroLogin").html("<p class='text-center'>"+result+"</p>");
+          }  
+        }
+      });
+      return false;
     }
-  </script>  
-  <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
+    </script> 
+    <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
 
 </body>
 </html>

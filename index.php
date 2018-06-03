@@ -57,9 +57,7 @@
                     </a>
                   </div>
                   <div class="col-6">
-                    <div class="g-signin2" data-onsuccess="onSignIn">Click here to sign in with google</div> 
-                    <form action="google-callback.php" method="post" id="dateForm" target="_blank" onsubmit="self.close();">
-                    </form>
+                  <div class="g-signin2" data-onsuccess="onSignIn">Click here to sign in with google</div>
                   </div>
                 </div>
               </form>
@@ -135,10 +133,19 @@
           senha : senha,
           img : img
         },
+        success: function (result){
+          if(result==1){
+            window.location.href = 'red.php';
+          }if (result !=1){
+            $('#erroLogin').addClass('animated shake');
+            $('#erroLogin').show();
+            $("#erroLogin").html("<p class='text-center'>"+result+"</p>");
+          }  
+        }
       });
+      return false;
     }
     </script> 
     <style> .g-signin2{ margin-top:0px;} .data{ display:none;} </style>
-
 </body>
 </html>

@@ -61,7 +61,7 @@ try{
     $_SESSION['API'] = $url;
     $_SESSION['Token'] = $var->token;
     
-    header("location:red.php");
+    echo 1;
   }elseif ($var->status == 200) {
     session_cache_expire(30);
     session_start();
@@ -73,7 +73,7 @@ try{
     $_SESSION['API'] = $url;
     $_SESSION['Token'] = $var->token;
 
-    header("location:red.php");
+    echo 1;
 
   }else{
     echo "Ocorreu um erro no servidor!";
