@@ -3,7 +3,7 @@ $(document).ready(function(){
   var api;
   var tableAt;
   var tableIn;
-  $.get("../_db/url.php", function(result) { api = JSON.parse(result)});
+  //$.get("../_db/url.php", function(result) { api = JSON.parse(result)});
   initTable(tableAt, tableIn, api);
   initPage();
 
@@ -55,7 +55,7 @@ function buscaCep(cep, temp){
   var tipoAcao = 'listar';
 
   $.ajax({
-    url:"manter.php",                    
+    url:"../manter.php",                    
     type:"post",                            
     data: "cep="+cep+"&acao="+acao+"&tipoAcao="+tipoAcao,
     dataType: "JSON",
@@ -95,7 +95,7 @@ function initTable(tableAt, tableIn, api) {
     processing: true,
     responsive: true,
     ajax: {
-           url: 'manter.php',
+           url: '../manter.php',
            type: "POST",
            data : {
              acao : "manterFuncionario",
@@ -143,7 +143,7 @@ function initTable(tableAt, tableIn, api) {
     processing: true,
     responsive: true,
     ajax: {
-           url: 'manter.php',
+           url: '../manter.php',
            type: "POST",
            data : {
              acao : "manterFuncionario",
@@ -253,7 +253,7 @@ function initTable(tableAt, tableIn, api) {
 function cadastrar(formData, table) {
   $('#loadPublicacao').show();
   $.ajax({
-    url:"manter.php",                    
+    url:"../manter.php",                    
     type:"post",                            
     data: formData,
     cache: false,
@@ -345,7 +345,7 @@ function submitUp(formData, table) {
   $('#submitGif').show();
   $('#retornoAt').hide();
   $.ajax({
-    url:"manter.php",                    
+    url:"../manter.php",                    
     type:"post",                            
     data: formData,
     cache: false,
@@ -397,7 +397,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
       if (confirma == true) {
         $('#loadPublicacao').show();
         $.ajax({
-          url:"manter.php",                    
+          url:"../manter.php",                    
           type:"post",
           data: {
             acao : "manterFuncionario",

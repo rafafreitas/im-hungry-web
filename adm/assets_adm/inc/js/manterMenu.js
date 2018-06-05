@@ -223,7 +223,7 @@ function initTable(tableAt, tableIn, api) {
 function cadastrar(formData, table) {
   $('#loadPublicacao').show();
   $.ajax({
-    url:"manter.php",                    
+    url:"../manter.php",                    
     type:"post",                            
     data: formData,
     cache: false,
@@ -284,7 +284,7 @@ function updateImg(obj, table){
     initialPreviewConfig.push({ 
       caption: value.fot_file, 
       size: 762980, 
-      url: 'manter.php', 
+      url: '../manter.php', 
       key: value.fot_id, 
       extra:  {
         acao: 'manterMenu', 
@@ -305,7 +305,7 @@ function updateImg(obj, table){
     initialPreviewAsData: true, 
     initialPreviewFileType: 'image', 
 
-    uploadUrl: 'manter.php',
+    uploadUrl: '../manter.php',
     uploadExtraData: {acao:'manterMenu', tipoAcao: 'addImage', id: obj.item_id},
     language: "pt-BR",
     'showUpload':true, 
@@ -328,7 +328,7 @@ function updateImg(obj, table){
     var abort = true;
     $.ajax({
       async: false,
-      url:"manter.php",                    
+      url:"../manter.php",                    
       type:"post",
       data: {
         acao : extra.acao,
@@ -372,7 +372,7 @@ function submitUp(json, table) {
   $('#submitGif').show();
   $('#retornoAt').hide();
   $.ajax({
-    url:"manter.php",                    
+    url:"../manter.php",                    
     type:"post",                            
     data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
     dataType: "JSON",
@@ -420,7 +420,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
       if (confirma == true) {
         $('#loadPublicacao').show();
         $.ajax({
-          url:"manter.php",                    
+          url:"../manter.php",                    
           type:"post",
           data: {
             acao : "manterMenu",
