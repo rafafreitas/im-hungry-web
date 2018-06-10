@@ -52,7 +52,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="icon-lock"></i></span>
               </div>
-              <input type="password" class="form-control" placeholder="Repitir Senha" name="register-senha-2" id="register-senha-2" required>
+              <input type="password" class="form-control" placeholder="Repetir Senha" name="register-senha-2" id="register-senha-2" required>
             </div>
 
             <button type="submit" class="btn btn-block btn-success" id="btnRegister" >Registrar Conta!</button>
