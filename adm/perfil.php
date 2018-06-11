@@ -124,7 +124,7 @@
                       
                       <div class="col-md-6 col-lg-6 col-xs-12">
                         <label class="form-col-form-label" for="perfil-numero">Complemento</label>
-                        <textarea class="form-control" name="perfil-complemento" id="perfil-complemento" rows="4" required></textarea>
+                        <textarea class="form-control" name="perfil-complemento" id="perfil-complemento" rows="4"></textarea>
                       </div>
                       
                     </div>

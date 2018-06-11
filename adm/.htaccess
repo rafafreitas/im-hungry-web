@@ -8,6 +8,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^empresas/?$ company.php [NC,L]
   RewriteRule ^filiais/?$ filiais.php [NC,L]
   RewriteRule ^meus-funcionarios/([0-9]+)?$ funcionario.php?id=$1 [NC,L]
+  RewriteRule ^fidelidade/([0-9]+)?$ fidelidade.php?id=$1 [NC,L]
   RewriteRule ^dashboard/?$ index.php [NC,L]
   RewriteRule ^menu/([0-9]+)?$ menu.php?id=$1 [NC,L]
   RewriteRule ^pedidos/?$ pedidos.php [NC,L]

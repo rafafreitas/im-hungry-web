@@ -142,7 +142,7 @@
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default" id="btnAtualizar">Atualizar</button>
-                        <img  id="submitGif" src="../assets/img/gif/load.gif" style="max-width: 50px;">
+                        <img  id="submitGif" src="/assets/img/gif/load.gif" style="max-width: 50px;">
                         <p id="retornoAt" class="text-center"></p>
                       </div>
                     </div>
