@@ -238,7 +238,7 @@
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
         <div class="divider"></div>
         <!-- <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-        <a class="dropdown-item" href="logout.php" onclick="signOut();"> <i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" href="/adm/logout.php" onclick="signOut();"> <i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
     <button class="navbar-toggler aside-menu-toggler" type="button">
