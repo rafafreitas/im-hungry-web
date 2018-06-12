@@ -20,11 +20,11 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
   
-  <?php include "assets_adm/inc/menus/header.php"; ?>
+  <?php include "assets_adm/inc/menus/header.php" ?>
 
   <div class="app-body">
   
-    <?php include "assets_adm/inc/menus/menu_left.php"; ?>
+    <?php include "assets_adm/inc/menus/menu_left.php" ?>
     <?
       if (!isset($_SESSION)){session_cache_expire(30);session_start();}
       $_SESSION['filial_id'] = $_GET['id'];
@@ -37,7 +37,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item">Admin</li>
         <li class="breadcrumb-item">Filiais</li>
-        <li class="breadcrumb-item active">Menu</li>
+        <li class="breadcrumb-item active">Fidelidade</li>
 
         <!-- Breadcrumb Menu-->
         <li class="breadcrumb-menu d-md-down-none">
@@ -57,7 +57,7 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Atualizar Item</h3>
+                  <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Atualizar Fidelidade</h3>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="padding:30px 40px;">
@@ -65,34 +65,35 @@
                   <form class="form-horizontal" id="formAtualizar" enctype="multipart/form-data" >
 
                     <div class="form-group row">
-
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="item-nome-at">Nome do Item</label>
-                        <input type="text" class="form-control" name="item-nome-at" id="item-nome-at" required>
-                      </div>
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="item-valor-at">Preço</label>
-                        <input type="text" class="form-control" name="item-valor-at" id="item-valor-at" required>
-                      </div>
-                      <div class="col-md-2 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="item-tempo-at">Tempo Preparo</label>
-                        <input type="time" class="form-control" name="item-tempo-at" id="item-tempo-at" required>
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="item-promo-at">Promoção</label>
-                        <select id="item-promo-at" name="item-promo-at" class="form-control" required>
-                          <option value="">---</option>
-                          <option value="true">Sim</option>
-                          <option value="false">Não</option>
-                        </select>
+                        <label class="form-col-form-label" for="nome-at">Nome</label>
+                        <input type="text" class="form-control" name="nome-at" id="nome-at" required>
                       </div>
 
-                      <input type="hidden" name="acao" value="manterMenu">
-                      <input type="hidden" name="tipoAcao" value="update">
-                      <input type="hidden" id="idAt" name="idAt">
-                      <input type="hidden" id="statusAt" name="statusAt">
-                      <input type="hidden" id="reloadAt" name="reloadAt">
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="quantidade-at">Quantidade</label>
+                        <input type="number" class="form-control" name="quantidade-at" id="quantidade-at" required>
                       
+                        <input type="hidden" id="idAt" name="idAt">
+                        <input type="hidden" id="statusAt" name="statusAt">
+                        <input type="hidden" id="reloadAt" name="reloadAt">
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="valor-at">Valor Mínimo</label>
+                        <input type="text" class="form-control" name="valor-at" id="valor-at" required>
+                      </div>
+                                      
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="validade-at">Termino da Promoção</label>
+                        <input type="date" class="form-control" name="validade-at" id="validade-at" required>
+                      </div>
+                    </div>
+                   
+                    <div class="form-group row">
+                      <div class="col-md-6 col-lg-6 col-xs-12">
+                        <label class="form-col-form-label" for="beneficio-at">Benefício</label>
+                        <textarea class="form-control" name="beneficio-at" id="beneficio-at" rows="4"></textarea>
+                      </div>
                     </div>
 
                     <div class="form-group"> 
@@ -110,86 +111,49 @@
           </div> 
         <!--modal fade (Atualizar)-->
 
-        <!--Modal para Imagens-->
-          <div class="modal fade" id="myModalImagens" role="dialog">
-            <div class="modal-dialog" style="max-width: 950px!important;">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="text-center"><span class="glyphicon glyphicon-pencil"></span> Atualizar Fotos</h3>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body" style="padding:30px 40px;">
-
-                  <form class="form-horizontal" id="formAtualizar" enctype="multipart/form-data" >
-
-                    <div class="form-group row">
-
-                      <div class="col-md-12 col-lg-12 col-xs-12">
-                        <label class="form-col-form-label" for="item-tempo">Fotos</label>
-                        <input id="upFilesFotos-at" name="upFilesFotos-at[]" type="file" multiple class="file-loading">
-                      </div>
-
-                    </div>
-
-                    <div class="form-group"> 
-                      <div class="col-sm-offset-2 col-sm-10">
-                        
-                      </div>
-                    </div>
-
-                  </form>
-                </div> <!--modal-body (Imagens)-->
-              </div><!--modal-content (Imagens)-->
-            </div><!--modal-dialog (Imagens)-->
-          </div> 
-        <!--modal fade (Imagens)-->
-
         <div class="animated fadeIn">
           <div class="row">
             <div class="col-sm-12">
-              <form id="form-item-add" class="form-horizontal" enctype="multipart/form-data">
+              <form id="form-fidelidade-add" class="form-horizontal" enctype="multipart/form-data">
               <div class="card">
                 <div class="card-header">
-                  <strong>Cadastrar Item</strong>
+                  <strong>Cadastrar Fidelidade</strong>
                 </div>
                 <div class="card-body">
 
                     <div class="form-group row">
-
-                      <div class="col-md-4 col-lg-4 col-xs-12">
-                        <label class="form-col-form-label" for="item-nome">Nome do Item</label>
-                        <input type="text" class="form-control" name="item-nome" id="item-nome" required>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="nome">Nome</label>
+                        <input type="text" class="form-control" name="nome" id="nome" required>
                       </div>
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="item-valor">Preço</label>
-                        <input type="text" class="form-control" name="item-valor" id="item-valor" required>
-                      </div>
-                      <div class="col-md-2 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="item-tempo">Tempo Preparo</label>
-                        <input type="time" class="form-control" name="item-tempo" id="item-tempo" required>
+                        <label class="form-col-form-label" for="quantidade">Quantidade</label>
+                        <input type="number" class="form-control" name="quantidade" id="quantidade" required>
                       </div>
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="item-promo">Promoção</label>
-                        <select id="item-promo" name="item-promo" class="form-control" required>
-                          <option value="">---</option>
-                          <option value="true">Sim</option>
-                          <option value="false">Não</option>
-                        </select>
+                        <label class="form-col-form-label" for="valor">Valor Mínimo</label>
+                        <input type="text" class="form-control" name="valor" id="valor" required>
                       </div>
+                      <div class="col-md-3 col-lg-3 col-xs-12">
+                        <label class="form-col-form-label" for="validade">Término da Promoção</label>
+                        <input type="date" class="form-control" name="validade" id="validade" required>
+                      </div>                    
                     </div>
-
+                    
                     <div class="form-group row">
-
-                      <div class="col-md-12 col-lg-12 col-xs-12">
-                        <label class="form-col-form-label" for="item-tempo">Fotos</label>
-                        <input id="upFilesFotos" name="upFilesFotos[]" type="file" multiple class="file-loading">
+                      <div class="col-md-6 col-lg-6 col-xs-12">
+                        <label class="form-col-form-label" for="beneficio">Benefício</label>
+                        <textarea class="form-control" name="beneficio" id="beneficio" rows="4"></textarea>
                       </div>
-
-                      <input type="hidden" name="acao" value="manterMenu">
-                      <input type="hidden" name="tipoAcao" value="insert">
-
                     </div>
+
+                    <p>Obs: Atenção as regras da manuntenção dos cartões de fidelidade</p>
+                    <ul>
+                      <li>Só pode haver um cartão ativo por vez.</li>
+                      <li>Após cadastrá-lo ele ficará como inativo aguardando sua liberação.</li>
+                      <li>Após ser ativado não poderá mais ser editado, faça as correções antes de ativá-lo </li>
+                      <li>Os cartões serão encerrados automáticamente no dia previsto.</li>
+                    </ul>
 
                 </div>
                 <div class="card-footer">
@@ -204,15 +168,18 @@
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-header">
-                  <strong>Itens Cadastrados</strong>
+                  <strong>Cartões Fidelidaed Cadastrados</strong>
                 </div>
                 <div class="card-body">
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#table-ativas" role="tab" aria-controls="home">Ativas</a>
+                      <a class="nav-link active" data-toggle="tab" href="#table-ativas" role="tab" aria-controls="home">Ativos</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#table-inativas" role="tab" aria-controls="profile">Inativas</a>
+                      <a class="nav-link" data-toggle="tab" href="#table-inativas" role="tab" aria-controls="profile">Inativos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#table-encerradas" role="tab" aria-controls="profile">Encerrados</a>
                     </li>
                   </ul>
 
@@ -221,30 +188,47 @@
                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th></th>
-                            <th>Produto</th>
-                            <th>Preço</th>
-                            <th>Tempo de Preparo</th>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Valor Mínimo</th>
+                            <th>Término</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
                         
                       </table>
                     </div>
+
                     <div class="tab-pane" id="table-inativas" role="tabpanel">
                       <table id="datatable-responsive-in" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr>
-                            <th></th>
-                            <th>Produto</th>
-                            <th>Preço</th>
-                            <th>Tempo de Preparo</th>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Valor Mínimo</th>
+                            <th>Término</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
                         
                       </table>
                     </div>
+
+                    <div class="tab-pane" id="table-encerradas" role="tabpanel">
+                      <table id="datatable-responsive-en" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Valor Mínimo</th>
+                            <th>Término</th>
+                            <th>Ações</th>
+                          </tr>
+                        </thead>
+                        
+                      </table>
+                    </div>
+
                   </div>
 
                 </div>
@@ -274,8 +258,9 @@
   <!-- File-Input -->
   <?php include "assets_adm/inc/file_input.php"; ?>
 
+  
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="/adm/assets_adm/inc/js/manterMenu.js"></script>
+  <script type="text/javascript" src="/adm/assets_adm/inc/js/manterFidelidade.js"></script>
   
 </body>
 </html>

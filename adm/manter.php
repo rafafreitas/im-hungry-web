@@ -474,7 +474,14 @@ switch ($acao) {
 				echo $e->getMessage();
 			}
 
-		}elseif ($tipoAcao == 'fidelidade') {
+		}
+	break;
+	//FimManterFilial
+
+	case 'manterFidelidade':
+
+		if ($tipoAcao == 'listarAll') {
+
 			try {
 
 				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
@@ -482,37 +489,76 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
-				$tomada = $_POST["tomada"];
+		      	$ch = curl_init();
 
-				if ($tomada == "insert") {
-					$cartao_fid_id = $_POST['idFidelidade'];
-	        		$qtd = $_POST['fidelidade-qtd'];
-	        		$valor = str_replace(',', '.' , $_POST['fidelidade-valor']);
-	        		$beneficio = $_POST['fidelidade-beneficio'];
-	        		$filial_id = $_POST['idFilial'];
-
-	        		$data = array(
-						'cartao_fid_id' => $cartao_fid_id,
-						'qtd' => $qtd, 
-						'valor' => $valor, 
-						'beneficio' => $beneficio, 
-						'filial_id' => $filial_id
-					);
-
-				}elseif ($tomada == "remove") {
-					$cartao_fid_id = $_POST['idFidelidade'];
-	        		$filial_id = $_POST['idFilial'];
-
-	        		$data = array(
-						'cartao_fid_id' => $cartao_fid_id,
-						'filial_id' => $filial_id
-					);
-				}
+				$data = array(
+					'status' => $_POST['enabled'], 
+					'filial_id' => $_SESSION['filial_id'], 
+				);
 
 				$data = json_encode($data);
 
 				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url.'/web/fidelidade/'.$tomada);
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/fidelidade/listAll');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+      			curl_close($ch);
+
+			    $var = json_decode($response);
+
+			    if ($var->status == 500) {
+			    	echo "[]";
+			    }else{
+			    	$obj = $var->fidelidades;
+					$json=json_encode($obj);
+					echo "$json";
+			    }
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}elseif ($tipoAcao == 'insert') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$telefone = str_replace('(', '' , $_POST['company-telefone']);
+        		$telefone = str_replace(')', '' , $telefone);
+        		$telefone = str_replace('-', '' , $telefone);
+
+        		$cnpj = str_replace('/', '' , $_POST['company-cnpj']);
+        		$cnpj = str_replace('.', '' , $cnpj);
+        		$cnpj = str_replace('-', '' , $cnpj);
+
+				$data = array(
+					'nome' => $_POST['company-nome'], 
+					'telefone' => $telefone, 
+					'cnpj' => $cnpj, 
+					'cep' => $_POST['company-cep'], 
+					'lat' => null,
+					'long' => null,
+					'numero_end' => $_POST['company-numero'], 
+					'complemento_end' => $_POST['company-complemento'], 
+					'empresa_id' => $_POST['empresa_id'] 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/insert');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -521,7 +567,6 @@ switch ($acao) {
 					'Content-Type: application/json',
 					'Authorization: ' . $token
 				)
-
 			);
 
 				$response = curl_exec($ch);
@@ -535,7 +580,103 @@ switch ($acao) {
 				echo $e->getMessage();
 			}
 			
+		}elseif($tipoAcao == 'update'){
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$telefone = str_replace('(', '' , $_POST['company-telefone-at']);
+        		$telefone = str_replace(')', '' , $telefone);
+        		$telefone = str_replace('-', '' , $telefone);
+
+        		$cnpj = str_replace('/', '' , $_POST['company-cnpj-at']);
+        		$cnpj = str_replace('.', '' , $cnpj);
+        		$cnpj = str_replace('-', '' , $cnpj);
+
+				$data = array(
+						'idAt' => $_POST['idAt'], 
+						'empresa_id' => $_POST['empresa_idAt'], 
+						'nome' => $_POST['company-nome-at'], 
+						'telefone' => $telefone, 
+						'cnpj' => $cnpj, 
+						'cep' => $_POST['company-cep-at'], 
+						'lat' => null,
+						'long' => null,
+						'numero_end' => $_POST['company-numero-at'], 
+						'complemento_end' => $_POST['company-complemento-at']
+					);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/update');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getCode();
+			}
+
+		}elseif ($tipoAcao == 'enabledDisabled') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'idChange' => $_POST['idChange'], 
+					'status' => $_POST['status'] 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/enabled');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
 		}
+
 	break;
 	//FimManterFilial
 

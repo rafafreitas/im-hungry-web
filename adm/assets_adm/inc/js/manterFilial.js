@@ -12,7 +12,6 @@ $(document).ready(function(){
 
 function initPage() {
   $(":input").inputmask();
-  $('#fidelidade-valor').maskMoney({prefix:'R$ ', thousands:'.', decimal:','});
   $('#loadPublicacao').hide();
   $('#btmCancelar').click(function(){
     resetForm('form-company-add');
@@ -268,7 +267,8 @@ function initTable(tableAt, tableIn, api) {
             window.location = "meus-funcionarios/"+data.filial_id;
             break;
         case 'fidelidade':
-            setFidelidade(data);
+            window.location = "fidelidade/"+data.filial_id;
+            //setFidelidade(data);
             break;
         case 'menu':
             window.location = "menu/"+data.filial_id;
@@ -300,8 +300,9 @@ function initTable(tableAt, tableIn, api) {
         case 'funcionario':
             window.location = "meus-funcionarios/"+data.filial_id;
             break;
-        case 'funcionario':
-            updateObj(data);
+        case 'fidelidade':
+            window.location = "fidelidade/"+data.filial_id;
+            //setFidelidade(data);
             break;
         case 'menu':
             window.location = "menu/"+data.filial_id;
@@ -335,18 +336,6 @@ function initTable(tableAt, tableIn, api) {
     }
     return false;
   });//Update Form
-
-  $('#formFidelidade').submit(function(){
-    var json = jQuery(this).serialize();
-    //var formData = new FormData(this);
-    var status = $("#idFidelidade").val();
-    if (status == "") {
-      submitFidelidade(json, tableAt, tableIn, "insert");
-    }else {
-      submitFidelidade(json, tableAt, tableIn, "remove");
-    }
-    return false;
-  });//formFidelidade
 
   $("button.close").click(function(){
     var reload = $("#reloadAt").val();
@@ -447,72 +436,6 @@ function submitUp(formData, table) {
   });//ajax
       return false;
 }//submitUp
-
-function setFidelidade(obj){
-  console.log(obj);
-
-  $('#loadtGifFidelidade').hide();
-  $('#retornoFid').hide();
-
-  $("#idFidelidade").val(obj.cartao_fid_id);
-  $("#idFilial").val(obj.filial_id);
-
-  $("#fidelidade-qtd").val(obj.cartao_fid_qtd);
-  $("#fidelidade-valor").val(obj.cartao_fid_valor.replace(".", ","));
-  $("#fidelidade-beneficio").val(obj.cartao_fid_beneficio);
-
-  if(obj.cartao_fid_id != null) {
-    $("#btnFidelidade").text("Finalizar");
-    $("#h3-title-md-fidelidade").text("Finalizar Fidelidade na Filial");
-    $("#fidelidade-qtd").prop( "disabled", true );
-    $("#fidelidade-valor").prop( "disabled", true );
-    $("#fidelidade-beneficio").prop( "disabled", true );
-  }else{
-    $("#btnFidelidade").text("Salvar");
-    $("#h3-title-md-fidelidade").text("Cadastrar Fidelidade na Filial");
-    $("#fidelidade-qtd").prop( "disabled", false );
-    $("#fidelidade-valor").prop( "disabled", false );
-    $("#fidelidade-beneficio").prop( "disabled", false );
-  }
-
-  $("#myModalFidelidade").modal({backdrop: false});
-}//setFidelidade
-
-function submitFidelidade(json, tableAt, tableIn, tomada) {
-  $('#loadtGifFidelidade').show();
-  $('#retornoFid').hide();
-  
-  var acao = 'manterFilial';
-  var tipoAcao = 'fidelidade';
-
-  $.ajax({
-    url:"manter.php",                    
-    type:"post",                            
-    data: json+"&acao="+acao+"&tipoAcao="+tipoAcao+"&tomada="+tomada,
-    dataType: "JSON",
-    success: function (result){   
-      console.log(result);
-      if(result.status == 200){   
-
-        $('#loadtGifFidelidade').hide();
-        toastr.options.progressBar = true;
-        toastr.options.closeButton = true;
-        tableAt.ajax.reload();
-        tableIn.ajax.reload();
-        toastr.success(result.result);
-
-      }if(result.status == 500){
-        $('#loadtGifFidelidade').hide();
-        toastr.options.progressBar = true;
-        toastr.options.closeButton = true;
-        tableAt.ajax.reload();
-        tableIn.ajax.reload();
-        toastr.error(result.result);
-      }  
-    }//success
-  });//ajax
-  return false;
-}//submitFidelidade
 
 function abrirFechar(idChange, table, status){
   if (status) {
