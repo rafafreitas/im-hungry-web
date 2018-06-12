@@ -920,10 +920,10 @@ switch ($acao) {
 					$data = array(
 						'nome' => $_POST['funcionario-nome'], 
 						'cpf' => $cpf, 
-						'telefone' => $telefone, 
-						'data' => $_POST['funcionario-data'], 
 						'email' => $_POST['funcionario-email'], 
+						'data' => $_POST['funcionario-data'], 
 						'cep' => $_POST['funcionario-cep'], 
+						'telefone' => $telefone, 
 						'numero_end' => $_POST['funcionario-numero'], 
 						'complemento' => $_POST['funcionario-complemento'], 
 						'enabled' => "true", 
@@ -935,7 +935,7 @@ switch ($acao) {
 					$data = json_encode($data);
 
 					$ch = curl_init();
-			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/usuario/insert');
+			     	curl_setopt($ch, CURLOPT_URL, $url.'/web/funcionario/insert');
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_POST, true);
       				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -945,6 +945,7 @@ switch ($acao) {
 						'Authorization: ' . $token
 						)
 					);
+
 
 			      	$response = curl_exec($ch);
 	      			curl_close($ch);
@@ -965,7 +966,7 @@ switch ($acao) {
 				$fotoNome = "";
 				
 				if (is_uploaded_file($_FILES['funcionario-foto-at']['tmp_name']) ) {
-					$fotoNome = upload_file( 'funcionario-foto-at', false, '', '', 'funcionario', 'meus-funcionarios');
+					$fotoNome = upload_file( 'funcionario-foto-at', false, '', '', 'funcionarios', 'meus-funcionarios');
 				}
 
 				if (!isset($_SESSION)){session_cache_expire(30);session_start();}

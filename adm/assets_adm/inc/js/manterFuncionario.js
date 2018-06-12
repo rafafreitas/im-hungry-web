@@ -108,7 +108,7 @@ function initTable(tableAt, tableIn, api) {
                { 
                   "render" : function(data, type, full, meta) {
                     var icone = full.user_foto_perfil;
-                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionario/'+icone+'" class="icone-categ-img"></div>'
+                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionarios/'+icone+'" class="icone-categ-img"></div>'
                   } 
                },
                { data: "user_nome" },
@@ -156,7 +156,7 @@ function initTable(tableAt, tableIn, api) {
                { 
                   "render" : function(data, type, full, meta) {
                     var icone = full.user_foto_perfil;
-                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionario/'+icone+'" class="icone-categ-img"></div>'
+                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/funcionarios/'+icone+'" class="icone-categ-img"></div>'
                   } 
                },
                { data: "user_nome" },
@@ -309,7 +309,7 @@ function updateObj(obj, table) {
   $("#funcionario-foto-at").fileinput({
     overwriteInitial: true,
     initialPreview: [
-      "https://api.rafafreitas.com/uploads/funcionario/"+obj.user_foto_perfil
+      "https://api.rafafreitas.com/uploads/funcionarios/"+obj.user_foto_perfil
     ],
     initialPreviewConfig: [
       {

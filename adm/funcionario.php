@@ -106,7 +106,7 @@
                       </div>
 
                       <div class="col-md-3 col-lg-3 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-cep-at">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+                        <label class="form-col-form-label" for="funcionario-cep-at">CEP <img  id="loadCep-at" src="/assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
                         <input type="text" class="form-control" name="funcionario-cep-at" id="funcionario-cep-at" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
                       </div>
 
@@ -202,7 +202,7 @@
                       </div>
 
                       <div class="col-md-2 col-lg-2 col-xs-12">
-                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep-at" src="../assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
+                        <label class="form-col-form-label" for="funcionario-cep">CEP <img  id="loadCep-at" src="/assets/img/gif/load.gif" style="max-width: 20px; z-index: 1; margin-top: -9px; display: none;"></label>
                         <input type="text" class="form-control" name="funcionario-cep" id="funcionario-cep" pattern="\d{5}-\d{3}" data-inputmask="'mask': '99999-999'" title="00000-000" required>
                       </div>
 
