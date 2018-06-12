@@ -235,10 +235,7 @@ function initTable(tableAt, tableIn, api) {
   });//Update Form
 
   $("button.close").click(function(){
-    var reload = $("#reloadAt").val();
-    if (reload == 1) {
-      //table.ajax.reload();
-    }
+    //$("#company-logo-at").fileinput('clear');
   });
 
 }//initTable
@@ -278,6 +275,7 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj) {
+  $("#company-logo-at").fileinput('clear');
   $("#company-logo-at").fileinput('destroy');
 
   $('#loadPublicacao').show();

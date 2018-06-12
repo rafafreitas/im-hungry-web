@@ -285,7 +285,7 @@ function cadastrar(formData, table) {
 }//cadastrar
 
 function updateObj(obj, table) {
-  
+  $("#funcionario-foto-at").fileinput('clear');
   $("#funcionario-foto-at").fileinput('destroy');
   
   console.log(obj);

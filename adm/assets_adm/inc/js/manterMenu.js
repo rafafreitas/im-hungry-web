@@ -273,6 +273,7 @@ function updateObj(obj, table) {
 }//updateObj
 
 function updateImg(obj, table){
+  $("#upFilesFotos-at").fileinput('clear');
   $("#upFilesFotos-at").fileinput('destroy');
 
   var initialPreview = [];

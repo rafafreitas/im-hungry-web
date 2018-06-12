@@ -294,6 +294,9 @@ function initTable(tableAt, tableIn, api) {
         case 'fechar':
             abrirFechar(data.filial_id, tableIn, false);
             break;
+        case 'atualizar':
+            updateObj(data);
+            break;
         case 'funcionario':
             window.location = "meus-funcionarios/"+data.filial_id;
             break;

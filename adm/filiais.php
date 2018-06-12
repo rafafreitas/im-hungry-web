@@ -134,7 +134,7 @@
 
                       <div class="col-md-6 col-lg-6 col-xs-12">
                         <label class="form-col-form-label" for="company-complemento">Complemento</label>
-                        <textarea class="form-control" name="company-complemento-at" id="company-complemento-at" rows="4" required></textarea>
+                        <textarea class="form-control" name="company-complemento-at" id="company-complemento-at" rows="4"></textarea>
                       </div>
                     </div>
 
@@ -287,7 +287,7 @@
 
                       <div class="col-md-6 col-lg-6 col-xs-12">
                         <label class="form-col-form-label" for="company-numero">Complemento</label>
-                        <textarea class="form-control" name="company-complemento" id="company-complemento" rows="4" required></textarea>
+                        <textarea class="form-control" name="company-complemento" id="company-complemento" rows="4"></textarea>
                       </div>
                     </div>
 

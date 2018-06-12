@@ -19,9 +19,6 @@ switch ($acao) {
 					'nome' => $_POST['register-nome'],
 					'email' => $_POST['register-email'], 
 					'senha' => $_POST['register-senha-1'], 
-					'fot64' => "wait",
-					'tipo_usuario' => "1",
-					'enabled' => "1"
 				);
 
 				$data = json_encode($data);
