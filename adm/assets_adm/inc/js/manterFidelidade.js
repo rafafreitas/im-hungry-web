@@ -44,7 +44,12 @@ function initTable(tableAt, tableIn, tableEn) {
     columns: [
                { data: "cartao_fid_nome" },
                { data: "cartao_fid_qtd" },
-               { data: "cartao_fid_valor" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                      var valor_item = full.cartao_fid_valor.replace(".", ",");
+                      return '<p>R$ '+valor_item+'</p>'
+                  } 
+               },
                { data: "data_format" },
                { 
                  defaultContent: "<button type='button' class='btn btn-warning' id='ver' title='Ver'><span class='fa fa-eye'></button>&nbsp;"
@@ -85,7 +90,12 @@ function initTable(tableAt, tableIn, tableEn) {
     columns: [
                { data: "cartao_fid_nome" },
                { data: "cartao_fid_qtd" },
-               { data: "cartao_fid_valor" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                      var valor_item = full.cartao_fid_valor.replace(".", ",");
+                      return '<p>R$ '+valor_item+'</p>'
+                  } 
+               },
                { data: "data_format" },
                { 
                  defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
@@ -127,7 +137,12 @@ function initTable(tableAt, tableIn, tableEn) {
     columns: [
                { data: "cartao_fid_nome" },
                { data: "cartao_fid_qtd" },
-               { data: "cartao_fid_valor" },
+               { 
+                  "render" : function(data, type, full, meta) {
+                      var valor_item = full.cartao_fid_valor.replace(".", ",");
+                      return '<p>R$ '+valor_item+'</p>'
+                  } 
+               },
                { data: "data_format" },
                { 
                  defaultContent: "<button type='button' class='btn btn-warning' id='ver' title='Ver'><span class='fa fa-eye'></button>&nbsp;"
@@ -174,7 +189,7 @@ function initTable(tableAt, tableIn, tableEn) {
           updateObj(data, true);
           break;
         case 'ativar':
-          enabledDisabled(data.user_id, tableAt, tableIn, true);
+          enabledDisabled(data.cartao_fid_id, tableAt, tableIn, true);
           break;
         default:
           $('#alertaErro').show();
@@ -202,7 +217,7 @@ function initTable(tableAt, tableIn, tableEn) {
   $('#form-fidelidade-add').submit(function(){  
     var json = jQuery(this).serialize();
     //var formData = new FormData(this);
-    cadastrar(json, tableAt);
+    cadastrar(json, tableIn);
     return false;
   });//CreateForm
 
@@ -211,19 +226,14 @@ function initTable(tableAt, tableIn, tableEn) {
     //var formData = new FormData(this);
     var status = $("#statusAt").val();
     if (status == '1') {
-      submitUp(json, tableAt);
-    }if (status == '0') {
       submitUp(json, tableIn);
+    }else{
+      toastr.options.progressBar = true;
+      toastr.options.closeButton = true;
+      toastr.warning("Você só pode editar cartões inativos!");
     }
     return false;
   });//Update Form
-
-  $("button.close").click(function(){
-    var reload = $("#reloadAt").val();
-    if (reload == 1) {
-      //table.ajax.reload();
-    }
-  });
 
 }//initTable
 
@@ -237,10 +247,8 @@ function cadastrar(json, table) {
     data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
     dataType: "JSON",
     success: function (result){   
-      var obj = JSON.parse(result);
-      console.log(obj);
-      console.log(obj.status);
-      if(obj.status == 200){   
+      console.log(result);
+      if(result.status == 200){   
 
         $('#loadPublicacao').hide();
         table.ajax.reload();
@@ -248,13 +256,13 @@ function cadastrar(json, table) {
 
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.success(obj.result);
+        toastr.success(result.result);
 
-      }if(obj.status == 500){
+      }if(result.status == 500){
         $('#loadPublicacao').hide();
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
-        toastr.error(obj.result);
+        toastr.error(result.result);
       }  
     }//success
   });//ajax
@@ -265,17 +273,17 @@ function updateObj(obj, table, flag) {
   
   console.log(obj);
   if (flag) {
-    $("#nome-at").prop({disable: true});
-    $("#quantidade-at").prop({disable: true});
-    $("#valor-at").prop({disable: true});
-    $("#validade-at").prop({disable: true});
-    $("#beneficio-at").prop({disable: true});
+    $("#nome-at").prop("disabled", true);
+    $("#quantidade-at").prop("disabled", true);
+    $("#valor-at").prop("disabled", true);
+    $("#validade-at").prop("disabled", true);
+    $("#beneficio-at").prop("disabled", true);
   }else{
-    $("#nome-at").prop({disable: false});
-    $("#quantidade-at").prop({disable: false});
-    $("#valor-at").prop({disable: false});
-    $("#validade-at").prop({disable: false});
-    $("#beneficio-at").prop({disable: false});
+    $("#nome-at").prop("disabled", false);
+    $("#quantidade-at").prop("disabled", false);
+    $("#valor-at").prop("disabled", false);
+    $("#validade-at").prop("disabled", false);
+    $("#beneficio-at").prop("disabled", false);
   }
   
   $('#loadPublicacao').show();
@@ -287,7 +295,7 @@ function updateObj(obj, table, flag) {
 
   $("#nome-at").val(obj.cartao_fid_nome);
   $("#quantidade-at").val(obj.cartao_fid_qtd);
-  $("#valor-at").val(obj.cartao_fid_valor);
+  $("#valor-at").val(obj.cartao_fid_valor.replace(".", ","));
   $("#validade-at").val(obj.cartao_fid_date);
   $("#beneficio-at").val(obj.cartao_fid_beneficio);
 
@@ -305,8 +313,7 @@ function submitUp(json, table) {
     type:"post",                            
     data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
     dataType: "JSON",
-    success: function (result){ 
-      var obj = JSON.parse(result)  
+    success: function (obj){ 
       console.log(obj);
       if(obj.status == 200){
         $('#submitGif').hide();
@@ -356,7 +363,7 @@ function enabledDisabled(idChange, tableAt, tableIn, status) {
           data: {
             acao : "manterFidelidade",
             tipoAcao : "enabledDisabled",
-            status : status,
+            status : 2,
             idChange : idChange
           },                     
           dataType: "JSON",

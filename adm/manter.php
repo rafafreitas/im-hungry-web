@@ -535,30 +535,19 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
-				$telefone = str_replace('(', '' , $_POST['company-telefone']);
-        		$telefone = str_replace(')', '' , $telefone);
-        		$telefone = str_replace('-', '' , $telefone);
-
-        		$cnpj = str_replace('/', '' , $_POST['company-cnpj']);
-        		$cnpj = str_replace('.', '' , $cnpj);
-        		$cnpj = str_replace('-', '' , $cnpj);
-
 				$data = array(
-					'nome' => $_POST['company-nome'], 
-					'telefone' => $telefone, 
-					'cnpj' => $cnpj, 
-					'cep' => $_POST['company-cep'], 
-					'lat' => null,
-					'long' => null,
-					'numero_end' => $_POST['company-numero'], 
-					'complemento_end' => $_POST['company-complemento'], 
-					'empresa_id' => $_POST['empresa_id'] 
+					'nome' => $_POST['nome'], 
+					'quantidade' =>$_POST['quantidade'], 
+					'valor' =>$_POST['valor'], 
+					'validade' => $_POST['validade'], 
+					'beneficio' => $_POST['beneficio'],
+					'filial_id' => $_SESSION['filial_id'] 
 				);
 
 				$data = json_encode($data);
 
 				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/insert');
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/fidelidade/insert');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -588,31 +577,19 @@ switch ($acao) {
 				$token = $_SESSION['Token'];
 				$url = $_SESSION['API'];
 
-				$telefone = str_replace('(', '' , $_POST['company-telefone-at']);
-        		$telefone = str_replace(')', '' , $telefone);
-        		$telefone = str_replace('-', '' , $telefone);
-
-        		$cnpj = str_replace('/', '' , $_POST['company-cnpj-at']);
-        		$cnpj = str_replace('.', '' , $cnpj);
-        		$cnpj = str_replace('-', '' , $cnpj);
-
 				$data = array(
 						'idAt' => $_POST['idAt'], 
-						'empresa_id' => $_POST['empresa_idAt'], 
-						'nome' => $_POST['company-nome-at'], 
-						'telefone' => $telefone, 
-						'cnpj' => $cnpj, 
-						'cep' => $_POST['company-cep-at'], 
-						'lat' => null,
-						'long' => null,
-						'numero_end' => $_POST['company-numero-at'], 
-						'complemento_end' => $_POST['company-complemento-at']
+						'nome' => $_POST['nome-at'], 
+						'quantidade' => $_POST['quantidade-at'], 
+						'valor' => $_POST['valor-at'], 
+						'validade' => $_POST['validade-at'], 
+						'beneficio' => $_POST['beneficio-at']
 					);
 
 				$data = json_encode($data);
 
 				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/update');
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/fidelidade/update');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -646,13 +623,14 @@ switch ($acao) {
 
 				$data = array(
 					'idChange' => $_POST['idChange'], 
-					'status' => $_POST['status'] 
+					'status' => 2,
+					'filial_id' => $_SESSION['filial_id'] 
 				);
 
 				$data = json_encode($data);
 
 				$ch = curl_init();
-			    curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/enabled');
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/fidelidade/enabled');
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 				curl_setopt($ch, CURLOPT_POST, true);
       			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

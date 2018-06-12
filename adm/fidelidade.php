@@ -92,7 +92,7 @@
                     <div class="form-group row">
                       <div class="col-md-6 col-lg-6 col-xs-12">
                         <label class="form-col-form-label" for="beneficio-at">Benefício</label>
-                        <textarea class="form-control" name="beneficio-at" id="beneficio-at" rows="4"></textarea>
+                        <textarea class="form-control" name="beneficio-at" id="beneficio-at" rows="4" required></textarea>
                       </div>
                     </div>
 
@@ -143,7 +143,7 @@
                     <div class="form-group row">
                       <div class="col-md-6 col-lg-6 col-xs-12">
                         <label class="form-col-form-label" for="beneficio">Benefício</label>
-                        <textarea class="form-control" name="beneficio" id="beneficio" rows="4"></textarea>
+                        <textarea class="form-control" name="beneficio" id="beneficio" rows="4" required></textarea>
                       </div>
                     </div>
 
