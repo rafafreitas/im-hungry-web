@@ -269,10 +269,10 @@ function cadastrar(json, table) {
   return false;
 }//cadastrar
 
-function updateObj(obj, table, flag) {
+function updateObj(obj, flag) {
   
   console.log(obj);
-  if (flag) {
+  if (!flag) {
     $("#nome-at").prop("disabled", true);
     $("#quantidade-at").prop("disabled", true);
     $("#valor-at").prop("disabled", true);
