@@ -194,7 +194,8 @@ function initTable(tableAt, tableIn, api) {
                                   "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-danger' id='apagar' title='Desativar'><span class='fa fa-ban'></button>&nbsp;"+
-                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidadex'><span class='fa fa-handshake-o'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-desconto' id='desconto' title='Cupom de desconto'><span class='fa fa-dollar'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-default btn-funcionario' id='funcionario' title='Funcionário'><span class='fa fa-user'></button";
                     return buttons;
                   } 
@@ -262,7 +263,8 @@ function initTable(tableAt, tableIn, api) {
                                   "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-info' id='menu' title='Menu da filial'><span class='fa fa-list-ol'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-warning' id='ativar' title='Ativar'><span class='fa fa-check'></button>&nbsp;"+
-                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidade'><span class='fa fa-handshake-o'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-fidelidade' id='fidelidade' title='Fidelidadex'><span class='fa fa-handshake-o'></button>&nbsp;"+
+                                  "<button type='button' class='btn btn-default btn-desconto' id='desconto' title='Cupom de desconto'><span class='fa fa-dollar'></button>&nbsp;"+
                                   "<button type='button' class='btn btn-default btn-funcionario' id='funcionario' title='Funcionário'><span class='fa fa-user'></button>";
                     return buttons;
                   }
@@ -306,6 +308,10 @@ function initTable(tableAt, tableIn, api) {
             window.location = "fidelidade/"+data.filial_id;
             //setFidelidade(data);
             break;
+        case 'desconto':
+            window.location = "desconto/"+data.filial_id;
+            //setFidelidade(data);
+            break;
         case 'menu':
             window.location = "menu/"+data.filial_id;
             break;
@@ -340,6 +346,9 @@ function initTable(tableAt, tableIn, api) {
             window.location = "fidelidade/"+data.filial_id;
             //setFidelidade(data);
             break;
+        case 'desconto':
+            window.location = "desconto/"+data.filial_id;
+            //setFidelidade(data);
         case 'menu':
             window.location = "menu/"+data.filial_id;
             break;

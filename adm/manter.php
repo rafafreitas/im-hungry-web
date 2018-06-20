@@ -659,6 +659,182 @@ switch ($acao) {
 	break;
 	//FimManterFilial
 
+	case 'manterDesconto':
+
+		if ($tipoAcao == 'listarAll') {
+
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'status' => $_POST['enabled'], 
+					'filial_id' => $_SESSION['filial_id'], 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/desconto/listAll');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+      			curl_close($ch);
+
+			    $var = json_decode($response);
+
+			    if ($var->status == 500) {
+			    	echo "[]";
+			    }else{
+			    	$obj = $var->desconto;
+					$json=json_encode($obj);
+					echo "$json";
+			    }
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}elseif ($tipoAcao == 'insert') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$data = array(
+					'valor' =>$_POST['valorDesconto'], 
+					'validade' => $_POST['validadeDesconto'], 
+					'beneficio' => $_POST['beneficioDesconto'],
+					'filial_id' => $_SESSION['filial_id'] 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/desconto/insert');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+				)
+			);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+			
+		}elseif($tipoAcao == 'update'){
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+				$data = array(
+						'idAt' => $_POST['idAt'],  
+						'valor' => $_POST['valor-at-desc'], 
+						'validade' => $_POST['validade-at-desc'], 
+						'beneficio' => $_POST['beneficio-at-desc']
+					);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url.'/web/desconto/update');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+			} catch (Exception $e) {
+				echo $e->getCode();
+			}
+
+		}elseif ($tipoAcao == 'enabledDisabled') {
+			try {
+
+				if (!isset($_SESSION)){session_cache_expire(30);session_start();}
+				
+				$token = $_SESSION['Token'];
+				$url = $_SESSION['API'];
+
+		      	$ch = curl_init();
+
+				$data = array(
+					'idChange' => $_POST['idChange'], 
+					'status' => 2,
+					'filial_id' => $_SESSION['filial_id'] 
+				);
+
+				$data = json_encode($data);
+
+				$ch = curl_init();
+			    curl_setopt($ch, CURLOPT_URL, $url.'/web/desconto/enabled');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POST, true);
+      			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Authorization: ' . $token
+					)
+				);
+
+				$response = curl_exec($ch);
+				curl_close($ch);
+
+				$var = json_decode($response);
+				$json=json_encode($var);
+				echo "$json";
+
+
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+
+		}
+
+	break;
+	//FimManterFilial
+
 	case 'manterMenu':
 
 		if ($tipoAcao == 'listarAll') {
