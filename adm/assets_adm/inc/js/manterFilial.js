@@ -7,6 +7,7 @@ $(document).ready(function(){
   initTable(tableAt, tableIn, api);
   initPage();
   createSelect();
+  createSelectMenuItem();
 
 });
 
@@ -105,6 +106,41 @@ function createSelect(){
     }
   });
 }//createSelect
+
+function createSelectMenuItem(){
+  $("#replicaMenuFilial").empty();
+  $("#replicaMenuFilial_at").empty();
+  $.ajax({
+    url:"manter.php",                    
+    type:"post",
+    data: {
+      acao : "manterFilial",
+      tipoAcao : "listarAll",
+      enabled : "true"
+    },                        
+    dataType: "JSON",
+
+    success: function (result){ 
+      //alert(JSON.stringify(result));
+      $('select#replicaMenuFilial').append($("<option></option>").attr({value:"", disabled:"", selected:""}).text("---")); 
+      $('select#replicaMenuFilial_at').append($("<option></option>").attr({value:"", disabled:"", selected:""}).text("---")); 
+      $.each(result, function(key, value) {   
+        $('select#replicaMenuFilial')
+          .append($("<option></option>")
+          .attr({value:value.filial_id})
+          .text(value.filial_nome)); 
+      });
+      $.each(result, function(key, value) {  
+        $('select#replicaMenuFilial_at')
+          .append($("<option></option>")
+          .attr({value:value.filial_id})
+          .text(value.filial_nome)); 
+      });
+    }
+  });
+}//createSelectMenuItem
+
+
 
 function resetForm(form) {
   $('#'+form).each(function(){

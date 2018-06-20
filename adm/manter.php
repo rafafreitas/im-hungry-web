@@ -310,7 +310,8 @@ switch ($acao) {
 					'long' => null,
 					'numero_end' => $_POST['company-numero'], 
 					'complemento_end' => $_POST['company-complemento'], 
-					'empresa_id' => $_POST['empresa_id'] 
+					'empresa_id' => $_POST['empresa_id'],
+					'filial_id' => $_POST['replicaMenuFilial']
 				);
 
 				$data = json_encode($data);
