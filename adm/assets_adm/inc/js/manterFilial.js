@@ -400,7 +400,8 @@ function cadastrar(formData, table) {
     cache: false,
     contentType: false,
     processData: false,
-    success: function (result){   
+    success: function (result){ 
+      console.log(result);  
       var obj = JSON.parse(result);
       console.log(obj);
       console.log(obj.status);

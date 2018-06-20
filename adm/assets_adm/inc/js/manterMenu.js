@@ -61,8 +61,21 @@ function initTable(tableAt, tableIn, api) {
     columns: [
                { 
                   "render" : function(data, type, full, meta) {
-                    var icone = full.fotos[0].fot_file;
-                    return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/itens/'+icone+'" class="icone-categ-img"></div>'
+                    /*var icone = full.fotos[0];
+                    if (typeof icone == "undefined"){
+                      console.log(icone);
+                    }else{
+                      console.log(icone);
+                      icone = JSON.stringify(full.fotos[0]);
+                      
+                      icone = JSON.parse(icone);
+                      //var xicone = JSON.parse(icone);
+                      //console.log(xicone);
+                      //console.log('----');*/
+                      var icone = 'big.png';
+                      return '<div class="icone-categ-div"><img src="https://api.rafafreitas.com/uploads/itens/'+icone+'" class="icone-categ-img"></div>'
+                    
+                    
                   } 
                },
                { data: "item_nome" },

@@ -214,60 +214,9 @@ $(document).ready(function(){
         }
     });//onClick
   
-    $('#form-desconto-add').submit(function(){  
-      var json = jQuery(this).serialize();
-      //var formData = new FormData(this);
-      cadastrar(json, tableIn);
-      return false;
-    });//CreateForm
-  
-    $('#formAtualizarCupom').submit(function(){
-      var json = jQuery(this).serialize();
-      //var formData = new FormData(this);
-      var status = $("#statusAt").val();
-      if (status == '1') {
-        submitUp(json, tableIn);
-      }else{
-        toastr.options.progressBar = true;
-        toastr.options.closeButton = true;
-        toastr.warning("Você só pode editar cartões inativos!");
-      }
-      return false;
-    });//Update Form
-  
   }//initTable
   
-  function cadastrar(json, table) {
-    $('#loadPublicacao').show();
-    var acao = 'manterDesconto';
-    var tipoAcao = 'insert';
-    $.ajax({
-      url:"../manter.php",                    
-      type:"post",                            
-      data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
-      dataType: "JSON",
-      success: function (result){   
-        console.log(result);
-        if(result.status == 200){   
   
-          $('#loadPublicacao').hide();
-          table.ajax.reload();
-          resetForm('form-funcionario-add');
-  
-          toastr.options.progressBar = true;
-          toastr.options.closeButton = true;
-          toastr.success(result.result);
-  
-        }if(result.status == 500){
-          $('#loadPublicacao').hide();
-          toastr.options.progressBar = true;
-          toastr.options.closeButton = true;
-          toastr.error(result.result);
-        }  
-      }//success
-    });//ajax
-    return false;
-  }//cadastrar
   
   function updateObj(obj, flag) {
     
@@ -390,3 +339,95 @@ $(document).ready(function(){
       }//callback
     });//bootbox
   }//delUser
+
+  function cadastrar(json, table) {
+    alert('teste2');
+    $('#loadPublicacao').show();
+    var acao = 'manterDesconto';
+    var tipoAcao = 'insert';
+    $.ajax({
+      url:"../manter.php",                    
+      type:"post",                            
+      data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
+      dataType: "JSON",
+      success: function (result){   
+        console.log(result);
+        if(result.status == 200){   
+  
+          $('#loadPublicacao').hide();
+          table.ajax.reload();
+          resetForm('form-funcionario-add');
+  
+          toastr.options.progressBar = true;
+          toastr.options.closeButton = true;
+          toastr.success(result.result);
+  
+        }if(result.status == 500){
+          $('#loadPublicacao').hide();
+          toastr.options.progressBar = true;
+          toastr.options.closeButton = true;
+          toastr.error(result.result);
+        }  
+      }//success
+    });//ajax
+    return false;
+  }//cadastrar
+
+
+  $(document).ready(function(){
+    $('#form-desconto-add').submit(function(){  
+      var json = $('#form-desconto-add').serialize();
+      //var formData = new FormData(this);
+      //cadastrar(json, tableIn);
+
+      console.log(json);
+      $('#loadPublicacao').show();
+      var acao = 'manterDesconto';
+      var tipoAcao = 'insert';
+      $.ajax({
+        url:"/im-hungry-web/adm/manter.php",                    
+        type:"post",                            
+        data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (result){   
+          console.log(result);
+          if(result.status == 200){   
+    
+            $('#loadPublicacao').hide();
+            table.ajax.reload();
+            resetForm('form-funcionario-add');
+    
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.success(result.result);
+    
+          }if(result.status == 500){
+            $('#loadPublicacao').hide();
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.error(result.result);
+          }  
+        }//success
+      });//ajax
+
+      alert();
+      return false;
+    });//CreateForm
+  
+    $('#formAtualizarCupom').submit(function(){
+      var json = jQuery(this).serialize();
+      //var formData = new FormData(this);
+      var status = $("#statusAt").val();
+      if (status == '1') {
+        submitUp(json, tableIn);
+      }else{
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
+        toastr.warning("Você só pode editar cartões inativos!");
+      }
+      return false;
+    });//Update Form
+  });

@@ -300,6 +300,12 @@ switch ($acao) {
         		$cnpj = str_replace('/', '' , $_POST['company-cnpj']);
         		$cnpj = str_replace('.', '' , $cnpj);
         		$cnpj = str_replace('-', '' , $cnpj);
+				
+				if(isset($_POST['replicaMenuFilial'])){
+					$id_filial = $_POST['replicaMenuFilial'];
+				}else{
+					$id_filial = '';
+				}
 
 				$data = array(
 					'nome' => $_POST['company-nome'], 
@@ -311,10 +317,11 @@ switch ($acao) {
 					'numero_end' => $_POST['company-numero'], 
 					'complemento_end' => $_POST['company-complemento'], 
 					'empresa_id' => $_POST['empresa_id'],
-					'filial_id' => $_POST['replicaMenuFilial']
+					'filial_id' => $id_filial
 				);
-
+				
 				$data = json_encode($data);
+				//echo "<script>console.log(".$data.");</script>";
 
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $url.'/web/filial/insert');
@@ -720,7 +727,7 @@ switch ($acao) {
 					'valor' =>$_POST['valorDesconto'], 
 					'validade' => $_POST['validadeDesconto'], 
 					'beneficio' => $_POST['beneficioDesconto'],
-					'filial_id' => $_SESSION['filial_id'] 
+					'filial_id' => $_SESSION['filial_id']
 				);
 
 				$data = json_encode($data);
@@ -734,8 +741,8 @@ switch ($acao) {
 				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 					'Content-Type: application/json',
 					'Authorization: ' . $token
-				)
-			);
+					)
+				);
 
 				$response = curl_exec($ch);
 				curl_close($ch);

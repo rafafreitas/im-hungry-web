@@ -118,6 +118,8 @@
                       <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="valorDesconto">Valor de desconto</label>
                         <input type="text" class="form-control" name="valorDesconto" id="valorDesconto" required>
+                        <input type="hidden" id="acao" name="acao" value="manterDesconto">
+                        <input type="hidden" id="tipoAcao" name="tipoAcao" value="insert">
                       </div>
                       <div class="col-md-3 col-lg-3 col-xs-12">
                         <label class="form-col-form-label" for="validadeDesconto">Término da Promoção</label>
@@ -239,7 +241,7 @@
 
   
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="/adm/assets_adm/inc/js/manterCupom.js"></script>
+  <script type="text/javascript" src="/im-hungry-web/adm/assets_adm/inc/js/manterCupom.js"></script>
   
 </body>
 </html>

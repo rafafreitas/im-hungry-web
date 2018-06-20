@@ -275,7 +275,7 @@
   <?php include "assets_adm/inc/file_input.php"; ?>
 
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="/adm/assets_adm/inc/js/manterMenu.js"></script>
+  <script type="text/javascript" src="/im-hungry-web/adm/assets_adm/inc/js/manterMenu.js"></script>
   
 </body>
 </html>
