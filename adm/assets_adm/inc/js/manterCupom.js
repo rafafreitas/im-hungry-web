@@ -32,7 +32,7 @@ $(document).ready(function(){
       processing: true,
       responsive: true,
       ajax: {
-             url: '../manter.php',
+             url: '/im-hungry-web/adm/manter.php',
              type: "POST",
              data : {
                acao : "manterDesconto",
@@ -42,15 +42,13 @@ $(document).ready(function(){
              dataSrc: ''
            },
       columns: [
-                 { data: "cartao_fid_nome" },
-                 { data: "cartao_fid_qtd" },
                  { 
                     "render" : function(data, type, full, meta) {
-                        var valor_item = full.cartao_fid_valor.replace(".", ",");
+                        var valor_item = full.cupom_valor.replace(".", ",");
                         return '<p>R$ '+valor_item+'</p>'
                     } 
                  },
-                 { data: "data_format" },
+                 { data: "cupom_validade" },
                  { 
                    defaultContent: "<button type='button' class='btn btn-warning' id='ver' title='Ver'><span class='fa fa-eye'></button>&nbsp;"
                  }
@@ -88,15 +86,13 @@ $(document).ready(function(){
              dataSrc: ''
            },
       columns: [
-                 { data: "cartao_fid_nome" },
-                 { data: "cartao_fid_qtd" },
                  { 
                     "render" : function(data, type, full, meta) {
-                        var valor_item = full.cartao_fid_valor.replace(".", ",");
+                        var valor_item = full.cupom_valor.replace(".", ",");
                         return '<p>R$ '+valor_item+'</p>'
                     } 
                  },
-                 { data: "data_format" },
+                 { data: "cupom_validade" },
                  { 
                    defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
                                    "<button type='button' class='btn btn-warning' id='ativar' title='Ativar Fidelidade'><span class='fa fa-check'></button>"
@@ -135,15 +131,14 @@ $(document).ready(function(){
              dataSrc: ''
            },
       columns: [
-                 { data: "cartao_fid_nome" },
-                 { data: "cartao_fid_qtd" },
+                 
                  { 
                     "render" : function(data, type, full, meta) {
-                        var valor_item = full.cartao_fid_valor.replace(".", ",");
+                        var valor_item = full.cupom_valor.replace(".", ",");
                         return '<p>R$ '+valor_item+'</p>'
                     } 
                  },
-                 { data: "data_format" },
+                 { data: "cupom_validade" },
                  { 
                    defaultContent: "<button type='button' class='btn btn-warning' id='ver' title='Ver'><span class='fa fa-eye'></button>&nbsp;"
                  }
@@ -379,6 +374,9 @@ $(document).ready(function(){
       var json = $('#form-desconto-add').serialize();
       //var formData = new FormData(this);
       //cadastrar(json, tableIn);
+      var valorDesconto = $('#valorDesconto').val();
+      var validadeDesconto = $('#validadeDesconto').val();
+      var beneficioDesconto = $('#beneficioDesconto').val();
 
       console.log(json);
       $('#loadPublicacao').show();
@@ -387,8 +385,8 @@ $(document).ready(function(){
       $.ajax({
         url:"/im-hungry-web/adm/manter.php",                    
         type:"post",                            
-        data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
-        data: formData,
+        //data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
+        data: {'valorDesconto':valorDesconto, 'validadeDesconto':validadeDesconto, 'beneficioDesconto': beneficioDesconto, 'acao':acao, 'tipoAcao':tipoAcao},
         cache: false,
         contentType: false,
         processData: false,
@@ -431,3 +429,48 @@ $(document).ready(function(){
       return false;
     });//Update Form
   });
+
+
+  function cad(){
+    var json = $('#form-desconto-add').serialize();
+      //var formData = new FormData(this);
+      //cadastrar(json, tableIn);
+      var valorDesconto = $('#valorDesconto').val();
+      var validadeDesconto = $('#validadeDesconto').val();
+      var beneficioDesconto = $('#beneficioDesconto').val();
+
+      console.log(json);
+      $('#loadPublicacao').show();
+      var acao = 'manterDesconto';
+      var tipoAcao = 'insert';
+      $.ajax({
+        url:"/im-hungry-web/adm/manter.php?valorDesconto="+valorDesconto+"&validadeDesconto="+validadeDesconto+"&beneficioDesconto="+beneficioDesconto+"&acao="+acao+"&tipoAcao="+tipoAcao,
+        type:"post",                            
+        //data: json+"&acao="+acao+"&tipoAcao="+tipoAcao,
+        data: {'valorDesconto':valorDesconto, 'validadeDesconto':validadeDesconto, 'beneficioDesconto': beneficioDesconto, 'acao':acao, 'tipoAcao':tipoAcao},
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (result){   
+          console.log(result);
+          result = JSON.parse(result);
+          if(result.status == 200){   
+    
+            $('#loadPublicacao').hide();
+            
+            resetForm('form-funcionario-add');
+    
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.success(result.result);
+            setTimeout(function(){location.reload();}, 2000);
+          }if(result.status == 500){
+            $('#loadPublicacao').hide();
+            toastr.options.progressBar = true;
+            toastr.options.closeButton = true;
+            toastr.error(result.result);
+          }  
+        }//success
+      });//ajax
+
+  }

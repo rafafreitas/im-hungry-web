@@ -14,8 +14,12 @@
   <?php include "assets_adm/inc/styles.php"; ?>
 
   <!-- Datatables -->
+  <?php include "assets_adm/inc/js.php"; ?>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-
+  
+  <script type="text/javascript" src="/im-hungry-web/adm/assets_adm/inc/js/manterCupom.js"></script>
+  
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -144,7 +148,7 @@
 
                 </div>
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Salvar</button>
+                  <a onclick="cad()" class="btn btn-sm btn-success" href="#"><i class="fa fa-dot-circle-o"></i> Salvar</a>
                   <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
                 </div>
               </div>
@@ -238,10 +242,23 @@
 
   <!-- File-Input -->
   <?php include "assets_adm/inc/file_input.php"; ?>
-
-  
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="/im-hungry-web/adm/assets_adm/inc/js/manterCupom.js"></script>
+  
+  <script>
+  $.ajax({
+    url: '/im-hungry-web/adm/manter.php',
+    type: "POST",
+    data : {
+      acao : "manterDesconto",
+      tipoAcao: "listarAll",
+      enabled: 1
+    },
+  }).done(function(data){
+    console.log('data');
+    console.log(data);
+  });
+  </script>
+  
   
 </body>
 </html>

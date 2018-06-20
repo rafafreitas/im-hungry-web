@@ -6,9 +6,18 @@ error_reporting(E_ALL);
 include "assets_adm/inc/verifica.php";
 include "../assets/inc/class.upload.php";
 include "assets_adm/inc/functions.php";
-
-$acao = $_POST["acao"];
-$tipoAcao = $_POST["tipoAcao"];
+if(isset($_POST["acao"])){
+	$acao = $_POST["acao"];
+}else{
+	$acao = $_GET["acao"];
+}
+if(isset($_POST["tipoAcao"])){
+	$tipoAcao = $_POST["tipoAcao"];
+}else{
+	$tipoAcao = $_GET["tipoAcao"];
+}
+//$acao = $_POST["acao"];
+//$tipoAcao = $_POST["tipoAcao"];
 
 switch ($acao) {
 	
@@ -706,7 +715,7 @@ switch ($acao) {
 			    if ($var->status == 500) {
 			    	echo "[]";
 			    }else{
-			    	$obj = $var->desconto;
+			    	$obj = $var->fidelidades;
 					$json=json_encode($obj);
 					echo "$json";
 			    }
@@ -724,9 +733,9 @@ switch ($acao) {
 				$url = $_SESSION['API'];
 
 				$data = array(
-					'valor' =>$_POST['valorDesconto'], 
-					'validade' => $_POST['validadeDesconto'], 
-					'beneficio' => $_POST['beneficioDesconto'],
+					'valor' =>$_GET['valorDesconto'], 
+					'validade' => $_GET['validadeDesconto'], 
+					'beneficio' => $_GET['beneficioDesconto'],
 					'filial_id' => $_SESSION['filial_id']
 				);
 
