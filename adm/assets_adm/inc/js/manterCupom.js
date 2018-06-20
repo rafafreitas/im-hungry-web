@@ -95,7 +95,7 @@ $(document).ready(function(){
                  { data: "cupom_validade" },
                  { 
                    defaultContent: "<button type='button' class='btn btn-success' id='atualizar' title='Atualizar'><span class='fa fa-pencil'></button>&nbsp;"+
-                                   "<button type='button' class='btn btn-warning' id='ativar' title='Ativar Fidelidade'><span class='fa fa-check'></button>"
+                                   "<button type='button' class='btn btn-warning' id='ativar' title='Ativar Cupom'><span class='fa fa-check'></button>"
                  }
               ],
      fixedHeader: true,
@@ -121,7 +121,7 @@ $(document).ready(function(){
       processing: true,
       responsive: true,
       ajax: {
-             url: '../manter.php',
+             url: '/im-hungry-web/adm/manter.php',
              type: "POST",
              data : {
                acao : "manterDesconto",
@@ -184,7 +184,7 @@ $(document).ready(function(){
             updateObj(data, true);
             break;
           case 'ativar':
-            enabledDisabled(data.cartao_fid_id, tableAt, tableIn, true);
+            enabledDisabled(data.cupom_id, tableAt, tableIn, true);
             break;
           default:
             $('#alertaErro').show();
@@ -285,7 +285,7 @@ $(document).ready(function(){
       stName = "inativar";
     }
     bootbox.confirm({
-      message: "<h3 class='text-center'>Deseja "+stName+" este cartão?</h3>",
+      message: "<h3 class='text-center'>Deseja "+stName+" este cupom?</h3>",
       buttons: {
         confirm: {
           label: 'Sim!',
@@ -300,7 +300,7 @@ $(document).ready(function(){
         if (confirma == true) {
           $('#loadPublicacao').show();
           $.ajax({
-            url:"../manter.php",                    
+            url:"/im-hungry-web/adm/manter.php",                    
             type:"post",
             data: {
               acao : "manterDesconto",
